@@ -1,0 +1,32 @@
+{
+  "name": "sobselena-jsfe2025q3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "style": "sass -w src/sass/style.scss src/sass/style.css",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/sobselena-JSFE2025Q3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/sobselena-JSFE2025Q3/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/sobselena-JSFE2025Q3#readme",
+  "devDependencies": {
+    "@eslint/css": "^0.14.1",
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0",
+    "prettier": "3.6.2"
+  }
+}
