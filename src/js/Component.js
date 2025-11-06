@@ -1,0 +1,25 @@
+export class Component {
+  #node;
+  #children = [];
+  constructor({ tag = 'div', text = '', classes = [] }, ...children) {
+    const node = document.createElement(tag);
+    node.textContent = text;
+    node.classList.add(...classes);
+    this.#node = node;
+    if (children.length > 0) {
+      this.appendChildren(children);
+    }
+  }
+  appendChildren(children) {
+    children.forEach((child) => {
+      this.#children.push(child);
+      this.#node.append(child.getNode());
+    });
+  }
+  getNode() {
+    return this.#node;
+  }
+  getChildren() {
+    return this.#children;
+  }
+}
