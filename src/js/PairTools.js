@@ -5,6 +5,7 @@ export class PairTools extends CheckedPair {
   #score = 0;
   #points = { identicalPairs: 1, sum10: 2 };
   #validPairs = [];
+  #removedCount = 5;
   constructor({ matrix }) {
     super({ matrix });
     this.status = undefined;
@@ -75,6 +76,7 @@ export class PairTools extends CheckedPair {
       pointer = rowPointer;
     }
   }
+
   getValidPairs() {
     this.#validPairs = [];
     this.#countValidPairs();
@@ -92,5 +94,15 @@ export class PairTools extends CheckedPair {
     if (num1 + num2 === 10) {
       this.#score += this.#points.sum10;
     }
+  }
+
+  eraser({ column, row }) {
+    if (this.#removedCount > 0) {
+      this.matrix[row][column] = '';
+      this.#removedCount -= 1;
+    }
+  }
+  getRemovedCount() {
+    return this.#removedCount;
   }
 }
