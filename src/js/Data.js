@@ -1,6 +1,6 @@
 export const COLUMNS_MAX_COUNT = 9;
 export class Data {
-  constructor({ initialData, mode = 'classic' }) {
+  constructor({ initialData = [], mode = 'classic' }) {
     const splitArr = this.splitMultiDigits(initialData).flat();
     this.mode = mode;
     this.flattenDigits = this.applyMode(splitArr);
@@ -44,12 +44,12 @@ export class Data {
     return chaoticArr;
   }
   generateMatrix() {
-    const rowCount = Math.ceil(this.flattenDigits.length / this.COLUMNS_MAX_COUNT);
+    const rowCount = Math.ceil(this.flattenDigits.length / COLUMNS_MAX_COUNT);
     const matrix = [];
     for (let i = 0; i < rowCount; i += 1) {
       matrix.push([]);
-      for (let j = 0; j < this.COLUMNS_MAX_COUNT; j += 1) {
-        matrix[i][j] = this.flattenDigits[i * this.COLUMNS_MAX_COUNT + j] || '';
+      for (let j = 0; j < COLUMNS_MAX_COUNT; j += 1) {
+        matrix[i][j] = this.flattenDigits[i * COLUMNS_MAX_COUNT + j] || '';
       }
     }
 
