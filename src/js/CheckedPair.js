@@ -35,22 +35,26 @@ export class CheckedPair {
     return { minRowValue, maxRowValue };
   }
 
-  checkLineBreak({ column1, row1, column2, row2 }) {
-    const checkValuesResult = this.checkValues({ column1, column2, row1, row2 });
-    if (!checkValuesResult.isValidPair) return checkValuesResult;
-    const { minColumnValue, maxColumnValue } = this.compareColumnValues({ column1, column2 });
-    const { minRowValue, maxRowValue } = this.compareRowValues({ row1, row2 });
-
+  #checkRightLineBreak({ column1, column2, row1, row2 }) {
+    const { maxColumnValue } = this.compareColumnValues({ column1, column2 });
+    const { maxRowValue } = this.compareRowValues({ row1, row2 });
     for (let i = maxColumnValue + 1; i < COLUMNS_MAX_COUNT; i += 1) {
       if (this.matrix[maxRowValue][i] !== '') {
         return { isValidPair: false, checkName: 'linebreak' };
       }
     }
+  }
+  #checkLeftLineBreak({ column1, column2, row1, row2 }) {
+    const { minColumnValue } = this.compareColumnValues({ column1, column2 });
+    const { minRowValue } = this.compareRowValues({ row1, row2 });
     for (let i = 0; i < minColumnValue - 1; i += 1) {
       if (this.matrix[minRowValue][i] !== '') {
         return { isValidPair: false, checkName: 'linebreak' };
       }
     }
+  }
+  #checkBetweenLineBreak({ row1, row2 }) {
+    const { minRowValue, maxRowValue } = this.compareRowValues({ row1, row2 });
     for (let i = minRowValue + 1; i < maxRowValue - 1; i += 1) {
       for (let j = 0; j < COLUMNS_MAX_COUNT; j += 1) {
         if (this.matrix[i][j] !== '') {
@@ -58,32 +62,58 @@ export class CheckedPair {
         }
       }
     }
-    return { isValidPair: true, checkName: 'linebreak' };
   }
 
-  checkColumns({ column1, row1, row2, column2 }) {
+  checkLineBreak({ column1, row1, column2, row2 }) {
     const checkValuesResult = this.checkValues({ column1, column2, row1, row2 });
     if (!checkValuesResult.isValidPair) return checkValuesResult;
 
+    const failRight = this.#checkRightLineBreak({ column1, column2, row1, row2 });
+    if (failRight) return failRight;
+
+    const failLeft = this.#checkLeftLineBreak({ column1, column2, row1, row2 });
+    if (failLeft) return failLeft;
+
+    const failBetween = this.#checkBetweenLineBreak({ row1, row2 });
+    if (failBetween) return failBetween;
+
+    return { isValidPair: true, checkName: 'linebreak' };
+  }
+
+  #checkColumn({ column1, row1, row2 }) {
     const { maxRowValue, minRowValue } = this.compareRowValues({ row1, row2 });
     for (let i = minRowValue + 1; i < maxRowValue; i += 1) {
       if (this.matrix[i][column1] !== '') {
         return { isValidPair: false, checkName: 'columns' };
       }
     }
+  }
+
+  checkColumns({ column1, row1, row2, column2 }) {
+    const checkValuesResult = this.checkValues({ column1, column2, row1, row2 });
+    if (!checkValuesResult.isValidPair) return checkValuesResult;
+
+    const failColumn = this.#checkColumn({ column1, row1, row2 });
+    if (failColumn) return failColumn;
     return { isValidPair: true, checkName: 'columns' };
   }
 
-  checkRows({ column1, row1, column2, row2 }) {
-    const checkValuesResult = this.checkValues({ column1, column2, row1, row2 });
-    if (!checkValuesResult.isValidPair) return checkValuesResult;
+  #checkRow({ column1, column2, row1 }) {
     const { minColumnValue, maxColumnValue } = this.compareColumnValues({ column1, column2 });
-
     for (let i = minColumnValue + 1; i < maxColumnValue; i += 1) {
       if (this.matrix[row1][i] !== '') {
         return { isValidPair: false, checkName: 'rows' };
       }
     }
+  }
+
+  checkRows({ column1, row1, column2, row2 }) {
+    const checkValuesResult = this.checkValues({ column1, column2, row1, row2 });
+    if (!checkValuesResult.isValidPair) return checkValuesResult;
+
+    const failRow = this.#checkRow({ column1, column2, row1 });
+    if (failRow) return failRow;
+
     return { isValidPair: true, checkName: 'rows' };
   }
 
