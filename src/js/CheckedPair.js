@@ -1,9 +1,10 @@
 import { COLUMNS_MAX_COUNT } from './Data.js';
 
-export class Pair {
+export class CheckedPair {
   constructor({ matrix }) {
     this.matrix = matrix;
   }
+
   checkValues({ column1, column2, row1, row2 }) {
     const { num1, num2 } = this.getNums({ column1, row1, column2, row2 });
     if (num1 !== num2 && num1 + num2 !== 10) {
@@ -11,6 +12,7 @@ export class Pair {
     }
     return { isValidPair: true, checkName: 'sum to 10 and identical numbers check' };
   }
+
   checkPair({ column1, column2, row1, row2 }) {
     if (row1 === row2) {
       return this.checkRows({ column1, column2, row1, row2 });
@@ -20,6 +22,7 @@ export class Pair {
     }
     return this.checkLineBreak({ column1, column2, row1, row2 });
   }
+
   compareColumnValues({ column1, column2 }) {
     const minColumnValue = Math.min(column1, column2);
     const maxColumnValue = Math.max(column1, column2);
