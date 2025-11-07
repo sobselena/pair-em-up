@@ -5,7 +5,7 @@ export class PairsTools extends Pair {
   #score = 0;
   #points = { identicalPairs: 1, sum10: 2 };
   #previous;
-
+  #validPairs = [];
   constructor({ matrix }) {
     super({ matrix });
 
@@ -44,6 +44,7 @@ export class PairsTools extends Pair {
     this.row1 = this.#previous.row1;
     this.row2 = this.#previous.row2;
   }
+
   findColumnValue({ row, column }) {
     for (let i = row; i < this.matrix.length; i += 1) {
       if (this.matrix[i][column] !== '') {
@@ -52,9 +53,10 @@ export class PairsTools extends Pair {
     }
     return undefined;
   }
+
   findRowValue({ row = 0, column = 0 }) {
     for (let i = row; i < this.matrix.length; i += 1) {
-      for (let j = column; j < COLUMNS_MAX_COUNT; j += 1) {
+      for (let j = i !== row ? 0 : column; j < COLUMNS_MAX_COUNT; j += 1) {
         if (this.matrix[i][j] !== '') {
           return { column: j, row: i };
         }
@@ -63,7 +65,56 @@ export class PairsTools extends Pair {
     return undefined;
   }
 
-  countValidPairs() {}
+  #countValidPairs() {
+    let pointer = this.findRowValue({ row: 0, column: 0 });
+    if (!pointer) {
+      return 'none';
+    }
+
+    while (pointer) {
+      const rowPointer = this.findRowValue({ row: pointer.row, column: pointer.column + 1 });
+      const columnPointer = this.findColumnValue({ row: pointer.row + 1, column: pointer.column });
+
+      const { column: column1, row: row1 } = pointer;
+      if (rowPointer) {
+        const rowPointerCoords = {
+          column1,
+          column2: rowPointer.column,
+          row1,
+          row2: rowPointer.row,
+        };
+
+        const rowCheckResults =
+          rowPointer.row === row1
+            ? this.checkRows(rowPointerCoords)
+            : this.checkLineBreak(rowPointerCoords);
+
+        if (rowCheckResults.isValidPair) {
+          this.#validPairs.push({ ...rowPointerCoords, ...this.getNums(rowPointerCoords) });
+        }
+      }
+
+      if (columnPointer) {
+        const columnPointerCoords = {
+          column1,
+          column2: columnPointer.column,
+          row1,
+          row2: columnPointer.row,
+        };
+        const columnCheckResults = this.checkColumns(columnPointerCoords);
+
+        if (columnCheckResults.isValidPair) {
+          this.#validPairs.push({ ...columnPointerCoords, ...this.getNums(columnPointerCoords) });
+        }
+      }
+      pointer = rowPointer;
+    }
+  }
+  getValidPairs() {
+    this.#validPairs = [];
+    this.#countValidPairs();
+    return this.#validPairs;
+  }
   getTotalScore() {
     return this.#score;
   }
@@ -88,7 +139,7 @@ export class PairsTools extends Pair {
     }
   }
 
-  removePair() {
+  #removePair() {
     this.setPrevious();
     this.addScore();
     this.removeValues();
@@ -96,7 +147,7 @@ export class PairsTools extends Pair {
 
   checkStatus() {
     if (this.status.isValidPair) {
-      this.removePair();
+      this.#removePair();
     } else {
       this.invalidPair(this.status.checkName);
     }
