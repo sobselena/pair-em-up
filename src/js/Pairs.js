@@ -1,6 +1,8 @@
 import { COLUMNS_MAX_COUNT } from './Data.js';
 
 export class Pairs {
+  #score = 0;
+  #points = { identicalPairs: 1, sum10: 2 };
   constructor({ matrix, coords1, coords2 }) {
     const { column1, row1 } = coords1;
     const { column2, row2 } = coords2;
@@ -40,6 +42,10 @@ export class Pairs {
     const maxRowValue = Math.max(this.row1, this.row2);
     return { minRowValue, maxRowValue };
   }
+  removeValues() {
+    this.matrix[this.row1][this.column1] = '';
+    this.matrix[this.row2][this.column2] = '';
+  }
 
   checkLineBreak() {
     const { minColumnValue, maxColumnValue } = this.compareColumnValues();
@@ -65,8 +71,9 @@ export class Pairs {
         }
       }
     }
-    this.matrix[this.row1][this.column1] = '';
-    this.matrix[this.row2][this.column2] = '';
+
+    this.addScore();
+    this.removeValues();
   }
 
   checkColumns() {
@@ -77,8 +84,8 @@ export class Pairs {
         return;
       }
     }
-    this.matrix[minRowValue][this.column1] = '';
-    this.matrix[maxRowValue][this.column1] = '';
+    this.addScore();
+    this.removeValues();
   }
 
   checkRows() {
@@ -89,10 +96,18 @@ export class Pairs {
         return;
       }
     }
-    this.matrix[this.row1][minColumnValue] = '';
-    this.matrix[this.row1][maxColumnValue] = '';
+    this.addScore();
+    this.removeValues();
   }
-
+  addScore() {
+    const { num1, num2 } = this.getNums();
+    if (num1 === num2) {
+      this.#score += this.#points.identicalPairs;
+    }
+    if (num1 + num2 === 10) {
+      this.#score += this.#points.sum10;
+    }
+  }
   getNums() {
     const num1 = Number(this.matrix[this.row1][this.column1]);
     const num2 = Number(this.matrix[this.row2][this.column2]);
@@ -105,5 +120,9 @@ export class Pairs {
     console.log(
       `${num1} (column: ${this.column1}, row: ${this.row1})and ${num2} (column: ${this.column2}, row: ${this.row2}) are not pair!`,
     );
+  }
+
+  getTotalScore() {
+    return this.#score;
   }
 }

@@ -20,7 +20,7 @@ const checkPairs3 = new Pairs({
   coords1: { column1: 8, row1: 1 },
   coords2: { column2: 8, row2: 2 },
 });
-checkPairs2.checkPairs();
+checkPairs3.checkPairs();
 console.log(checkPairs1.matrix);
 console.log(checkPairs2.matrix);
 console.log(checkPairs3.matrix);
