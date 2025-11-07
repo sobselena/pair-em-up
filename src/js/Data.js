@@ -1,30 +1,58 @@
 export const COLUMNS_MAX_COUNT = 9;
 export class Data {
+  #removedCount = 5;
+  #addedCount = 10;
   constructor({ initialData = [], mode = 'classic' }) {
-    const splitArr = this.splitMultiDigits(initialData).flat();
+    const splitArr = this.#splitMultiDigits(initialData).flat();
     this.mode = mode;
-    this.flattenDigits = this.applyMode(splitArr);
+    this.flattenDigits = this.#applyMode(splitArr);
+    this.updateMatrix();
+  }
+  updateMatrix() {
+    this.matrix = this.generateMatrix(this.flattenDigits);
+  }
+  #splitMultiDigits(values = []) {
+    return values.map((value) => {
+      const strValue = value.toString();
+      return strValue.split('');
+    });
   }
 
-  applyMode(splitArr) {
+  #applyMode(splitArr) {
     if (this.mode === 'random') {
       return this.shuffle(splitArr);
     }
     if (this.mode === 'chaotic') {
-      return this.chaoticMode(splitArr);
+      return this.#chaoticMode(splitArr);
     }
     return splitArr;
   }
 
-  generateNewNums() {
+  #chaoticMode(splitArr) {
+    const chaoticArr = [];
+    for (let i = 0; i < splitArr.length; i += 1) {
+      const randomNum = Math.floor(Math.random() * 9) + 1;
+      chaoticArr.push(randomNum.toString());
+    }
+    return chaoticArr;
+  }
+
+  addNewNums() {
+    if (this.#addedCount <= 0) return;
     const remainingNums = this.flattenDigits.filter((num) => num !== '');
     let newNums = remainingNums;
     if (this.mode === 'random') {
       newNums = this.shuffle(remainingNums);
     } else if (this.mode === 'chaotic') {
-      newNums = this.chaoticMode(remainingNums);
+      newNums = this.#chaoticMode(remainingNums);
     }
     this.flattenDigits = this.flattenDigits.concat(newNums);
+    this.#addedCount -= 1;
+    this.updateMatrix();
+  }
+
+  getAddedCount() {
+    return this.#addedCount;
   }
 
   shuffle(splitArr) {
@@ -35,14 +63,7 @@ export class Data {
     }
     return copyFlatArr;
   }
-  chaoticMode(splitArr) {
-    const chaoticArr = [];
-    for (let i = 0; i < splitArr.length; i += 1) {
-      const randomNum = Math.floor(Math.random() * 9) + 1;
-      chaoticArr.push(randomNum.toString());
-    }
-    return chaoticArr;
-  }
+
   generateMatrix() {
     const rowCount = Math.ceil(this.flattenDigits.length / COLUMNS_MAX_COUNT);
     const matrix = [];
@@ -55,11 +76,14 @@ export class Data {
 
     return matrix;
   }
-
-  splitMultiDigits(values = []) {
-    return values.map((value) => {
-      const strValue = value.toString();
-      return strValue.split('');
-    });
+  eraser({ column, row }) {
+    if (this.#removedCount > 0) {
+      this.flattenDigits[row * COLUMNS_MAX_COUNT + column] = '';
+      this.#removedCount -= 1;
+      this.updateMatrix();
+    }
+  }
+  getRemovedCount() {
+    return this.#removedCount;
   }
 }

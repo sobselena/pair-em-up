@@ -1,7 +1,8 @@
-import { COLUMNS_MAX_COUNT } from './Data.js';
+import { COLUMNS_MAX_COUNT, Data } from './Data.js';
 
-export class CheckedPair {
+export class CheckedPair extends Data {
   constructor({ matrix }) {
+    super({ initialData: matrix.flat() });
     this.matrix = matrix;
   }
 
