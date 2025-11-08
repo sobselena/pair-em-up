@@ -2,9 +2,11 @@ export const COLUMNS_MAX_COUNT = 9;
 export class Data {
   #removedCount = 5;
   #addedCount = 10;
-  constructor({ initialData = [], mode = 'classic' }) {
+  #mode;
+  constructor({ initialData = [], params }) {
+    const { mode } = params;
     const splitArr = this.#splitMultiDigits(initialData).flat();
-    this.mode = mode;
+    this.#mode = mode;
     this.flattenDigits = this.#applyMode(splitArr);
     this.updateMatrix();
   }
@@ -19,10 +21,10 @@ export class Data {
   }
 
   #applyMode(splitArr) {
-    if (this.mode === 'random') {
+    if (this.#mode === 'random') {
       return this.shuffle(splitArr);
     }
-    if (this.mode === 'chaotic') {
+    if (this.#mode === 'chaotic') {
       return this.#chaoticMode(splitArr);
     }
     return splitArr;
@@ -41,9 +43,9 @@ export class Data {
     if (this.#addedCount <= 0) return;
     const remainingNums = this.flattenDigits.filter((num) => num !== '');
     let newNums = remainingNums;
-    if (this.mode === 'random') {
+    if (this.#mode === 'random') {
       newNums = this.shuffle(remainingNums);
-    } else if (this.mode === 'chaotic') {
+    } else if (this.#mode === 'chaotic') {
       newNums = this.#chaoticMode(remainingNums);
     }
     this.flattenDigits = this.flattenDigits.concat(newNums);
@@ -70,18 +72,18 @@ export class Data {
     for (let i = 0; i < rowCount; i += 1) {
       matrix.push([]);
       for (let j = 0; j < COLUMNS_MAX_COUNT; j += 1) {
-        matrix[i][j] = this.flattenDigits[i * COLUMNS_MAX_COUNT + j] || '';
+        if (i * COLUMNS_MAX_COUNT + j >= this.flattenDigits.length) return matrix;
+        matrix[i][j] = this.flattenDigits[i * COLUMNS_MAX_COUNT + j];
       }
     }
 
     return matrix;
   }
   eraser({ column, row }) {
-    if (this.#removedCount > 0) {
-      this.flattenDigits[row * COLUMNS_MAX_COUNT + column] = '';
-      this.#removedCount -= 1;
-      this.updateMatrix();
-    }
+    if (this.#removedCount <= 0) return;
+    this.flattenDigits[row * COLUMNS_MAX_COUNT + column] = '';
+    this.#removedCount -= 1;
+    this.updateMatrix();
   }
   getRemovedCount() {
     return this.#removedCount;

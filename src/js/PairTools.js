@@ -2,13 +2,10 @@ import { COLUMNS_MAX_COUNT } from './Data.js';
 import { CheckedPair } from './CheckedPair.js';
 
 export class PairTools extends CheckedPair {
-  #score = 0;
-  #points = { identicalPairs: 1, sum10: 2 };
   #validPairs = [];
 
-  constructor({ matrix }) {
-    super({ matrix });
-    this.status = undefined;
+  constructor({ initialData, params }) {
+    super({ initialData, params });
   }
 
   findColumnValue({ row, column }) {
@@ -81,18 +78,5 @@ export class PairTools extends CheckedPair {
     this.#validPairs = [];
     this.#countValidPairs();
     return this.#validPairs;
-  }
-  getTotalScore() {
-    return this.#score;
-  }
-
-  addScore() {
-    const { num1, num2 } = this.getCurPairNums();
-    if (num1 === num2) {
-      this.#score += this.#points.identicalPairs;
-    }
-    if (num1 + num2 === 10) {
-      this.#score += this.#points.sum10;
-    }
   }
 }

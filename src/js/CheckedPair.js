@@ -1,17 +1,25 @@
 import { COLUMNS_MAX_COUNT, Data } from './Data.js';
 
 export class CheckedPair extends Data {
-  constructor({ matrix }) {
-    super({ initialData: matrix.flat() });
-    this.matrix = matrix;
+  #status = undefined;
+  constructor({ initialData, params }) {
+    super({ initialData: initialData, params });
   }
-
+  getStatus() {
+    return this.#status;
+  }
   checkValues({ column1, column2, row1, row2 }) {
     const { num1, num2 } = this.getNums({ column1, row1, column2, row2 });
     if (num1 !== num2 && num1 + num2 !== 10) {
-      return { isValidPair: false, checkName: 'sum to 10 and identical numbers check' };
+      return (this.#status = {
+        isValidPair: false,
+        checkName: 'sum to 10 and identical numbers check',
+      });
     }
-    return { isValidPair: true, checkName: 'sum to 10 and identical numbers check' };
+    return (this.#status = {
+      isValidPair: true,
+      checkName: 'sum to 10 and identical numbers check',
+    });
   }
 
   checkPair({ column1, column2, row1, row2 }) {
@@ -41,7 +49,7 @@ export class CheckedPair extends Data {
     const { maxRowValue } = this.compareRowValues({ row1, row2 });
     for (let i = maxColumnValue + 1; i < COLUMNS_MAX_COUNT; i += 1) {
       if (this.matrix[maxRowValue][i] !== '') {
-        return { isValidPair: false, checkName: 'linebreak' };
+        return (this.#status = { isValidPair: false, checkName: 'linebreak' });
       }
     }
   }
@@ -50,7 +58,7 @@ export class CheckedPair extends Data {
     const { minRowValue } = this.compareRowValues({ row1, row2 });
     for (let i = 0; i < minColumnValue - 1; i += 1) {
       if (this.matrix[minRowValue][i] !== '') {
-        return { isValidPair: false, checkName: 'linebreak' };
+        return (this.#status = { isValidPair: false, checkName: 'linebreak' });
       }
     }
   }
@@ -59,7 +67,7 @@ export class CheckedPair extends Data {
     for (let i = minRowValue + 1; i < maxRowValue - 1; i += 1) {
       for (let j = 0; j < COLUMNS_MAX_COUNT; j += 1) {
         if (this.matrix[i][j] !== '') {
-          return { isValidPair: false, checkName: 'linebreak' };
+          return (this.#status = { isValidPair: false, checkName: 'linebreak' });
         }
       }
     }
@@ -78,14 +86,14 @@ export class CheckedPair extends Data {
     const failBetween = this.#checkBetweenLineBreak({ row1, row2 });
     if (failBetween) return failBetween;
 
-    return { isValidPair: true, checkName: 'linebreak' };
+    return (this.#status = { isValidPair: true, checkName: 'linebreak' });
   }
 
   #checkColumn({ column1, row1, row2 }) {
     const { maxRowValue, minRowValue } = this.compareRowValues({ row1, row2 });
     for (let i = minRowValue + 1; i < maxRowValue; i += 1) {
       if (this.matrix[i][column1] !== '') {
-        return { isValidPair: false, checkName: 'columns' };
+        return (this.#status = { isValidPair: false, checkName: 'columns' });
       }
     }
   }
@@ -96,14 +104,14 @@ export class CheckedPair extends Data {
 
     const failColumn = this.#checkColumn({ column1, row1, row2 });
     if (failColumn) return failColumn;
-    return { isValidPair: true, checkName: 'columns' };
+    return (this.#status = { isValidPair: true, checkName: 'columns' });
   }
 
   #checkRow({ column1, column2, row1 }) {
     const { minColumnValue, maxColumnValue } = this.compareColumnValues({ column1, column2 });
     for (let i = minColumnValue + 1; i < maxColumnValue; i += 1) {
       if (this.matrix[row1][i] !== '') {
-        return { isValidPair: false, checkName: 'rows' };
+        return (this.#status = { isValidPair: false, checkName: 'rows' });
       }
     }
   }
@@ -115,7 +123,7 @@ export class CheckedPair extends Data {
     const failRow = this.#checkRow({ column1, column2, row1 });
     if (failRow) return failRow;
 
-    return { isValidPair: true, checkName: 'rows' };
+    return (this.#status = { isValidPair: true, checkName: 'rows' });
   }
 
   getNums({ column1, row1, column2, row2 }) {
