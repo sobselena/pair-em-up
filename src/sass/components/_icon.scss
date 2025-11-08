@@ -1,4 +1,8 @@
 .icon {
   height: 3rem;
   width: 3rem;
+  @include tabletRange {
+    width: rearrangeSize(2.7rem, 3rem, 0px, 970px);
+    height: rearrangeSize(2.7rem, 3rem, 0px, 970px);
+  }
 }
