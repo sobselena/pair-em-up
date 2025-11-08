@@ -1,6 +1,7 @@
 @import 'abstracts/variables';
 @import 'abstracts/mixins';
 @import 'abstracts/functions';
+@import 'abstracts/placeholders';
 
 @import 'themes/black-theme';
 @import 'themes/white-theme';
@@ -12,6 +13,8 @@
 @import 'components/button';
 @import 'components/icon';
 
-@import 'layout/grid';
+@import 'layout/wrapper';
 @import 'layout/header';
 @import 'layout/main';
+@import 'layout/settings';
+@import 'layout/overlay';
