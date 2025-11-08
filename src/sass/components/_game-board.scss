@@ -1,7 +1,13 @@
 .game-board {
   padding: 2rem 2rem;
-  border: 2px solid #222;
+  border: $boardBorder;
   border-radius: 1.4rem;
+  box-shadow: $boardGameShadow;
+  @include tabletRange {
+    padding-left: rearrangeSize(0rem, 2rem, 0px, 970px);
+    padding-right: rearrangeSize(0rem, 2rem, 0px, 970px);
+    border-radius: rearrangeSize(0.4rem, 1.4rem, 0px, 970px);
+  }
 }
 
 .game-board__grid {
@@ -11,6 +17,9 @@
   justify-items: center;
   justify-content: space-between;
   gap: 2rem;
+  @include tabletRange {
+    gap: rearrangeSize(-0.2rem, 2rem, 0px, 970px);
+  }
 }
 
 .game-board__cell {
@@ -19,7 +28,15 @@
   justify-content: center;
   font-size: 2.4rem;
   height: 8rem;
-  border: 2px solid #222;
+  min-width: 8rem;
+  border: $boardBorder;
   border-radius: 1.4rem;
   width: 100%;
+  box-shadow: $boardGameShadow;
+  @include tabletRange {
+    height: rearrangeSize(0rem, 8rem, 0px, 970px);
+    min-width: rearrangeSize(0rem, 8rem, 0px, 970px);
+    font-size: rearrangeSize(0.8rem, 2.4rem, 0px, 970px);
+    border-radius: rearrangeSize(0.4rem, 1.4rem, 0px, 970px);
+  }
 }

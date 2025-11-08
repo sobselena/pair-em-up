@@ -1,0 +1,7 @@
+@function rearrangeSize($min, $max, $minVW, $maxVW) {
+  $sizeDiff: $max - $min;
+  $rangeDiff: $maxVW - $minVW;
+
+  $curSize: clamp($min, (100vw - #{$minVW}) / #{$rangeDiff} * #{$sizeDiff} + #{$min}, $max);
+  @return $curSize;
+}

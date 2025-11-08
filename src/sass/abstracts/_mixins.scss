@@ -1,0 +1,11 @@
+@mixin rangeChange($range) {
+  @media (max-width: $range) {
+    @content;
+  }
+}
+
+@mixin tabletRange {
+  @media (max-width: 970px) {
+    @content;
+  }
+}

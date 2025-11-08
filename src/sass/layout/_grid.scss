@@ -2,4 +2,8 @@
   max-width: 140rem;
   padding: 0 2rem;
   margin: 0 auto;
+  @include tabletRange {
+    padding-left: rearrangeSize(0rem, 2rem, 0px, 970px);
+    padding-right: rearrangeSize(0rem, 2rem, 0px, 970px);
+  }
 }
