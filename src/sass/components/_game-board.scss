@@ -2,7 +2,7 @@
   padding: 2rem 2rem;
   border: $boardBorder;
   border-radius: 1.4rem;
-  box-shadow: $boardGameShadow;
+  box-shadow: $shadow;
   @include tabletRange {
     padding-left: rearrangeSize(0rem, 2rem, 0px, 970px);
     padding-right: rearrangeSize(0rem, 2rem, 0px, 970px);
@@ -32,7 +32,7 @@
   border: $boardBorder;
   border-radius: 1.4rem;
   width: 100%;
-  box-shadow: $boardGameShadow;
+  box-shadow: $shadow;
   @include tabletRange {
     height: rearrangeSize(0rem, 8rem, 0px, 970px);
     min-width: rearrangeSize(0rem, 8rem, 0px, 970px);

@@ -1,3 +1,40 @@
 .header {
   margin-bottom: 1rem;
 }
+
+.header__statistics {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 3rem;
+}
+
+.header__assist-tools {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2.6rem;
+  & .button {
+    background-color: #222;
+    color: #fff;
+    padding: 1.2rem 2.4rem;
+    font-size: 1.6rem;
+    box-shadow: $shadow;
+    border-radius: 1.2rem;
+  }
+}
+
+.header__control-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.8rem;
+}
+
+.header__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -1.6rem;
+  margin-bottom: 1.2rem;
+}

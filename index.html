@@ -10,46 +10,51 @@
   <body class="white-theme">
     <header class="header">
       <div class="wrapper">
-        <h1 class="header-primary">Pair `em up</h1>
-
-        <div class="control-buttons">
-          <button class="control-buttons__reset">
-            <img src="src/assets/icons/reset.svg" alt="reset icon" />
+        <div class="header__control-buttons">
+          <button class="button control-buttons__continue">
+            <img
+              src="src/assets/icons/continue.svg"
+              alt="continue icon"
+              class="icon icon_continue"
+            />
           </button>
-          <button class="control-buttons__save">
-            <img src="src/assets/icons/save.svg" alt="save icon" />
+          <button class="button button_reset">
+            <img src="src/assets/icons/reset.svg" alt="reset icon" class="icon icon_reset" />
           </button>
-          <button class="control-buttons__continue">
-            <img src="src/assets/icons/continue.svg" alt="continue icon" />
+          <button class="button control-buttons__save">
+            <img src="src/assets/icons/save.svg" alt="save icon" class="icon icon_save" />
           </button>
         </div>
+        <div class="header__info">
+          <h1 class="header-primary">Pair `em up</h1>
 
-        <div class="statistics">
-          <div class="statistics__score-container">
-            Score: <span class="statistics__score">5</span>
-          </div>
-          <div class="statistics__timer-container">
-            Timer: <span class="statistics__timer">01:55</span>
+          <div class="header__statistics">
+            <div class="header__score-container">
+              Score: <span class="statistics__score">5</span>
+            </div>
+            <div class="header__timer-container">
+              Timer: <span class="header__timer">01:55</span>
+            </div>
           </div>
         </div>
-
-        <div class="assist-tools">
-          <button class="assist-tools__hints">
+        <div class="header__assist-tools">
+          <button class="button button_hints">
             Hints (<span class="assist-tools__hints-count">5+</span>)
           </button>
-          <button class="assist-tools__revert">Revert</button>
-          <button class="assist-tools__add-numbers">
+          <button class="button assist-tools__revert">Revert</button>
+          <button class="button assist-tools__add-numbers">
             Add Numbers (<span class="assist-tools__add-numbers-count">10</span>)
           </button>
-          <button class="assist-tools__shuffle">
+          <button class="button button_shuffle">
             Shuffle (<span class="assist-tools__shuffle-count">5</span>)
           </button>
-          <button class="assist-tools__eraser">
+          <button class="button button_eraser">
             Eraser (<span class="assist-tools__eraser-count">5</span>)
           </button>
         </div>
       </div>
     </header>
+
     <main class="main">
       <div class="wrapper">
         <section class="game-board">
