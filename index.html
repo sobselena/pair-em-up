@@ -12,7 +12,7 @@
       <div class="wrapper">
         <div class="header__info">
           <div class="header__control-buttons">
-            <button class="button control-buttons__continue">
+            <button class="button button_continue">
               <img
                 src="src/assets/icons/continue.svg"
                 alt="continue icon"
@@ -24,6 +24,9 @@
             </button>
             <button class="button control-buttons__save">
               <img src="src/assets/icons/save.svg" alt="save icon" class="icon icon_save" />
+            </button>
+            <button class="button control-buttons__settings">
+              <img src="src/assets/icons/settings.svg" alt="save icon" class="icon icon_settings" />
             </button>
           </div>
 
@@ -93,5 +96,67 @@
         </section>
       </div>
     </main>
+
+    <div class="settings open">
+      <div class="settings__title-container">
+        <h2 class="header-secondary">Settings Panel</h2>
+        <button class="button button_close">
+          <img src="src/assets/icons/close.svg" alt="close icon" class="icon icon_close" />
+        </button>
+      </div>
+
+      <div class="settings__audio-controls">
+        <h3 class="header-tertiary">Audio controls</h3>
+        <div class="settings__audio-option">
+          <div>Cell Selection</div>
+
+          <button class="button button_on-off"></button>
+        </div>
+        <div class="settings__audio-option">
+          <div>Cell Deselection</div>
+
+          <button class="button button_on-off"></button>
+        </div>
+        <div class="settings__audio-option">
+          <div>Successful Pair Matching</div>
+          <button class="button button_on-off"></button>
+        </div>
+        <div class="settings__audio-option">
+          <div>Invalid Pair Attempts</div>
+          <button class="button button_on-off"></button>
+        </div>
+        <div class="settings__audio-option">
+          <div>Assist Tool Usage (Add Numbers, Shuffle)</div>
+          <button class="button button_on-off"></button>
+        </div>
+        <div class="settings__audio-option">
+          <div>Game Start And End Events</div>
+          <button class="button button_on-off"></button>
+        </div>
+      </div>
+
+      <div class="settings__theme-selection">
+        <h3 class="header-tertiary">Theme selection</h3>
+        <div class="settings__audio-option">
+          <div>Background Colors</div>
+          <button class="button button_on-off"></button>
+        </div>
+        <div class="settings__audio-option">
+          <div>Game Grid And Cell Colors</div>
+
+          <button class="button button_on-off"></button>
+        </div>
+        <div class="settings__audio-option">
+          <div>UI Element Colors (Buttons, Counters, Text)</div>
+
+          <button class="button button_on-off"></button>
+        </div>
+        <div class="settings__audio-option">
+          <div>All Interactive Elements And Indicators</div>
+          <button class="button button_on-off"></button>
+        </div>
+      </div>
+    </div>
+    <div class="overlay open"></div>
   </body>
 </html>
