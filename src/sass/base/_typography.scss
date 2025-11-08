@@ -1,3 +1,11 @@
+/* oswald-200 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 200;
+  src: url('../assets/fonts/oswald-v57-latin-200.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
 /* oswald-300 - latin */
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
@@ -33,6 +41,12 @@
 body {
   font-family: 'Oswald', sans-serif;
   line-height: 1.8;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 1rem;
+  color: #222;
+}
+
+.header-primary {
+  font-size: 4.8rem;
+  font-weight: inherit;
 }
