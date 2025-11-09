@@ -4,6 +4,14 @@
   border: none;
   cursor: pointer;
   line-height: 1;
+  transition: all 0.3s;
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  &:active {
+    transform: translateY(0px);
+  }
 }
 
 .button_on-off {
@@ -14,6 +22,13 @@
   position: relative;
   display: flex;
   align-items: center;
+  &:hover {
+    transform: none;
+  }
+
+  &:active {
+    transform: none;
+  }
 }
 
 .button_on-off::before {

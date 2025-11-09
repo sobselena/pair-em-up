@@ -32,6 +32,15 @@
     border: $border;
     color: #222;
   }
+
+  & .button_continue:hover {
+    transform: none;
+    background-color: lighten(#222, 15%);
+  }
+
+  & .button_continue:active {
+    transform: none;
+  }
 }
 
 .start-menu__actions .button_continue {
@@ -50,6 +59,15 @@
   @include tabletRange {
     border-radius: rearrangeSize(0.4rem, 1.4rem, 0px, 970px);
   }
+  & .button {
+    &:hover {
+      box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.2);
+    }
+  }
 }
 
 .start-menu__table {
@@ -59,9 +77,23 @@
   max-height: 20rem;
   height: 100%;
   overflow-y: auto;
-  margin-top: 1.6rem;
+  padding: 0 0.4rem 0.4rem 0.4rem;
+  margin-top: 1rem;
   @include tabletRange {
     border-radius: rearrangeSize(1.2rem, 2.4rem, 0px, 970px);
+  }
+  & tbody tr {
+    transition: all 0.4s;
+  }
+  & tbody tr:hover {
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.16);
+    border-radius: 1.6rem;
+    @include tabletRange {
+      border-radius: rearrangeSize(0.6rem, 1.6rem, 0px, 970px);
+    }
+  }
+  & tbody tr:last-child:hover {
+    box-shadow: 0 0rem 2rem rgba(0, 0, 0, 0.16);
   }
 
   & th {

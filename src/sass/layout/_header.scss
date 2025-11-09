@@ -61,8 +61,18 @@
 .header__assist-tools {
   @include values-list;
   margin-bottom: 2.6rem;
+
   & .button {
     background-color: #222;
     color: #fff;
+
+    &:hover {
+      box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      background-color: lighten(#222, 13%);
+      box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.2);
+    }
   }
 }
