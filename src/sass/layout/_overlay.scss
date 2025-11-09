@@ -7,4 +7,9 @@
   height: 100vh;
   background-color: #fff;
   opacity: 1;
+  display: none;
+
+  &.open {
+    display: block;
+  }
 }

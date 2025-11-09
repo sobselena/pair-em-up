@@ -1,3 +1,39 @@
+.settings, .start-menu {
+  z-index: 101;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(100rem, 100% - clamp(0rem, (100vw - 0px) / 970px * 8rem + 0rem, 8rem));
+  max-width: 100%;
+  border: 2px solid #222;
+  border-radius: clamp(1.2rem, (100vw - 0px) / 970px * 1.2rem + 1.2rem, 2.4rem);
+  padding: 2.4rem clamp(0rem, (100vw - 0px) / 970px * 4.8rem + 0rem, 4.8rem);
+  display: none;
+}
+.open.settings, .open.start-menu {
+  display: block;
+}
+
+.start-menu__actions .button, .header__assist-tools .button {
+  padding: 1.2rem 2.4rem;
+  font-size: 1.6rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  border-radius: 1.2rem;
+}
+@media (max-width: 970px) {
+  .start-menu__actions .button, .header__assist-tools .button {
+    font-size: clamp(1.2rem, (100vw - 0px) / 970px * 0.4rem + 1.2rem, 1.6rem);
+    padding: clamp(0.9rem, (100vw - 0px) / 970px * 0.3rem + 0.9rem, 1.2rem) clamp(1.8rem, (100vw - 0px) / 970px * 0.6rem + 1.8rem, 2.4rem);
+  }
+}
+
+.start-menu__actions, .header__assist-tools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
 *,
 *::after,
 *::before {
@@ -273,38 +309,88 @@ body {
 }
 
 .header__assist-tools {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.2rem;
   margin-bottom: 2.6rem;
 }
 .header__assist-tools .button {
   background-color: #222;
   color: #fff;
+}
+
+.start-menu__github-link {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 2.6rem;
+}
+
+.start-menu__github-img-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-menu__title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.start-menu__status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.start-menu__actions {
+  margin-bottom: 1.2rem;
+}
+.start-menu__actions .button {
+  border: 2px solid #222;
+  color: #222;
+}
+
+.start-menu__actions .button_continue {
+  color: #fff;
+  background-color: #222;
+}
+
+.start-menu__modes-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 2px solid #222;
   padding: 1.2rem 2.4rem;
-  font-size: 1.6rem;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
-  border-radius: 1.2rem;
+  gap: 1.2rem;
+  border-radius: 1.4rem;
 }
 @media (max-width: 970px) {
-  .header__assist-tools .button {
-    font-size: clamp(1.2rem, (100vw - 0px) / 970px * 0.4rem + 1.2rem, 1.6rem);
-    padding: clamp(0.9rem, (100vw - 0px) / 970px * 0.3rem + 0.9rem, 1.2rem) clamp(1.8rem, (100vw - 0px) / 970px * 0.6rem + 1.8rem, 2.4rem);
+  .start-menu__modes-container {
+    border-radius: clamp(0.4rem, (100vw - 0px) / 970px * 1rem + 0.4rem, 1.4rem);
   }
 }
 
-.settings {
-  z-index: 101;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(100rem, 100% - clamp(0rem, (100vw - 0px) / 970px * 8rem + 0rem, 8rem));
-  max-width: 100%;
+.start-menu__table {
   border: 2px solid #222;
+  width: 100%;
   border-radius: 2.4rem;
-  padding: 2.4rem clamp(0rem, (100vw - 0px) / 970px * 4.8rem + 0rem, 4.8rem);
+  max-height: 20rem;
+  height: 100%;
+  overflow-y: auto;
+  margin-top: 1.6rem;
+}
+@media (max-width: 970px) {
+  .start-menu__table {
+    border-radius: clamp(1.2rem, (100vw - 0px) / 970px * 1.2rem + 1.2rem, 2.4rem);
+  }
+}
+.start-menu__table th {
+  font-size: 2.2rem;
+}
+.start-menu__table td {
+  font-size: 2rem;
+  text-align: center;
 }
 
 .settings__title-container {
@@ -350,6 +436,10 @@ body {
   height: 100vh;
   background-color: #fff;
   opacity: 1;
+  display: none;
+}
+.overlay.open {
+  display: block;
 }
 
 /*# sourceMappingURL=style.css.map */

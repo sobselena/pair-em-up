@@ -1,7 +1,7 @@
-@function rearrangeSize($min, $max, $minVW, $maxVW) {
-  $sizeDiff: $max - $min;
-  $rangeDiff: $maxVW - $minVW;
+@function rearrangeSize($min, $max, $min-vw, $max-vw) {
+  $size-diff: $max - $min;
+  $range-diff: $max-vw - $min-vw;
 
-  $curSize: clamp($min, (100vw - #{$minVW}) / #{$rangeDiff} * #{$sizeDiff} + #{$min}, $max);
-  @return $curSize;
+  $cur-size: clamp($min, (100vw - #{$min-vw}) / #{$range-diff} * #{$size-diff} + #{$min}, $max);
+  @return $cur-size;
 }
