@@ -10,16 +10,26 @@ export class Component {
       this.appendChildren(children);
     }
   }
+
   appendChildren(children) {
     children.forEach((child) => {
       this.#children.push(child);
       this.#node.append(child.getNode());
     });
   }
+
   getNode() {
     return this.#node;
   }
   getChildren() {
     return this.#children;
+  }
+
+  setAttribute(attribute, value) {
+    this.#node.setAttribute(attribute, value);
+  }
+
+  addListener(event, callback) {
+    this.#node.addEventListener(event, callback);
   }
 }

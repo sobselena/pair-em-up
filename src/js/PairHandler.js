@@ -8,11 +8,11 @@ export class PairHandler extends PairTools {
   constructor({ initialData, params }) {
     super({ initialData, params });
 
-    this.column1;
-    this.row1;
+    this.column1 = undefined;
+    this.row1 = undefined;
 
-    this.column2;
-    this.row2;
+    this.column2 = undefined;
+    this.row2 = undefined;
   }
 
   #removePair() {
@@ -21,14 +21,21 @@ export class PairHandler extends PairTools {
     this.#removeValues();
     this.updateMatrix();
   }
+  setPair({ column, row }) {
+    if (this.column1 === undefined) {
+      this.column1 = column;
+      this.row1 = row;
+    } else if (this.column2 === undefined) {
+      this.column2 = column;
+      this.row2 = row;
+    }
+  }
+  #unsetPair() {
+    this.column1 = undefined;
+    this.row1 = undefined;
 
-  setPair({ column1, column2, row1, row2 }) {
-    this.column1 = column1;
-    this.row1 = row1;
-
-    this.column2 = column2;
-    this.row2 = row2;
-    this.#checkPairStatus();
+    this.column2 = undefined;
+    this.row2 = undefined;
   }
 
   #getPairCoords() {
@@ -57,14 +64,14 @@ export class PairHandler extends PairTools {
       `${num1} (column: ${this.column1}, row: ${this.row1})and ${num2} (column: ${this.column2}, row: ${this.row2}) are not pair!`,
     );
   }
-
-  #checkPairStatus() {
+  checkPairStatus() {
     this.checkPair(this.#getPairCoords());
     if (this.getStatus().isValidPair) {
       this.#removePair();
     } else {
       this.invalidPair(this.getStatus().checkName);
     }
+    this.#unsetPair();
   }
 
   #removeValues() {

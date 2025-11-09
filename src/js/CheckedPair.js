@@ -8,6 +8,9 @@ export class CheckedPair extends Data {
   getStatus() {
     return this.#status;
   }
+  unsetStatus() {
+    this.#status = undefined;
+  }
   checkValues({ column1, column2, row1, row2 }) {
     const { num1, num2 } = this.getNums({ column1, row1, column2, row2 });
     if (num1 !== num2 && num1 + num2 !== 10) {

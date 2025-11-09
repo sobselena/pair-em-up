@@ -175,8 +175,17 @@ body {
   }
 }
 .game-board__cell:hover {
-  background-color: #fcc419;
+  background-color: #ffd43b;
   color: #fff;
+}
+.game-board__cell_active {
+  background-color: #22b8cf;
+}
+.game-board__cell_error {
+  background-color: #ff6b6b;
+}
+.game-board__cell_success {
+  background-color: #20c997;
 }
 
 .button {
@@ -225,17 +234,6 @@ body {
 .button_on-off:hover::before {
   border-width: 0.5rem;
   background-color: rgb(46.75, 46.75, 46.75);
-}
-
-.icon {
-  height: 3rem;
-  width: 3rem;
-}
-@media (max-width: 970px) {
-  .icon {
-    width: clamp(2.7rem, (100vw - 0px) / 970px * 0.3rem + 2.7rem, 3rem);
-    height: clamp(2.7rem, (100vw - 0px) / 970px * 0.3rem + 2.7rem, 3rem);
-  }
 }
 
 .img-container {

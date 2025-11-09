@@ -42,7 +42,19 @@
   }
 
   &:hover {
-    background-color: #fcc419;
+    background-color: #ffd43b;
     color: #fff;
+  }
+
+  &_active {
+    background-color: #22b8cf;
+  }
+
+  &_error {
+    background-color: #ff6b6b;
+  }
+
+  &_success {
+    background-color: #20c997;
   }
 }

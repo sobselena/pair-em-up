@@ -11,7 +11,7 @@ export class Data {
     this.updateMatrix();
   }
   updateMatrix() {
-    this.matrix = this.generateMatrix(this.flattenDigits);
+    this.matrix = this.#generateMatrix(this.flattenDigits);
   }
   #splitMultiDigits(values = []) {
     return values.map((value) => {
@@ -66,7 +66,7 @@ export class Data {
     return copyFlatArr;
   }
 
-  generateMatrix() {
+  #generateMatrix() {
     const rowCount = Math.ceil(this.flattenDigits.length / COLUMNS_MAX_COUNT);
     const matrix = [];
     for (let i = 0; i < rowCount; i += 1) {
@@ -79,10 +79,22 @@ export class Data {
 
     return matrix;
   }
+  translateFlatToMatrixCoords(index) {
+    const row = Math.floor(index / COLUMNS_MAX_COUNT);
+    const column = index % COLUMNS_MAX_COUNT;
+    return { row, column };
+  }
   eraser({ column, row }) {
     if (this.#removedCount <= 0) return;
     this.flattenDigits[row * COLUMNS_MAX_COUNT + column] = '';
     this.#removedCount -= 1;
+    if (this.column1 === column && this.row1 === row) {
+      this.column1 = undefined;
+      this.row1 = undefined;
+    } else if (this.column2 === column && this.row2 === row) {
+      this.column2 = undefined;
+      this.row2 = undefined;
+    }
     this.updateMatrix();
   }
   getRemovedCount() {
