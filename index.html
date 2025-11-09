@@ -12,22 +12,10 @@
       <div class="wrapper">
         <div class="header__info">
           <div class="header__control-buttons">
-            <button class="button button_continue">
-              <img
-                src="src/assets/icons/continue.svg"
-                alt="continue icon"
-                class="icon icon_continue"
-              />
-            </button>
-            <button class="button button_reset">
-              <img src="src/assets/icons/reset.svg" alt="reset icon" class="icon icon_reset" />
-            </button>
-            <button class="button control-buttons__save">
-              <img src="src/assets/icons/save.svg" alt="save icon" class="icon icon_save" />
-            </button>
-            <button class="button control-buttons__settings">
-              <img src="src/assets/icons/settings.svg" alt="save icon" class="icon icon_settings" />
-            </button>
+            <button class="button button_continue img-container"></button>
+            <button class="button button_reset img-container"></button>
+            <button class="button button_save img-container"></button>
+            <button class="button button_settings img-container"></button>
           </div>
 
           <h1 class="header-primary">Pair `em up</h1>
@@ -97,24 +85,18 @@
       </div>
     </main>
 
-    <div class="start-menu">
-      <button class="button start-menu__settings">
-        <img src="src/assets/icons/settings.svg" alt="save icon" class="icon icon_settings" />
+    <div class="start-menu ">
+      <button class="button button_settings img-container">
       </button>
       <div class="start-menu__title-container">
         <h2 class="header-secondary">Pair `em up</h2>
         <div class="start-menu__github-link">
           <a href="https://github.com/sobselena" target="_blank">sobselena </a>
-          <a
-            href="https://github.com/sobselena"
-            class="start-menu__github-img-link"
-            target="_blank"
-          >
-            <img
-              src="src/assets/icons/github-mark.svg"
-              alt="github logo icon"
-              class="icon icon_github"
-          /></a>
+            <a
+              href="https://github.com/sobselena"
+              class="start-menu__github-img-link img-container"
+              target="_blank"
+            ></a>
         </div>
       </div>
       <div class="start-menu__actions">
@@ -147,9 +129,11 @@
               <td>3</td>
               <td class="start-menu__status">
                 Loss
-                <img src="src/assets/icons/loss.svg" alt="lose icon" class="icon icon_loss" />
+                <span class="img-container img-container_loss">
+                </span>
               </td>
-              <td>01:55</td>
+              <td>01:55
+              </td>
             </tr>
             <tr>
               <td>2</td>
@@ -158,18 +142,8 @@
               <td>58</td>
               <td class="start-menu__status">
                 Win
-                <img src="src/assets/icons/win.svg" alt="lose icon" class="icon icon_win" />
-              </td>
-              <td>07:10</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Random</td>
-              <td>101</td>
-              <td>58</td>
-              <td class="start-menu__status">
-                Win
-                <img src="src/assets/icons/win.svg" alt="lose icon" class="icon icon_win" />
+                <span class="img-container img-container_win">
+                </span>
               </td>
               <td>07:10</td>
             </tr>
@@ -180,7 +154,8 @@
               <td>58</td>
               <td class="start-menu__status">
                 Win
-                <img src="src/assets/icons/win.svg" alt="lose icon" class="icon icon_win" />
+                <span class="img-container img-container_win">
+                </span>
               </td>
               <td>07:10</td>
             </tr>
@@ -191,7 +166,20 @@
               <td>58</td>
               <td class="start-menu__status">
                 Win
-                <img src="src/assets/icons/win.svg" alt="lose icon" class="icon icon_win" />
+                <span class="img-container img-container_win">
+                </span>
+              </td>
+              <td>07:10</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Random</td>
+              <td>101</td>
+              <td>58</td>
+              <td class="start-menu__status">
+                Win
+                <span class="img-container img-container_win">
+                </span>
               </td>
               <td>07:10</td>
             </tr>
@@ -203,8 +191,7 @@
     <div class="settings">
       <div class="settings__title-container">
         <h2 class="header-secondary">Settings Panel</h2>
-        <button class="button button_close">
-          <img src="src/assets/icons/close.svg" alt="close icon" class="icon icon_close" />
+        <button class="button button_close img-container">
         </button>
       </div>
 
@@ -266,8 +253,8 @@
         <div class="game-results__outcome">
           <span class="game-results__outcome-name">Status</span>
           <span class="game-results__status"
-            >Win <img src="src/assets/icons/win.svg" alt="win icon" class="icon icon_win"
-          /></span>
+            >Win
+            <span class="img-container img-container_win"></span>
         </div>
         <div class="game-results__outcome">
           <span class="game-results__outcome-name">Score</span>
@@ -284,12 +271,14 @@
       </div>
       <div class="game-results__actions">
         <button class="button button_menu">
-          <img src="src/assets/icons/menu-white.svg" alt="menu icon" class="icon icon_play" />
+          <span class="img-container img-container_menu">
+          </span>
           Menu
         </button>
         <button class="button button_play-again">
           Play Again
-          <img src="src/assets/icons/replay-white.svg" alt="replay icon" class="icon icon_play" />
+          <span class="img-container img-container_replay">
+          </span>
         </button>
       </div>
     </div>

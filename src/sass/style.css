@@ -238,6 +238,61 @@ body {
   }
 }
 
+.img-container {
+  height: 3rem;
+  width: 3rem;
+}
+@media (max-width: 970px) {
+  .img-container {
+    width: clamp(2.7rem, (100vw - 0px) / 970px * 0.3rem + 2.7rem, 3rem);
+    height: clamp(2.7rem, (100vw - 0px) / 970px * 0.3rem + 2.7rem, 3rem);
+  }
+}
+.img-container.button_continue {
+  background: url(/src/assets/icons/continue.svg) no-repeat center center;
+  background-size: cover;
+}
+.img-container_replay, .img-container.button_reset {
+  background: url(/src/assets/icons/reset.svg) no-repeat center center;
+  background-size: cover;
+}
+.img-container.button_save {
+  background: url(/src/assets/icons/save.svg) no-repeat center center;
+  background-size: cover;
+}
+.img-container.button_settings {
+  background: url(/src/assets/icons/settings.svg) no-repeat center center;
+  background-size: cover;
+}
+.img-container.button_close {
+  background: url(/src/assets/icons/close.svg) no-repeat center center;
+  background-size: cover;
+}
+.img-container.start-menu__github-img-link {
+  background: url(/src/assets/icons/github-mark.svg) no-repeat center center;
+  background-size: cover;
+  height: 3.1rem;
+  width: 3.1rem;
+}
+@media (max-width: 970px) {
+  .img-container.start-menu__github-img-link {
+    width: clamp(2.8rem, (100vw - 0px) / 970px * 0.3rem + 2.8rem, 3.1rem);
+    height: clamp(2.8rem, (100vw - 0px) / 970px * 1rem + 2.8rem, 3.8rem);
+  }
+}
+.img-container_loss {
+  background: url(/src/assets/icons/loss.svg) no-repeat center center;
+  background-size: cover;
+}
+.img-container_win {
+  background: url(/src/assets/icons/win.svg) no-repeat center center;
+  background-size: cover;
+}
+.img-container_menu {
+  background: url(/src/assets/icons/menu-white.svg) no-repeat center center;
+  background-size: cover;
+}
+
 .wrapper {
   max-width: 140rem;
   padding: 0 2rem;
