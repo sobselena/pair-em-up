@@ -59,7 +59,7 @@
 }
 
 .header__assist-tools {
-  @extend %values-list;
+  @include values-list;
   margin-bottom: 2.6rem;
   & .button {
     background-color: #222;

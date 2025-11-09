@@ -32,3 +32,11 @@
   border-width: 0.5rem;
   background-color: lighten(#222, 5%);
 }
+
+.button_menu {
+  @extend %button-with-img;
+}
+
+.button_play-again {
+  @extend %button-with-img;
+}

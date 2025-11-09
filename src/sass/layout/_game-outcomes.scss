@@ -1,0 +1,45 @@
+.game-results {
+  @extend %menu;
+}
+
+.game-results__info {
+  @include values-list(1.6rem, 'div');
+  margin-top: 2.2rem;
+  margin-bottom: 8.4rem;
+}
+.game-results__actions {
+  @include values-list;
+
+  & .button {
+    box-shadow: none;
+    font-size: 2.2rem;
+    background-color: #222;
+    color: #fff;
+  }
+}
+.game-results__outcome {
+  display: flex;
+  flex-direction: column;
+  & span:last-child {
+    font-size: 2rem;
+  }
+}
+.game-results__info {
+  @include values-list(1.6rem, '.game-results__outcome');
+
+  & div {
+    border: $border;
+  }
+}
+.game-results__status {
+  display: flex;
+  align-items: center;
+
+  gap: 0.6rem;
+}
+
+.game-results__outcome-name {
+  font-weight: 400;
+  font-size: 2.2rem;
+  font-style: italic;
+}
