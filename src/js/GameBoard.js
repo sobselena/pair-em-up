@@ -24,11 +24,11 @@ export const gameBoard = new Component(
 function clickGridItem(event) {
   const el = event.target;
   console.log(board);
-  if (
-    el.classList.contains('game-board__cell') &&
-    !el.classList.contains('game-board__cell_active') &&
-    el.textContent !== ''
-  ) {
+  if (el.classList.contains('game-board__cell_active')) {
+    board.column1 = undefined;
+    board.row1 = undefined;
+    el.classList.remove('game-board__cell_active');
+  } else if (el.classList.contains('game-board__cell') && el.textContent !== '') {
     el.classList.add('game-board__cell_active');
     const column = Number(el.dataset.column);
     const row = Number(el.dataset.row);

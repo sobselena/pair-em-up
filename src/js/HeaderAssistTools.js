@@ -32,16 +32,15 @@ function shuffle() {
   header.getChildEl('.header__shuffle-count').textContent = board.getShuffleCount();
   showHints(board.isHintOn);
 }
+
 function erase() {
-  // if (board.column2 && !board.column1) return;
-  // board.eraser({ column: board.column1, row: board.row1 });
-  // header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
-  // const erasedEl = gameBoard.getChildEl(
-  //   `.game-board__cell[data-row="${board.row1}"][data-column="${board.column1}"]`,
-  // );
-  // erasedEl.textContent = '';
-  // erasedEl.classList.remove('game-board__cell_active');
-  // showHints(board.isHintOn);
+  if (board.column2 || !board.column1 || board.getRemovedCount() === 0) return;
+  board.eraser();
+  header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
+  const erasedEl = gameBoard.getChildEl(`.game-board__cell_active`);
+  erasedEl.textContent = '';
+  erasedEl.classList.remove('game-board__cell_active');
+  showHints(board.isHintOn);
 }
 export function createHeaderAssistTools() {
   return new Component(

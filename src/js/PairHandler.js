@@ -4,6 +4,7 @@ import { PairTools } from './PairTools.js';
 class PairHandler extends PairTools {
   #previous;
   #score = 0;
+  #removedCount = 5;
   #points = { identicalPairs: 1, sum10: 2 };
   isHintOn = false;
   constructor({ initialData, params }) {
@@ -100,6 +101,18 @@ class PairHandler extends PairTools {
     if (num1 + num2 === 10) {
       this.#score += this.#points.sum10;
     }
+  }
+
+  eraser() {
+    if (this.#removedCount === 0) return;
+    this.flattenDigits[this.row1 * COLUMNS_MAX_COUNT + this.column1] = '';
+    this.row1 = undefined;
+    this.column1 = undefined;
+    this.#removedCount -= 1;
+    this.updateMatrix();
+  }
+  getRemovedCount() {
+    return this.#removedCount;
   }
 }
 
