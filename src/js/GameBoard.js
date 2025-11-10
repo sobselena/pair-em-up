@@ -1,6 +1,8 @@
 import { Component } from './Component.js';
 import { GridItem, BoardGrid } from './BoardGrid.js';
 import { board } from './PairHandler.js';
+import { header } from './Header.js';
+import { showHints } from './HeaderAssistTools.js';
 export const gameBoard = new Component(
   { tag: 'main', classes: ['main'] },
   new Component(
@@ -57,9 +59,22 @@ function processEvents(isValid, activeEl) {
     if (isValid) {
       activeEl.textContent = '';
       activeEl.classList.remove('game-board__cell_success');
+      activeEl.style.backgroundColor = '';
+      activeEl.style.color = '';
+      console.log(board.getValidPairs());
+      updateStates();
     } else {
       activeEl.classList.remove('game-board__cell_error');
     }
     activeEl.classList.remove('game-board__cell_active');
   }, 300);
+}
+
+function updateStates() {
+  const validPairsCount = board.getValidPairs().length;
+  if (board.isHintOn) {
+    showHints();
+  }
+  header.getChildEl('.header__hints-count').textContent =
+    validPairsCount > 5 ? '5+' : validPairsCount;
 }

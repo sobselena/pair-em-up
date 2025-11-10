@@ -5,6 +5,7 @@ class PairHandler extends PairTools {
   #previous;
   #score = 0;
   #points = { identicalPairs: 1, sum10: 2 };
+  isHintOn = false;
   constructor({ initialData, params }) {
     super({ initialData, params });
 

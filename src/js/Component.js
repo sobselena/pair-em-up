@@ -21,7 +21,7 @@ export class Component {
   getNode() {
     return this.#node;
   }
-  getChildren() {
+  getAllChildren() {
     return this.#children;
   }
 
@@ -31,5 +31,12 @@ export class Component {
 
   addListener(event, callback) {
     this.#node.addEventListener(event, callback);
+  }
+
+  getChildEl(selector) {
+    return this.#node.querySelector(selector);
+  }
+  getChildrenEl(selector) {
+    return this.#node.querySelectorAll(selector);
   }
 }
