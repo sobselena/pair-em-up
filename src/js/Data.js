@@ -2,6 +2,7 @@ export const COLUMNS_MAX_COUNT = 9;
 export class Data {
   #removedCount = 5;
   #addedCount = 10;
+  #shuffleCount = 5;
   #mode;
   constructor({ initialData = [], params }) {
     const { mode } = params;
@@ -59,12 +60,30 @@ export class Data {
   }
 
   shuffle(splitArr) {
-    const copyFlatArr = [...splitArr];
+    if (this.#shuffleCount <= 0) return;
+    const copyArr = [...splitArr];
+    const copyFlatArr = copyArr.filter((cellValue) => cellValue !== '');
     for (let i = copyFlatArr.length - 1; i >= 0; i -= 1) {
       const randomPosition = Math.floor(Math.random() * (i + 1));
       [copyFlatArr[i], copyFlatArr[randomPosition]] = [copyFlatArr[randomPosition], copyFlatArr[i]];
     }
-    return copyFlatArr;
+    let i = 0;
+    let j = 0;
+    while (i < copyArr.length) {
+      if (copyArr[i] !== '') {
+        copyArr[i] = copyFlatArr[j];
+        j += 1;
+      }
+      i += 1;
+    }
+
+    this.flattenDigits = copyArr;
+    this.#shuffleCount -= 1;
+    this.updateMatrix();
+  }
+
+  getShuffleCount() {
+    return this.#shuffleCount;
   }
 
   #generateMatrix() {

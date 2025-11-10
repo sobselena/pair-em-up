@@ -51,6 +51,7 @@ export class CheckedPair extends Data {
     const { maxColumnValue } = this.compareColumnValues({ column1, column2 });
     const { maxRowValue } = this.compareRowValues({ row1, row2 });
     for (let i = maxColumnValue + 1; i < COLUMNS_MAX_COUNT; i += 1) {
+      console.log(this.matrix[maxRowValue][i]);
       if (this.matrix[maxRowValue][i] !== '') {
         return (this.#status = { isValidPair: false, checkName: 'linebreak checkRightLineBreak' });
       }
