@@ -1,10 +1,7 @@
-import { createGameBoard } from './GameBoard.js';
-import { createHeader } from './Header.js';
-
 export class App {
-  constructor() {
-    this.header = createHeader();
-    this.gameBoard = createGameBoard();
+  constructor({ header, gameBoard }) {
+    this.header = header;
+    this.gameBoard = gameBoard;
   }
 
   render(root = document.body) {

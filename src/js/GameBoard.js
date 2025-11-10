@@ -1,25 +1,23 @@
 import { Component } from './Component.js';
 import { GridItem, BoardGrid } from './BoardGrid.js';
 import { board } from './PairHandler.js';
-export function createGameBoard() {
-  return new Component(
-    { tag: 'main', classes: ['main'] },
+export const gameBoard = new Component(
+  { tag: 'main', classes: ['main'] },
+  new Component(
+    { tag: 'div', classes: ['wrapper'] },
     new Component(
-      { tag: 'div', classes: ['wrapper'] },
-      new Component(
-        { tag: 'section', classes: ['game-board'] },
-        new BoardGrid({
-          classes: ['game-board__grid'],
-          gridItems: board.flattenDigits.map((num, index) => {
-            const { row, column } = board.translateFlatToMatrixCoords(index);
-            return new GridItem({ classes: ['game-board__cell'], row, column, text: num });
-          }),
-          onGridItemClicked: clickGridItem,
+      { tag: 'section', classes: ['game-board'] },
+      new BoardGrid({
+        classes: ['game-board__grid'],
+        gridItems: board.flattenDigits.map((num, index) => {
+          const { row, column } = board.translateFlatToMatrixCoords(index);
+          return new GridItem({ classes: ['game-board__cell'], row, column, text: num });
         }),
-      ),
+        onGridItemClicked: clickGridItem,
+      }),
     ),
-  );
-}
+  ),
+);
 
 function clickGridItem(event) {
   const el = event.target;
