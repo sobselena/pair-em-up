@@ -34,6 +34,7 @@ function clickGridItem(event) {
     const row = Number(el.dataset.row);
     board.setPair({ column, row });
     checkPairs();
+    header.getChildEl('.header__score').textContent = board.getTotalScore();
   }
 }
 

@@ -27,11 +27,11 @@ export function createHeaderInfo() {
       { tag: 'div', classes: ['header__statistics'] },
       new Component(
         { tag: 'div', classes: ['header__score-container'], text: 'Score: ' },
-        new Component({ tag: 'span', classes: ['header__score'], text: '5' }),
+        new Component({ tag: 'span', classes: ['header__score'], text: '0' }),
       ),
       new Component(
         { tag: 'div', classes: ['header__timer-container'], text: 'Time: ' },
-        new Component({ tag: 'span', classes: ['header__timer'], text: '01:55' }),
+        new Component({ tag: 'span', classes: ['header__timer'], text: '00:00' }),
       ),
     ),
   );
