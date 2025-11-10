@@ -1,14 +1,6 @@
 import { Component } from './Component.js';
 import { GridItem, BoardGrid } from './BoardGrid.js';
-import { PairHandler } from './PairHandler.js';
-
-const initialData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19];
-const params = {
-  mode: 'classic',
-};
-
-const board = new PairHandler({ initialData, params });
-
+import { board } from './PairHandler.js';
 export function createGameBoard() {
   return new Component(
     { tag: 'main', classes: ['main'] },

@@ -1,7 +1,7 @@
 import { COLUMNS_MAX_COUNT } from './Data.js';
 import { PairTools } from './PairTools.js';
 
-export class PairHandler extends PairTools {
+class PairHandler extends PairTools {
   #previous;
   #score = 0;
   #points = { identicalPairs: 1, sum10: 2 };
@@ -69,7 +69,7 @@ export class PairHandler extends PairTools {
     if (this.getStatus().isValidPair) {
       this.#removePair();
     } else {
-      this.invalidPair(this.getStatus().checkName);
+      this.invalidPair(this.getStatus());
     }
     this.#unsetPair();
   }
@@ -101,3 +101,10 @@ export class PairHandler extends PairTools {
     }
   }
 }
+
+const initialData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+const params = {
+  mode: 'classic',
+};
+
+export const board = new PairHandler({ initialData, params });

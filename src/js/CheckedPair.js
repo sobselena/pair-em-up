@@ -52,16 +52,16 @@ export class CheckedPair extends Data {
     const { maxRowValue } = this.compareRowValues({ row1, row2 });
     for (let i = maxColumnValue + 1; i < COLUMNS_MAX_COUNT; i += 1) {
       if (this.matrix[maxRowValue][i] !== '') {
-        return (this.#status = { isValidPair: false, checkName: 'linebreak' });
+        return (this.#status = { isValidPair: false, checkName: 'linebreak checkRightLineBreak' });
       }
     }
   }
   #checkLeftLineBreak({ column1, column2, row1, row2 }) {
     const { minColumnValue } = this.compareColumnValues({ column1, column2 });
-    const { minRowValue } = this.compareRowValues({ row1, row2 });
+    const { maxRowValue } = this.compareRowValues({ row1, row2 });
     for (let i = 0; i < minColumnValue - 1; i += 1) {
-      if (this.matrix[minRowValue][i] !== '') {
-        return (this.#status = { isValidPair: false, checkName: 'linebreak' });
+      if (this.matrix[maxRowValue][i] !== '') {
+        return (this.#status = { isValidPair: false, checkName: 'linebreak checkLeftLineBreak' });
       }
     }
   }
@@ -70,7 +70,10 @@ export class CheckedPair extends Data {
     for (let i = minRowValue + 1; i < maxRowValue - 1; i += 1) {
       for (let j = 0; j < COLUMNS_MAX_COUNT; j += 1) {
         if (this.matrix[i][j] !== '') {
-          return (this.#status = { isValidPair: false, checkName: 'linebreak' });
+          return (this.#status = {
+            isValidPair: false,
+            checkName: 'linebreak checkBetweenLineBreak',
+          });
         }
       }
     }
