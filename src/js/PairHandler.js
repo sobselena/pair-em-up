@@ -2,8 +2,11 @@ import { COLUMNS_MAX_COUNT } from './Data.js';
 import { PairTools } from './PairTools.js';
 
 class PairHandler extends PairTools {
-  #previous;
+  #previousCoords;
+  #previousNums;
+  #previousCount = 1;
   #score = 0;
+  #previousScore = 0;
   #removedCount = 5;
   #points = { identicalPairs: 1, sum10: 2 };
   isHintOn = false;
@@ -48,11 +51,16 @@ class PairHandler extends PairTools {
       row2: this.row2,
     };
   }
-  setPrevious() {
-    this.#previous = this.#getPairCoords();
+  getPreviousCount() {
+    return this.#previousCount;
   }
-  getPrevious() {
-    return this.#previous;
+  setPrevious() {
+    this.#previousCount = 1;
+    this.#previousCoords = this.#getPairCoords();
+    this.#previousNums = this.getCurPairNums();
+  }
+  getPreviousCoords() {
+    return this.#previousCoords;
   }
   getCurPairNums() {
     const { num1, num2 } = this.getNums(this.#getPairCoords());
@@ -82,11 +90,21 @@ class PairHandler extends PairTools {
   }
 
   changeToPrevious() {
-    if (!this.#previous) return;
-    this.column1 = this.#previous.column1;
-    this.column2 = this.#previous.column2;
-    this.row1 = this.#previous.row1;
-    this.row2 = this.#previous.row2;
+    if (!this.#previousCoords || this.#previousCount === 0) return;
+    const { column1, row1, column2, row2 } = this.#previousCoords;
+    const { num1, num2 } = this.#previousNums;
+    this.flattenDigits[column1 + row1 * COLUMNS_MAX_COUNT] = num1;
+    this.flattenDigits[column2 + row2 * COLUMNS_MAX_COUNT] = num2;
+    this.#score = this.#previousScore;
+    this.#previousCount -= 1;
+    this.updateMatrix();
+  }
+
+  getPreviousScore() {
+    return this.#previousScore;
+  }
+  getPreviousNums() {
+    return this.#previousNums;
   }
 
   getTotalScore() {
@@ -95,6 +113,7 @@ class PairHandler extends PairTools {
 
   addScore() {
     const { num1, num2 } = this.getCurPairNums();
+    this.#previousScore = this.#score;
     if (num1 === num2) {
       this.#score += this.#points.identicalPairs;
     }
@@ -105,9 +124,7 @@ class PairHandler extends PairTools {
 
   eraser() {
     if (this.#removedCount === 0) return;
-    this.flattenDigits[this.row1 * COLUMNS_MAX_COUNT + this.column1] = '';
-    this.row1 = undefined;
-    this.column1 = undefined;
+    this.#previousCoords = this.flattenDigits[this.row1 * COLUMNS_MAX_COUNT + this.column1] = '';
     this.#removedCount -= 1;
     this.updateMatrix();
   }

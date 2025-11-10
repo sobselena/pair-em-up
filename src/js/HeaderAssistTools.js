@@ -2,7 +2,7 @@ import { Component } from './Component.js';
 import { Button } from './Button.js';
 import { board } from './PairHandler.js';
 import { showHints } from './ShowHints.js';
-import { gameBoard } from './GameBoard.js';
+import { gameBoard, updateStates } from './GameBoard.js';
 import { GridItem } from './BoardGrid.js';
 import { header } from './Header.js';
 
@@ -39,9 +39,33 @@ function erase() {
   header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
   const erasedEl = gameBoard.getChildEl(`.game-board__cell_active`);
   erasedEl.textContent = '';
+
   erasedEl.classList.remove('game-board__cell_active');
   showHints(board.isHintOn);
 }
+
+function revert() {
+  if (board.getPreviousCount() === 0) return;
+  board.changeToPrevious();
+  const previousCoords = board.getPreviousCoords();
+  const previousNums = board.getPreviousNums();
+
+  const { column1, row1, column2, row2 } = previousCoords;
+  const { num1, num2 } = previousNums;
+  console.log(column1, column2, row1, row2);
+  console.log(num1, num2);
+  gameBoard.getChildEl(
+    `.game-board__cell[data-row="${row1}"][data-column="${column1}"]`,
+  ).textContent = num1;
+  gameBoard.getChildEl(
+    `.game-board__cell[data-row="${row2}"][data-column="${column2}"]`,
+  ).textContent = num2;
+  updateStates();
+  header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
+  header.getChildEl('.header__score').textContent = board.getPreviousScore();
+  showHints(board.isHintOn);
+}
+
 export function createHeaderAssistTools() {
   return new Component(
     { tag: 'div', classes: ['header__assist-tools'] },
@@ -51,7 +75,12 @@ export function createHeaderAssistTools() {
       new Component({ tag: 'span', text: '5+', classes: ['header__hints-count'] }),
       new Component({ tag: 'span', text: ')' }),
     ),
-    new Button({ classes: ['button_revert'], text: 'Revert' }),
+    new Button(
+      { classes: ['button_revert'], onClick: revert },
+      new Component({ tag: 'span', text: 'Revert (' }),
+      new Component({ tag: 'span', text: '1', classes: ['header__revert-count'] }),
+      new Component({ tag: 'span', text: ')' }),
+    ),
     new Button(
       { classes: ['button_add-numbers'], onClick: addNumbers },
       new Component({ tag: 'span', text: 'Add Numbers (' }),

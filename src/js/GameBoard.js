@@ -63,6 +63,7 @@ function processEvents(isValid, activeEl) {
       activeEl.style.backgroundColor = '';
       activeEl.style.color = '';
       console.log(board.getValidPairs());
+      header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
       updateStates();
     } else {
       activeEl.classList.remove('game-board__cell_error');
@@ -71,7 +72,7 @@ function processEvents(isValid, activeEl) {
   }, 300);
 }
 
-function updateStates() {
+export function updateStates() {
   const validPairsCount = board.getValidPairs().length;
   showHints(board.isHintOn);
   header.getChildEl('.header__hints-count').textContent =
