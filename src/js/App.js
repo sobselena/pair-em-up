@@ -1,8 +1,8 @@
-import { GameBoard } from './GameBoard.js';
+import { createGameBoard } from './GameBoard.js';
 
 export class App {
   constructor() {
-    this.gameBoard = new GameBoard().gameBoard;
+    this.gameBoard = createGameBoard();
   }
 
   render(root = document.body) {
