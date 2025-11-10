@@ -51,6 +51,7 @@ export class Data {
     this.flattenDigits = this.flattenDigits.concat(newNums);
     this.#addedCount -= 1;
     this.updateMatrix();
+    return newNums;
   }
 
   getAddedCount() {

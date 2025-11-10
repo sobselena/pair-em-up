@@ -175,17 +175,17 @@ body {
   }
 }
 .game-board__cell:hover {
-  background-color: #ffd43b;
+  background-color: #ffd43b !important;
   color: #fff;
 }
 .game-board__cell_active {
-  background-color: #22b8cf;
+  background-color: #22b8cf !important;
 }
 .game-board__cell_error {
-  background-color: #ff6b6b;
+  background-color: #ff6b6b !important;
 }
 .game-board__cell_success {
-  background-color: #20c997;
+  background-color: #20c997 !important;
 }
 
 .button {

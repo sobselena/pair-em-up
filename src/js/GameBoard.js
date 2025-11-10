@@ -2,7 +2,7 @@ import { Component } from './Component.js';
 import { GridItem, BoardGrid } from './BoardGrid.js';
 import { board } from './PairHandler.js';
 import { header } from './Header.js';
-import { showHints } from './HeaderAssistTools.js';
+import { showHints } from './ShowHints.js';
 export const gameBoard = new Component(
   { tag: 'main', classes: ['main'] },
   new Component(
@@ -72,9 +72,7 @@ function processEvents(isValid, activeEl) {
 
 function updateStates() {
   const validPairsCount = board.getValidPairs().length;
-  if (board.isHintOn) {
-    showHints();
-  }
+  showHints(board.isHintOn);
   header.getChildEl('.header__hints-count').textContent =
     validPairsCount > 5 ? '5+' : validPairsCount;
 }
