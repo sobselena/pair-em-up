@@ -45,7 +45,7 @@ const resultsInfo = {
   Time: '07:10',
 };
 export const gameResults = new Component(
-  { tag: 'div', classes: ['game-results' /* 'open' */] },
+  { tag: 'div', classes: ['game-results' /*'open'*/] },
   new Component({ tag: 'h2', classes: ['header-secondary'], text: 'Game Outcomes:' }),
   createResultsInfo(),
   createResultsActions(),
@@ -91,7 +91,10 @@ function createResultsActions() {
     new Button(
       { classes: ['button_play-again'] },
       new Component({ tag: 'span', text: 'Play Again' }),
-      new Component({ tag: 'span', classes: ['img-container', 'img-container_replay'] }),
+      new Component({
+        tag: 'span',
+        classes: ['img-container', 'img-container_replay', 'white-theme'],
+      }),
     ),
   );
 }

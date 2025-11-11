@@ -251,8 +251,11 @@ body {
   background-size: cover;
 }
 .img-container_replay, .img-container.button_reset {
-  background: url(/src/assets/icons/replay-white.svg) no-repeat center center;
+  background: url(/src/assets/icons/reset.svg) no-repeat center center;
   background-size: cover;
+}
+.img-container_replay.white-theme {
+  background: url(/src/assets/icons/replay-white.svg) no-repeat center center;
 }
 .img-container.button_save {
   background: url(/src/assets/icons/save.svg) no-repeat center center;
