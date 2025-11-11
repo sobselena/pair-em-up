@@ -1,10 +1,11 @@
 export class App {
-  constructor({ header, gameBoard }) {
-    this.header = header;
-    this.gameBoard = gameBoard;
+  constructor({ header, gameBoard, startMenu }) {
+    this.header = header.getNode();
+    this.gameBoard = gameBoard.getNode();
+    this.startMenu = startMenu.getNode();
   }
 
   render(root = document.body) {
-    root.append(this.header.getNode(), this.gameBoard.getNode());
+    root.append(this.header, this.gameBoard, this.startMenu);
   }
 }
