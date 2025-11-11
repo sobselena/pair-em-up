@@ -95,7 +95,7 @@ const createThemeSelection = createOptionsLayout({
   optionsArr: themeSelection,
 });
 export const settings = new Component(
-  { tag: 'div', classes: ['settings', 'open'] },
+  { tag: 'div', classes: ['settings' /* 'open' */] },
   createTitleContainer(),
   createAudioControls,
   createThemeSelection,
