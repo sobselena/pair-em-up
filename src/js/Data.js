@@ -11,6 +11,7 @@ export class Data {
     const splitArr = this.#splitMultiDigits(initialData).flat();
     this.#mode = mode;
     this.flattenDigits = this.#applyMode(splitArr);
+    this.startingData = [...this.flattenDigits];
     this.updateMatrix();
   }
   updateMatrix() {

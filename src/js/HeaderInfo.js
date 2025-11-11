@@ -1,5 +1,26 @@
 import { Component } from './Component.js';
 import { ButtonIcon } from './Button.js';
+import { board } from './PairHandler.js';
+import { createGrid, gameBoard, updateStates } from './GameBoard.js';
+import { header } from './Header.js';
+function continuePrev() {}
+
+function reset() {
+  board.reset();
+  gameBoard.getChildEl('.game-board__grid').remove();
+  gameBoard.getChildEl('.game-board').append(createGrid().getNode());
+
+  header.getChildEl('.header__shuffle-count').textContent = board.getShuffleCount();
+  header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
+  header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
+  header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
+  header.getChildEl('.header__score').textContent = board.getTotalScore();
+  updateStates();
+}
+
+function save() {}
+
+function settings() {}
 export function createHeaderInfo() {
   return new Component(
     { tag: 'div', classes: ['header__info'] },
@@ -7,19 +28,19 @@ export function createHeaderInfo() {
       { tag: 'div', classes: ['header__control-buttons'] },
       new ButtonIcon({
         classes: ['button_continue'],
-        onClick: () => {},
+        onClick: continuePrev,
       }),
       new ButtonIcon({
         classes: ['button_reset'],
-        onClick: () => {},
+        onClick: reset,
       }),
       new ButtonIcon({
         classes: ['button_save'],
-        onClick: () => {},
+        onClick: save,
       }),
       new ButtonIcon({
         classes: ['button_settings'],
-        onClick: () => {},
+        onClick: settings,
       }),
     ),
     new Component({ tag: 'h1', classes: ['header-primary'], text: 'Pair `em up' }),

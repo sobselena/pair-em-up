@@ -1,4 +1,6 @@
 import { COLUMNS_MAX_COUNT } from './Data.js';
+import { updateStates } from './GameBoard.js';
+import { header } from './Header.js';
 import { PairTools } from './PairTools.js';
 
 class PairHandler extends PairTools {
@@ -88,7 +90,9 @@ class PairHandler extends PairTools {
     this.flattenDigits[this.row1 * COLUMNS_MAX_COUNT + this.column1] = '';
     this.flattenDigits[this.row2 * COLUMNS_MAX_COUNT + this.column2] = '';
   }
-
+  unsetScore() {
+    this.#score = 0;
+  }
   changeToPrevious() {
     if (this.getPreviousCount() === 0) return;
     this.setPreviousCount();
@@ -168,6 +172,16 @@ class PairHandler extends PairTools {
 
   getPreviousFlattenDigits() {
     return this.#previousFlattenDigits;
+  }
+  reset() {
+    this.#unsetPair();
+    this.unsetAddTo();
+    this.unsetBeforeShuffle();
+    this.unsetPreviousCount();
+    this.unsetStatus();
+    this.unsetScore();
+    this.flattenDigits = [...this.startingData];
+    this.updateMatrix();
   }
 }
 

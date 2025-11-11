@@ -7,19 +7,20 @@ export const gameBoard = new Component(
   { tag: 'main', classes: ['main'] },
   new Component(
     { tag: 'div', classes: ['wrapper'] },
-    new Component(
-      { tag: 'section', classes: ['game-board'] },
-      new BoardGrid({
-        classes: ['game-board__grid'],
-        gridItems: board.flattenDigits.map((num, index) => {
-          const { row, column } = board.translateFlatToMatrixCoords(index);
-          return new GridItem({ classes: ['game-board__cell'], row, column, text: num });
-        }),
-        onGridItemClicked: clickGridItem,
-      }),
-    ),
+    new Component({ tag: 'section', classes: ['game-board'] }, createGrid()),
   ),
 );
+
+export function createGrid() {
+  return new BoardGrid({
+    classes: ['game-board__grid'],
+    gridItems: board.flattenDigits.map((num, index) => {
+      const { row, column } = board.translateFlatToMatrixCoords(index);
+      return new GridItem({ classes: ['game-board__cell'], row, column, text: num });
+    }),
+    onGridItemClicked: clickGridItem,
+  });
+}
 
 function clickGridItem(event) {
   const el = event.target;
