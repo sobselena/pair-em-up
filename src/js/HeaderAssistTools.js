@@ -34,13 +34,14 @@ function shuffle() {
 }
 
 function erase() {
-  if (board.column2 || !board.column1 || board.getRemovedCount() === 0) return;
+  if (!gameBoard.getChildEl('.game-board__cell_active') || board.getRemovedCount() === 0) return;
   board.eraser();
   header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
   const erasedEl = gameBoard.getChildEl(`.game-board__cell_active`);
   erasedEl.textContent = '';
 
   erasedEl.classList.remove('game-board__cell_active');
+  header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   showHints(board.isHintOn);
 }
 
@@ -57,12 +58,15 @@ function revert() {
   gameBoard.getChildEl(
     `.game-board__cell[data-row="${row1}"][data-column="${column1}"]`,
   ).textContent = num1;
-  gameBoard.getChildEl(
-    `.game-board__cell[data-row="${row2}"][data-column="${column2}"]`,
-  ).textContent = num2;
+  if (column2 !== undefined && num2 !== undefined) {
+    gameBoard.getChildEl(
+      `.game-board__cell[data-row="${row2}"][data-column="${column2}"]`,
+    ).textContent = num2;
+  }
   updateStates();
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   header.getChildEl('.header__score').textContent = board.getPreviousScore();
+  header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
   showHints(board.isHintOn);
 }
 

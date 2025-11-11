@@ -135,7 +135,7 @@ export class CheckedPair extends Data {
 
   getNums({ column1, row1, column2, row2 }) {
     const num1 = Number(this.matrix[row1][column1]);
-    const num2 = Number(this.matrix[row2][column2]);
+    const num2 = column2 === undefined ? undefined : Number(this.matrix[row2][column2]);
 
     return { num1, num2 };
   }

@@ -20,4 +20,8 @@ export class GridItem extends Component {
     this.setAttribute('data-row', row);
     this.setAttribute('data-column', column);
   }
+
+  removeGridItem() {
+    super.delete();
+  }
 }

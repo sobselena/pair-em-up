@@ -39,4 +39,8 @@ export class Component {
   getChildrenEl(selector) {
     return this.#node.querySelectorAll(selector);
   }
+
+  delete() {
+    this.#node.remove();
+  }
 }

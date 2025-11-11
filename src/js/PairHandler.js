@@ -6,6 +6,7 @@ class PairHandler extends PairTools {
   #previousNums;
   #previousCount = 1;
   #score = 0;
+  #previousFlattenDigits;
   #previousScore = 0;
   #removedCount = 5;
   #points = { identicalPairs: 1, sum10: 2 };
@@ -90,14 +91,19 @@ class PairHandler extends PairTools {
   }
 
   changeToPrevious() {
-    if (!this.#previousCoords || this.#previousCount === 0) return;
+    if (this.#previousCount === 0) return;
     const { column1, row1, column2, row2 } = this.#previousCoords;
     const { num1, num2 } = this.#previousNums;
     this.flattenDigits[column1 + row1 * COLUMNS_MAX_COUNT] = num1;
-    this.flattenDigits[column2 + row2 * COLUMNS_MAX_COUNT] = num2;
+    if (column2 !== undefined && num2 !== undefined) {
+      this.flattenDigits[column2 + row2 * COLUMNS_MAX_COUNT] = num2;
+    } else {
+      this.#removedCount += 1;
+    }
     this.#score = this.#previousScore;
     this.#previousCount -= 1;
     this.updateMatrix();
+    this.#unsetPair();
   }
 
   getPreviousScore() {
@@ -124,12 +130,29 @@ class PairHandler extends PairTools {
 
   eraser() {
     if (this.#removedCount === 0) return;
-    this.#previousCoords = this.flattenDigits[this.row1 * COLUMNS_MAX_COUNT + this.column1] = '';
+    this.#previousCoords = {
+      column1: this.column1,
+      row1: this.row1,
+      column2: undefined,
+      row2: undefined,
+    };
+    this.#previousNums = {
+      num1: this.flattenDigits[this.row1 * COLUMNS_MAX_COUNT + this.column1],
+      num2: undefined,
+    };
+    this.#previousCount = 1;
+    this.flattenDigits[this.row1 * COLUMNS_MAX_COUNT + this.column1] = '';
     this.#removedCount -= 1;
+    this.column1 = undefined;
+    this.row1 = undefined;
     this.updateMatrix();
   }
   getRemovedCount() {
     return this.#removedCount;
+  }
+
+  getPreviousFlattenDigits() {
+    return this.#previousFlattenDigits;
   }
 }
 
