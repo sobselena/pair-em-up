@@ -4,7 +4,6 @@ import { PairTools } from './PairTools.js';
 class PairHandler extends PairTools {
   #previousCoords;
   #previousNums;
-  #previousCount = 1;
   #score = 0;
   #previousFlattenDigits;
   #previousScore = 0;
@@ -23,6 +22,7 @@ class PairHandler extends PairTools {
 
   #removePair() {
     this.setPrevious();
+    this.unsetBeforeShuffle();
     this.addScore();
     this.#removeValues();
     this.updateMatrix();
@@ -52,11 +52,9 @@ class PairHandler extends PairTools {
       row2: this.row2,
     };
   }
-  getPreviousCount() {
-    return this.#previousCount;
-  }
+
   setPrevious() {
-    this.#previousCount = 1;
+    this.unsetPreviousCount();
     this.#previousCoords = this.#getPairCoords();
     this.#previousNums = this.getCurPairNums();
   }
@@ -91,7 +89,16 @@ class PairHandler extends PairTools {
   }
 
   changeToPrevious() {
-    if (this.#previousCount === 0) return;
+    if (this.getPreviousCount() === 0) return;
+    this.setPreviousCount();
+    const beforeShuffle = this.getBeforeShuffle();
+    if (beforeShuffle) {
+      this.flattenDigits = beforeShuffle;
+      this.revertShuffleCount();
+      this.updateMatrix();
+      return;
+    }
+
     const { column1, row1, column2, row2 } = this.#previousCoords;
     const { num1, num2 } = this.#previousNums;
     this.flattenDigits[column1 + row1 * COLUMNS_MAX_COUNT] = num1;
@@ -101,7 +108,6 @@ class PairHandler extends PairTools {
       this.#removedCount += 1;
     }
     this.#score = this.#previousScore;
-    this.#previousCount -= 1;
     this.updateMatrix();
     this.#unsetPair();
   }
@@ -136,11 +142,12 @@ class PairHandler extends PairTools {
       column2: undefined,
       row2: undefined,
     };
+
     this.#previousNums = {
       num1: this.flattenDigits[this.row1 * COLUMNS_MAX_COUNT + this.column1],
       num2: undefined,
     };
-    this.#previousCount = 1;
+    this.unsetPreviousCount();
     this.flattenDigits[this.row1 * COLUMNS_MAX_COUNT + this.column1] = '';
     this.#removedCount -= 1;
     this.column1 = undefined;

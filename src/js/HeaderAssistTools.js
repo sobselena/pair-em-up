@@ -30,6 +30,7 @@ function shuffle() {
     child.textContent = board.flattenDigits[index];
   });
   header.getChildEl('.header__shuffle-count').textContent = board.getShuffleCount();
+  header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   showHints(board.isHintOn);
 }
 
@@ -48,20 +49,27 @@ function erase() {
 function revert() {
   if (board.getPreviousCount() === 0) return;
   board.changeToPrevious();
-  const previousCoords = board.getPreviousCoords();
-  const previousNums = board.getPreviousNums();
+  if (board.getBeforeShuffle()) {
+    gameBoard.getChildrenEl('.game-board__cell').forEach((child, index) => {
+      child.textContent = board.flattenDigits[index];
+    });
+    header.getChildEl('.header__shuffle-count').textContent = board.getShuffleCount();
+  } else {
+    const previousCoords = board.getPreviousCoords();
+    const previousNums = board.getPreviousNums();
 
-  const { column1, row1, column2, row2 } = previousCoords;
-  const { num1, num2 } = previousNums;
-  console.log(column1, column2, row1, row2);
-  console.log(num1, num2);
-  gameBoard.getChildEl(
-    `.game-board__cell[data-row="${row1}"][data-column="${column1}"]`,
-  ).textContent = num1;
-  if (column2 !== undefined && num2 !== undefined) {
+    const { column1, row1, column2, row2 } = previousCoords;
+    const { num1, num2 } = previousNums;
+    console.log(column1, column2, row1, row2);
+    console.log(num1, num2);
     gameBoard.getChildEl(
-      `.game-board__cell[data-row="${row2}"][data-column="${column2}"]`,
-    ).textContent = num2;
+      `.game-board__cell[data-row="${row1}"][data-column="${column1}"]`,
+    ).textContent = num1;
+    if (column2 !== undefined && num2 !== undefined) {
+      gameBoard.getChildEl(
+        `.game-board__cell[data-row="${row2}"][data-column="${column2}"]`,
+      ).textContent = num2;
+    }
   }
   updateStates();
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
