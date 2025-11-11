@@ -29,7 +29,7 @@ const tdStatus = function (text) {
     }),
   );
 };
-
+export const overlay = new Component({ tag: 'div', classes: ['overlay' /*'open' */] });
 export const startMenu = new Component(
   { tag: 'div', classes: ['start-menu' /* 'open' */] },
   new ButtonIcon({ classes: ['button_settings'] }),
