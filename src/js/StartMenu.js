@@ -31,7 +31,7 @@ const tdStatus = function (text) {
 };
 
 export const startMenu = new Component(
-  { tag: 'div', classes: ['start-menu', 'open'] },
+  { tag: 'div', classes: ['start-menu' /* 'open' */] },
   new ButtonIcon({ classes: ['button_settings'] }),
   createTitleContainer(),
   createActionsLayout(),

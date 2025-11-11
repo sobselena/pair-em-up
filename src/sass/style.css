@@ -543,7 +543,7 @@ body {
   justify-content: space-between;
 }
 
-.settings__audio-option {
+.settings__option {
   font-size: 2.1rem;
   display: flex;
   align-items: center;
@@ -553,21 +553,21 @@ body {
   padding: 0.4rem 0;
 }
 @media (max-width: 970px) {
-  .settings__audio-option {
+  .settings__option {
     font-size: clamp(1.1rem, (100vw - 0px) / 970px * 1rem + 1.1rem, 2.1rem);
   }
 }
 @media (max-width: 460px) {
-  .settings__audio-option span {
+  .settings__option span {
     display: none;
   }
 }
 
-.settings__audio-controls .settings__audio-option:last-child {
+.settings__audio-controls .settings__option:last-child {
   border-bottom: none;
 }
 
-.settings__theme-selection .settings__audio-option:last-child {
+.settings__theme-selection .settings__option:last-child {
   border-bottom: none;
 }
 
