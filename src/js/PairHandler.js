@@ -23,6 +23,7 @@ class PairHandler extends PairTools {
   #removePair() {
     this.setPrevious();
     this.unsetBeforeShuffle();
+    this.unsetAddTo();
     this.addScore();
     this.#removeValues();
     this.updateMatrix();
@@ -92,6 +93,13 @@ class PairHandler extends PairTools {
     if (this.getPreviousCount() === 0) return;
     this.setPreviousCount();
     const beforeShuffle = this.getBeforeShuffle();
+    const addTo = this.getAddTo();
+    if (addTo) {
+      this.revertAddTo();
+      this.updateMatrix();
+      return;
+    }
+
     if (beforeShuffle) {
       this.flattenDigits = beforeShuffle;
       this.revertShuffleCount();

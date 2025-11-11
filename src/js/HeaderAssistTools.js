@@ -10,7 +10,7 @@ function addNumbers() {
   const newNumsArr = board.addNewNums();
   console.log(newNumsArr);
   if (!newNumsArr) return;
-  header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
+
   gameBoard.getChildEl('.game-board__grid').append(
     ...newNumsArr.map((num, index) => {
       const { row, column } = board.translateFlatToMatrixCoords(
@@ -19,6 +19,8 @@ function addNumbers() {
       return new GridItem({ classes: ['game-board__cell'], row, column, text: num }).getNode();
     }),
   );
+  header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
+  header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   showHints(board.showHints);
 }
 
@@ -49,7 +51,17 @@ function erase() {
 function revert() {
   if (board.getPreviousCount() === 0) return;
   board.changeToPrevious();
-  if (board.getBeforeShuffle()) {
+  const addTo = board.getAddTo();
+  if (addTo) {
+    for (let i = addTo; i < board.flattenDigits.length; i += 1) {
+      const { row, column } = board.translateFlatToMatrixCoords(i);
+      gameBoard
+        .getChildEl(`.game-board__cell[data-row="${row}"][data-column="${column}"]`)
+        .remove();
+    }
+    board.flattenDigits = board.flattenDigits.slice(0, addTo);
+    header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
+  } else if (board.getBeforeShuffle()) {
     gameBoard.getChildrenEl('.game-board__cell').forEach((child, index) => {
       child.textContent = board.flattenDigits[index];
     });

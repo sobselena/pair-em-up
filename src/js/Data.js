@@ -5,6 +5,7 @@ export class Data {
   #previousCount = 1;
   #mode;
   #beforeShuffle;
+  #addTo;
   constructor({ initialData = [], params }) {
     const { mode } = params;
     const splitArr = this.#splitMultiDigits(initialData).flat();
@@ -40,10 +41,20 @@ export class Data {
     }
     return chaoticArr;
   }
-
+  getAddTo() {
+    return this.#addTo;
+  }
+  unsetAddTo() {
+    this.#addTo = undefined;
+  }
+  revertAddTo() {
+    this.#addedCount += 1;
+  }
   addNewNums() {
     if (this.#addedCount <= 0) return;
     const remainingNums = this.flattenDigits.filter((num) => num !== '');
+    this.#previousCount = 1;
+    this.#addTo = this.flattenDigits.length;
     let newNums = remainingNums;
     if (this.#mode === 'random') {
       newNums = this.shuffle(remainingNums);
