@@ -1,6 +1,8 @@
 import { Button, ButtonIcon } from './Button.js';
 import { Component } from './Component.js';
+import { continuePrev, reset } from './HeaderInfo.js';
 import { Link } from './Link.js';
+import { board, setMode } from './OverallData.js';
 import { Table, Tr } from './Table.js';
 
 const statistics = ['№', 'Mode', 'Score', 'Moves', 'Status', 'Time'];
@@ -29,9 +31,9 @@ const tdStatus = function (text) {
     }),
   );
 };
-export const overlay = new Component({ tag: 'div', classes: ['overlay' /*'open' */] });
+export const overlay = new Component({ tag: 'div', classes: ['overlay', 'open'] });
 export const startMenu = new Component(
-  { tag: 'div', classes: ['start-menu' /* 'open' */] },
+  { tag: 'div', classes: ['start-menu', 'open'] },
   new ButtonIcon({ classes: ['button_settings'] }),
   createTitleContainer(),
   createActionsLayout(),
@@ -53,16 +55,47 @@ function createTitleContainer() {
   );
 }
 
+function chooseMode(event, modesContainer) {
+  const el = event.target;
+  if (!el.classList.contains('button_mode')) return;
+  modesContainer.getAllChildren().forEach((child) => {
+    child.getNode().classList.remove('active');
+  });
+  board.changeMode(el.textContent.toLowerCase());
+
+  el.classList.add('active');
+}
+
+function startNewGame() {
+  startMenu.getNode().classList.remove('open');
+  overlay.getNode().classList.remove('open');
+  reset();
+}
+
+function createModesContainer() {
+  const modesContainer = new Component(
+    { tag: 'div', classes: ['start-menu__modes-container'] },
+    new Button({ classes: ['button_mode', 'active'], text: 'Classic' }),
+    new Button({ classes: ['button_mode'], text: 'Random' }),
+    new Button({ classes: ['button_mode'], text: 'Chaotic' }),
+  );
+
+  modesContainer.addListener('click', (event) => chooseMode.call(null, event, modesContainer));
+  return modesContainer;
+}
 function createActionsLayout() {
   return new Component(
     { tag: 'div', classes: ['start-menu__actions'] },
+    createModesContainer(),
     new Component(
-      { tag: 'div', classes: ['start-menu__modes-container'] },
-      new Button({ classes: ['button_classic-mode'], text: 'Classic' }),
-      new Button({ classes: ['button_random-mode'], text: 'Random' }),
-      new Button({ classes: ['button_chaotic-mode'], text: 'Random' }),
+      { tag: 'div', classes: ['start-menu__action-container'] },
+      new Button({ classes: ['button_continue'], text: 'Start New Game', onClick: startNewGame }),
+      new Button({
+        classes: ['button_continue'],
+        text: 'Continue Previous',
+        onClick: continuePrev,
+      }),
     ),
-    new Button({ classes: ['button_continue'], text: 'Continue Previous' }),
   );
 }
 

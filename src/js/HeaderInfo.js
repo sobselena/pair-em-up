@@ -1,11 +1,12 @@
 import { Component } from './Component.js';
 import { ButtonIcon } from './Button.js';
-import { board } from './PairHandler.js';
+import { board } from './OverallData.js';
 import { createGrid, gameBoard, updateHints } from './GameBoard.js';
 import { header } from './Header.js';
-function continuePrev() {}
 
-function reset() {
+export function continuePrev() {}
+
+export function reset() {
   board.reset();
   gameBoard.getChildEl('.game-board__grid').remove();
   gameBoard.getChildEl('.game-board').append(createGrid().getNode());

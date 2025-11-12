@@ -55,3 +55,8 @@
 .button_play-again {
   @extend %button-with-img;
 }
+
+.button_mode.active {
+  background-color: #222 !important;
+  color: #fff !important;
+}

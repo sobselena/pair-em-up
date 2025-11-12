@@ -2,8 +2,8 @@ import { COLUMNS_MAX_COUNT, Data } from './Data.js';
 
 export class CheckedPair extends Data {
   #status = undefined;
-  constructor({ initialData, params }) {
-    super({ initialData: initialData, params });
+  constructor({ initialData, mode }) {
+    super({ initialData, mode });
   }
   getStatus() {
     return this.#status;

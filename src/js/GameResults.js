@@ -40,6 +40,7 @@ import { Component } from './Component.js';
 
 const resultsInfo = {
   status: 'Win',
+  Mode: 'Random',
   Score: 101,
   Moves: 56,
   Time: '07:10',

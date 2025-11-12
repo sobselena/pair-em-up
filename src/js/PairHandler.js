@@ -1,32 +1,36 @@
-import { COLUMNS_MAX_COUNT } from './Data.js';
+import { COLUMNS_MAX_COUNT, DEFAULT_COUNTS } from './Data.js';
+import { board } from './OverallData.js';
 import { PairTools } from './PairTools.js';
 
-class PairHandler extends PairTools {
+export class PairHandler extends PairTools {
   #previousCoords;
   #previousNums;
   #score = 0;
   #previousFlattenDigits;
   #previousScore = 0;
-  #removedCount = 5;
+  #removedCount = DEFAULT_COUNTS.REMOVED_COUNT;
   #points = { identicalPairs: 1, sum10: 2 };
   isHintOn = false;
-  constructor({ initialData, params }) {
-    super({ initialData, params });
+  constructor({ initialData, mode }) {
+    super({ initialData, mode });
 
     this.column1 = undefined;
     this.row1 = undefined;
 
     this.column2 = undefined;
     this.row2 = undefined;
+    this.unsetPreviousCoordsNums();
   }
 
   #removePair() {
     this.setPrevious();
     this.unsetBeforeShuffle();
     this.unsetAddTo();
+    this.unsetPreviousCount();
     this.addScore();
     this.#removeValues();
     this.updateMatrix();
+    console.log(this.getPreviousCount());
   }
   setPair({ column, row }) {
     if (this.column1 === undefined) {
@@ -55,9 +59,9 @@ class PairHandler extends PairTools {
   }
 
   setPrevious() {
-    this.unsetPreviousCount();
     this.#previousCoords = this.#getPairCoords();
     this.#previousNums = this.getCurPairNums();
+    this.unsetPreviousCount();
   }
   getPreviousCoords() {
     return this.#previousCoords;
@@ -92,32 +96,41 @@ class PairHandler extends PairTools {
     this.#score = 0;
   }
   changeToPrevious() {
+    console.log(board);
     if (this.getPreviousCount() === 0) return;
-    this.setPreviousCount();
+
     const beforeShuffle = this.getBeforeShuffle();
     const addTo = this.getAddTo();
     if (addTo) {
+      this.setPreviousCount();
       this.revertAddTo();
       this.updateMatrix();
+      this.unsetAddTo();
       return;
     }
 
     if (beforeShuffle) {
       this.flattenDigits = beforeShuffle;
+      this.setPreviousCount();
       this.revertShuffleCount();
+      this.unsetBeforeShuffle();
       this.updateMatrix();
       return;
     }
 
     const { column1, row1, column2, row2 } = this.#previousCoords;
     const { num1, num2 } = this.#previousNums;
+    if (column1 === undefined && num1 === undefined) return;
+    this.setPreviousCount();
     this.flattenDigits[column1 + row1 * COLUMNS_MAX_COUNT] = num1;
     if (column2 !== undefined && num2 !== undefined) {
       this.flattenDigits[column2 + row2 * COLUMNS_MAX_COUNT] = num2;
     } else {
       this.#removedCount += 1;
     }
+
     this.#score = this.#previousScore;
+    this.unsetPreviousCoordsNums();
     this.updateMatrix();
     this.#unsetPair();
   }
@@ -171,21 +184,33 @@ class PairHandler extends PairTools {
   getPreviousFlattenDigits() {
     return this.#previousFlattenDigits;
   }
+  unsetPreviousCoordsNums() {
+    this.#previousCoords = {
+      column1: undefined,
+      row1: undefined,
+      column2: undefined,
+      row2: undefined,
+    };
+    this.#previousNums = {
+      num1: undefined,
+      num2: undefined,
+    };
+  }
   reset() {
     this.#unsetPair();
     this.unsetAddTo();
     this.unsetBeforeShuffle();
-    this.unsetPreviousCount();
+    this.setPreviousCount();
     this.unsetStatus();
     this.unsetScore();
-    this.flattenDigits = [...this.startingData];
+    this.unsetPreviousCoordsNums();
+
+    this.setToDefaultNewNums();
+    this.setToDefaultShuffles();
+
+    this.#removedCount = DEFAULT_COUNTS.REMOVED_COUNT;
+    this.flattenDigits = this.applyMode(this.startingData);
+
     this.updateMatrix();
   }
 }
-
-const initialData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19];
-const params = {
-  mode: 'classic',
-};
-
-export const board = new PairHandler({ initialData, params });

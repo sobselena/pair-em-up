@@ -1,6 +1,6 @@
 import { Component } from './Component.js';
 import { Button } from './Button.js';
-import { board } from './PairHandler.js';
+import { board } from './OverallData.js';
 import { showHints } from './ShowHints.js';
 import { gameBoard, updateHints } from './GameBoard.js';
 import { GridItem } from './BoardGrid.js';
@@ -75,6 +75,7 @@ function revert() {
     const { num1, num2 } = previousNums;
     console.log(column1, column2, row1, row2);
     console.log(num1, num2);
+    if (column1 === undefined && num1 === undefined) return;
     gameBoard.getChildEl(
       `.game-board__cell[data-row="${row1}"][data-column="${column1}"]`,
     ).textContent = num1;
@@ -103,7 +104,7 @@ export function createHeaderAssistTools() {
     new Button(
       { classes: ['button_revert'], onClick: revert },
       new Component({ tag: 'span', text: 'Revert (' }),
-      new Component({ tag: 'span', text: '1', classes: ['header__revert-count'] }),
+      new Component({ tag: 'span', text: '0', classes: ['header__revert-count'] }),
       new Component({ tag: 'span', text: ')' }),
     ),
     new Button(

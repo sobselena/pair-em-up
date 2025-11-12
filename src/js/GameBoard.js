@@ -1,6 +1,6 @@
 import { Component } from './Component.js';
 import { GridItem, BoardGrid } from './BoardGrid.js';
-import { board } from './PairHandler.js';
+import { board } from './OverallData.js';
 import { header } from './Header.js';
 import { showHints } from './ShowHints.js';
 export const gameBoard = new Component(
@@ -24,7 +24,6 @@ export function createGrid() {
 
 function clickGridItem(event) {
   const el = event.target;
-  console.log(board);
   if (el.classList.contains('game-board__cell_active')) {
     board.column1 = undefined;
     board.row1 = undefined;
@@ -63,7 +62,6 @@ function processEvents(isValid, activeEl) {
       activeEl.classList.remove('game-board__cell_success');
       activeEl.style.backgroundColor = '';
       activeEl.style.color = '';
-      console.log(board.getValidPairs());
       header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
       updateHints();
     } else {

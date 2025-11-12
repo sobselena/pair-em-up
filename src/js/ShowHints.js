@@ -1,5 +1,5 @@
 import { gameBoard } from './GameBoard.js';
-import { board } from './PairHandler.js';
+import { board } from './OverallData.js';
 
 function getRandomColor() {
   return Array(3)
@@ -34,7 +34,6 @@ export function showHints(on = board.isHintOn) {
 
   validPairs.forEach((pairNums) => {
     const { column1, column2, row1, row2 } = pairNums;
-    console.log(pairNums);
     const colorArr = getRandomColor();
     const randomBackgroundColor = `rgb(${colorArr[0]}, ${colorArr[1]}, ${colorArr[2]})`;
     const changeColor = colorArr[0] < 125 && colorArr[1] < 125 && colorArr[2] < 125;

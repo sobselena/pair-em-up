@@ -1,0 +1,8 @@
+import { PairHandler } from './PairHandler.js';
+
+const initialData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+export let mode = 'classic';
+export function setMode(setCurModeTo) {
+  mode = setCurModeTo;
+}
+export const board = new PairHandler({ initialData, mode });

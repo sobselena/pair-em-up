@@ -1,19 +1,23 @@
+export const DEFAULT_COUNTS = {
+  ADDED_COUNT: 10,
+  SHUFFLE_COUNT: 5,
+  REMOVED_COUNT: 5,
+};
 export const COLUMNS_MAX_COUNT = 9;
 export class Data {
-  #addedCount = 10;
-  #shuffleCount = 5;
-  #previousCount = 1;
+  #addedCount = DEFAULT_COUNTS.ADDED_COUNT;
+  #shuffleCount = DEFAULT_COUNTS.SHUFFLE_COUNT;
+  #previousCount = 0;
   #mode;
   #beforeShuffle;
   #addTo;
-  constructor({ initialData = [], params }) {
-    const { mode } = params;
-    const splitArr = this.#splitMultiDigits(initialData).flat();
+  constructor({ initialData, mode }) {
     this.#mode = mode;
-    this.flattenDigits = this.#applyMode(splitArr);
-    this.startingData = [...this.flattenDigits];
+    this.startingData = this.#splitMultiDigits(initialData).flat();
+    this.flattenDigits = this.applyMode(this.startingData);
     this.updateMatrix();
   }
+
   updateMatrix() {
     this.matrix = this.#generateMatrix(this.flattenDigits);
   }
@@ -24,14 +28,15 @@ export class Data {
     });
   }
 
-  #applyMode(splitArr) {
+  applyMode(splitArr) {
+    const copyArr = [...splitArr];
     if (this.#mode === 'random') {
-      return this.shuffle(splitArr);
+      return this.shuffleFlattenDigits(copyArr);
     }
     if (this.#mode === 'chaotic') {
-      return this.#chaoticMode(splitArr);
+      return this.#chaoticMode(copyArr);
     }
-    return splitArr;
+    return copyArr;
   }
 
   #chaoticMode(splitArr) {
@@ -50,6 +55,12 @@ export class Data {
   }
   revertAddTo() {
     this.#addedCount += 1;
+  }
+  setToDefaultNewNums() {
+    this.#addedCount = DEFAULT_COUNTS.ADDED_COUNT;
+  }
+  setToDefaultShuffles() {
+    this.#shuffleCount = DEFAULT_COUNTS.SHUFFLE_COUNT;
   }
   addNewNums() {
     if (this.#addedCount <= 0) return;
@@ -71,7 +82,9 @@ export class Data {
   getAddedCount() {
     return this.#addedCount;
   }
-
+  setToDefault() {
+    this.#addedCount = 10;
+  }
   getBeforeShuffle() {
     return this.#beforeShuffle;
   }
@@ -87,11 +100,9 @@ export class Data {
   setPreviousCount() {
     this.#previousCount = 0;
   }
-  shuffle(splitArr) {
-    if (this.#shuffleCount <= 0) return;
-    this.#previousCount = 1;
-    const copyArr = [...splitArr];
-    this.#beforeShuffle = splitArr;
+
+  shuffleFlattenDigits(arr) {
+    const copyArr = [...arr];
     const copyFlatArr = copyArr.filter((cellValue) => cellValue !== '');
     for (let i = copyFlatArr.length - 1; i >= 0; i -= 1) {
       const randomPosition = Math.floor(Math.random() * (i + 1));
@@ -108,8 +119,18 @@ export class Data {
     }
 
     this.flattenDigits = copyArr;
-    this.#shuffleCount -= 1;
     this.updateMatrix();
+
+    return copyArr;
+  }
+
+  shuffle(splitArr) {
+    if (this.#shuffleCount <= 0) return [...splitArr];
+    this.#previousCount = 1;
+    this.#beforeShuffle = [...splitArr];
+    const copyArr = this.shuffleFlattenDigits(splitArr);
+    this.#shuffleCount -= 1;
+    return copyArr;
   }
 
   getShuffleCount() {
@@ -136,5 +157,8 @@ export class Data {
     const row = Math.floor(index / COLUMNS_MAX_COUNT);
     const column = index % COLUMNS_MAX_COUNT;
     return { row, column };
+  }
+  changeMode(mode) {
+    this.#mode = mode;
   }
 }

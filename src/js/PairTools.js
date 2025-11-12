@@ -4,8 +4,8 @@ import { CheckedPair } from './CheckedPair.js';
 export class PairTools extends CheckedPair {
   #validPairs = [];
 
-  constructor({ initialData, params }) {
-    super({ initialData, params });
+  constructor({ initialData, mode }) {
+    super({ initialData, mode });
   }
 
   findColumnValue({ row, column }) {

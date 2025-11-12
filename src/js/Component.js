@@ -39,8 +39,16 @@ export class Component {
   getChildrenEl(selector) {
     return this.#node.querySelectorAll(selector);
   }
-
-  delete() {
+  removeEvent(event, callback) {
+    this.#node.removeEventListener(event, callback);
+  }
+  destroyChildren() {
+    this.#children.forEach((child) => {
+      child.destroy();
+    });
+  }
+  destroy() {
+    this.destroyChildren();
     this.#node.remove();
   }
 }

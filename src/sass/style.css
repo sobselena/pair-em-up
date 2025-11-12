@@ -236,6 +236,11 @@ body {
   background-color: rgb(46.75, 46.75, 46.75);
 }
 
+.button_mode.active {
+  background-color: #222 !important;
+  color: #fff !important;
+}
+
 .img-container {
   height: 3rem;
   width: 3rem;
@@ -538,6 +543,12 @@ body {
   .start-menu__table td {
     font-size: clamp(1rem, (100vw - 0px) / 970px * 1rem + 1rem, 2rem);
   }
+}
+
+.start-menu__action-container {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
 }
 
 .settings__title-container {
