@@ -76,6 +76,7 @@ export class Data {
     this.flattenDigits = this.flattenDigits.concat(newNums);
     this.#addedCount -= 1;
     this.updateMatrix();
+    this.unsetBeforeShuffle();
     return newNums;
   }
 
@@ -129,6 +130,7 @@ export class Data {
     this.#previousCount = 1;
     this.#beforeShuffle = [...splitArr];
     const copyArr = this.shuffleFlattenDigits(splitArr);
+    this.unsetAddTo();
     this.#shuffleCount -= 1;
     return copyArr;
   }

@@ -104,7 +104,6 @@ export class PairHandler extends PairTools {
     if (addTo) {
       this.setPreviousCount();
       this.revertAddTo();
-      this.updateMatrix();
       return;
     }
 

@@ -1,9 +1,10 @@
 import { Component } from './Component.js';
 import { ButtonIcon } from './Button.js';
 import { board } from './OverallData.js';
-import { createGrid, gameBoard, updateHints } from './GameBoard.js';
+import { createGrid, gameBoard } from './GameBoard.js';
 import { header } from './Header.js';
 import { openSettings } from './Settings.js';
+import { showHints } from './ShowHints.js';
 
 export function continuePrev() {}
 
@@ -17,7 +18,7 @@ export function reset() {
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
   header.getChildEl('.header__score').textContent = board.getTotalScore();
-  updateHints(board.isHintOn);
+  showHints(board.isHintOn);
 }
 
 function save() {}

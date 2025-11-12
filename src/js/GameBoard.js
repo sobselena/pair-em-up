@@ -25,8 +25,10 @@ export function createGrid() {
 function clickGridItem(event) {
   const el = event.target;
   if (el.classList.contains('game-board__cell_active')) {
-    board.column1 = undefined;
-    board.row1 = undefined;
+    if (el.dataset.row === board.row1 && el.dataset.column === board.column1) {
+      board.column1 = undefined;
+      board.row1 = undefined;
+    }
     el.classList.remove('game-board__cell_active');
   } else if (el.classList.contains('game-board__cell') && el.textContent !== '') {
     el.classList.add('game-board__cell_active');
@@ -63,18 +65,10 @@ function processEvents(isValid, activeEl) {
       activeEl.style.backgroundColor = '';
       activeEl.style.color = '';
       header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
-      updateHints();
+      showHints();
     } else {
       activeEl.classList.remove('game-board__cell_error');
     }
     activeEl.classList.remove('game-board__cell_active');
   }, 300);
-}
-
-export function updateHints(on = board.isHintOn) {
-  const validPairsCount = board.getValidPairs().length;
-  showHints(board.isHintOn);
-  header.getChildEl('.header__hints-count').textContent =
-    validPairsCount > 5 ? '5+' : validPairsCount;
-  showHints(on);
 }

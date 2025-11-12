@@ -2,7 +2,7 @@ import { Component } from './Component.js';
 import { Button } from './Button.js';
 import { board } from './OverallData.js';
 import { showHints } from './ShowHints.js';
-import { gameBoard, updateHints } from './GameBoard.js';
+import { gameBoard } from './GameBoard.js';
 import { GridItem } from './BoardGrid.js';
 import { header } from './Header.js';
 
@@ -22,7 +22,7 @@ function addNumbers() {
   header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
 
-  updateHints(board.showHints);
+  showHints(board.showHints);
 }
 
 function shuffle() {
@@ -34,7 +34,7 @@ function shuffle() {
   });
   header.getChildEl('.header__shuffle-count').textContent = board.getShuffleCount();
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
-  updateHints(board.isHintOn);
+  showHints(board.isHintOn);
 }
 
 function erase() {
@@ -46,7 +46,7 @@ function erase() {
 
   erasedEl.classList.remove('game-board__cell_active');
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
-  updateHints(board.isHintOn);
+  showHints(board.isHintOn);
 }
 
 function revert() {
@@ -63,6 +63,7 @@ function revert() {
     board.flattenDigits = board.flattenDigits.slice(0, addTo);
     header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
     board.unsetAddTo();
+    board.updateMatrix();
   } else if (board.getBeforeShuffle()) {
     gameBoard.getChildrenEl('.game-board__cell').forEach((child, index) => {
       child.textContent = board.flattenDigits[index];
@@ -92,14 +93,20 @@ function revert() {
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   header.getChildEl('.header__score').textContent = board.getPreviousScore();
   header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
-  updateHints(board.isHintOn);
+  showHints(board.isHintOn);
 }
 
 export function createHeaderAssistTools() {
   return new Component(
     { tag: 'div', classes: ['header__assist-tools'] },
     new Button(
-      { classes: ['button_hints'], onClick: () => showHints(!board.isHintOn) },
+      {
+        classes: ['button_hints'],
+        onClick: () => {
+          board.isHintOn = !board.isHintOn;
+          showHints(board.isHintOn);
+        },
+      },
       new Component({ tag: 'span', text: 'Hints (' }),
       new Component({ tag: 'span', text: '5+', classes: ['header__hints-count'] }),
       new Component({ tag: 'span', text: ')' }),

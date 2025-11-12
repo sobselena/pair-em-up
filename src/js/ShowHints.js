@@ -1,6 +1,6 @@
 import { gameBoard } from './GameBoard.js';
 import { board } from './OverallData.js';
-
+import { header } from './Header.js';
 function getRandomColor() {
   return Array(3)
     .fill(0)
@@ -24,14 +24,17 @@ function addHintColors({ row, column, randomBackgroundColor, changeColor }) {
 
 export function showHints(on = board.isHintOn) {
   board.isHintOn = on;
-  if (!board.isHintOn) return;
+  console.log(board);
+
   const validPairs = board.getValidPairs();
 
   gameBoard.getChildrenEl('.game-board__cell_hint').forEach((hintEl) => {
     hintEl.style.backgroundColor = '';
     hintEl.style.color = '';
   });
-
+  header.getChildEl('.header__hints-count').textContent =
+    validPairs.length > 5 ? '5+' : validPairs.length;
+  if (!board.isHintOn) return;
   validPairs.forEach((pairNums) => {
     const { column1, column2, row1, row2 } = pairNums;
     const colorArr = getRandomColor();
