@@ -3,6 +3,7 @@ import { ButtonIcon } from './Button.js';
 import { board } from './OverallData.js';
 import { createGrid, gameBoard, updateHints } from './GameBoard.js';
 import { header } from './Header.js';
+import { openSettings } from './Settings.js';
 
 export function continuePrev() {}
 
@@ -21,7 +22,6 @@ export function reset() {
 
 function save() {}
 
-function settings() {}
 export function createHeaderInfo() {
   return new Component(
     { tag: 'div', classes: ['header__info'] },
@@ -41,7 +41,7 @@ export function createHeaderInfo() {
       }),
       new ButtonIcon({
         classes: ['button_settings'],
-        onClick: settings,
+        onClick: openSettings,
       }),
     ),
     new Component({ tag: 'h1', classes: ['header-primary'], text: 'Pair `em up' }),

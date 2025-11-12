@@ -2,9 +2,9 @@ import { Button, ButtonIcon } from './Button.js';
 import { Component } from './Component.js';
 import { continuePrev, reset } from './HeaderInfo.js';
 import { Link } from './Link.js';
-import { board, setMode } from './OverallData.js';
+import { board } from './OverallData.js';
 import { Table, Tr } from './Table.js';
-
+import { openSettings } from './Settings.js';
 const statistics = ['№', 'Mode', 'Score', 'Moves', 'Status', 'Time'];
 
 const results = [
@@ -32,9 +32,10 @@ const tdStatus = function (text) {
   );
 };
 export const overlay = new Component({ tag: 'div', classes: ['overlay', 'open'] });
+
 export const startMenu = new Component(
   { tag: 'div', classes: ['start-menu', 'open'] },
-  new ButtonIcon({ classes: ['button_settings'] }),
+  new ButtonIcon({ classes: ['button_settings'], onClick: openSettings }),
   createTitleContainer(),
   createActionsLayout(),
   Results(),

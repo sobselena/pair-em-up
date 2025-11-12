@@ -65,6 +65,7 @@
 
 import { Component } from './Component.js';
 import { Button, ButtonIcon } from './Button.js';
+import { overlay, startMenu } from './StartMenu.js';
 
 const audioOptions = [
   'Cell Selection',
@@ -100,12 +101,22 @@ export const settings = new Component(
   createAudioControls,
   createThemeSelection,
 );
+export function openSettings() {
+  overlay.getNode().classList.add('open');
+  settings.getNode().classList.add('open');
+}
 
+function closeSettings() {
+  settings.getNode().classList.remove('open');
+  if (!startMenu.getNode().classList.contains('open')) {
+    overlay.getNode().classList.remove('open');
+  }
+}
 function createTitleContainer() {
   return new Component(
     { tag: 'div', classes: ['settings__title-container'] },
     new Component({ tag: 'h2', classes: ['header-secondary'], text: 'Settings Panel' }),
-    new ButtonIcon({ classes: ['button_close'] }),
+    new ButtonIcon({ classes: ['button_close'], onClick: closeSettings }),
   );
 }
 function createOptionsLayout({ classes, optionsTitle, exception, exceptionText, optionsArr }) {

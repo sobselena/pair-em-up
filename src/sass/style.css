@@ -1,5 +1,5 @@
 .game-results, .settings, .start-menu {
-  z-index: 101;
+  z-index: 100;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -549,6 +549,14 @@ body {
   display: flex;
   align-items: center;
   gap: 1.2rem;
+}
+
+.settings.open {
+  z-index: 102;
+}
+
+.settings.open ~ .overlay.open {
+  z-index: 101;
 }
 
 .settings__title-container {
