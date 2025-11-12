@@ -2,7 +2,7 @@ import { Component } from './Component.js';
 import { Button } from './Button.js';
 import { board } from './PairHandler.js';
 import { showHints } from './ShowHints.js';
-import { gameBoard, updateStates } from './GameBoard.js';
+import { gameBoard, updateHints } from './GameBoard.js';
 import { GridItem } from './BoardGrid.js';
 import { header } from './Header.js';
 
@@ -21,7 +21,8 @@ function addNumbers() {
   );
   header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
-  showHints(board.showHints);
+
+  updateHints(board.showHints);
 }
 
 function shuffle() {
@@ -33,7 +34,7 @@ function shuffle() {
   });
   header.getChildEl('.header__shuffle-count').textContent = board.getShuffleCount();
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
-  showHints(board.isHintOn);
+  updateHints(board.isHintOn);
 }
 
 function erase() {
@@ -45,7 +46,7 @@ function erase() {
 
   erasedEl.classList.remove('game-board__cell_active');
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
-  showHints(board.isHintOn);
+  updateHints(board.isHintOn);
 }
 
 function revert() {
@@ -83,11 +84,11 @@ function revert() {
       ).textContent = num2;
     }
   }
-  updateStates();
+
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   header.getChildEl('.header__score').textContent = board.getPreviousScore();
   header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
-  showHints(board.isHintOn);
+  updateHints(board.isHintOn);
 }
 
 export function createHeaderAssistTools() {

@@ -1,6 +1,4 @@
 import { COLUMNS_MAX_COUNT } from './Data.js';
-import { updateStates } from './GameBoard.js';
-import { header } from './Header.js';
 import { PairTools } from './PairTools.js';
 
 class PairHandler extends PairTools {

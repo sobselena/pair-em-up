@@ -65,7 +65,7 @@ function processEvents(isValid, activeEl) {
       activeEl.style.color = '';
       console.log(board.getValidPairs());
       header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
-      updateStates();
+      updateHints();
     } else {
       activeEl.classList.remove('game-board__cell_error');
     }
@@ -73,9 +73,10 @@ function processEvents(isValid, activeEl) {
   }, 300);
 }
 
-export function updateStates() {
+export function updateHints(on = board.isHintOn) {
   const validPairsCount = board.getValidPairs().length;
   showHints(board.isHintOn);
   header.getChildEl('.header__hints-count').textContent =
     validPairsCount > 5 ? '5+' : validPairsCount;
+  showHints(on);
 }

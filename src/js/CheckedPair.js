@@ -48,19 +48,19 @@ export class CheckedPair extends Data {
   }
 
   #checkRightLineBreak({ column1, column2, row1, row2 }) {
-    const { maxColumnValue } = this.compareColumnValues({ column1, column2 });
-    const { maxRowValue } = this.compareRowValues({ row1, row2 });
-    for (let i = maxColumnValue + 1; i < COLUMNS_MAX_COUNT; i += 1) {
-      console.log(this.matrix[maxRowValue][i]);
-      if (this.matrix[maxRowValue][i] !== '') {
+    const { minRowValue } = this.compareRowValues({ row1, row2 });
+    const highColumnValue = minRowValue === row1 ? column1 : column2;
+    for (let i = highColumnValue + 1; i < COLUMNS_MAX_COUNT; i += 1) {
+      console.log(this.matrix[minRowValue][i]);
+      if (this.matrix[minRowValue][i] !== '') {
         return (this.#status = { isValidPair: false, checkName: 'linebreak checkRightLineBreak' });
       }
     }
   }
   #checkLeftLineBreak({ column1, column2, row1, row2 }) {
-    const { minColumnValue } = this.compareColumnValues({ column1, column2 });
     const { maxRowValue } = this.compareRowValues({ row1, row2 });
-    for (let i = 0; i < minColumnValue - 1; i += 1) {
+    const lowColumnValue = maxRowValue === row1 ? column1 : column2;
+    for (let i = 0; i < lowColumnValue - 1; i += 1) {
       if (this.matrix[maxRowValue][i] !== '') {
         return (this.#status = { isValidPair: false, checkName: 'linebreak checkLeftLineBreak' });
       }
