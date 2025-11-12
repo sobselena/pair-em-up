@@ -62,11 +62,13 @@ function revert() {
     }
     board.flattenDigits = board.flattenDigits.slice(0, addTo);
     header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
+    board.unsetAddTo();
   } else if (board.getBeforeShuffle()) {
     gameBoard.getChildrenEl('.game-board__cell').forEach((child, index) => {
       child.textContent = board.flattenDigits[index];
     });
     header.getChildEl('.header__shuffle-count').textContent = board.getShuffleCount();
+    board.unsetBeforeShuffle();
   } else {
     const previousCoords = board.getPreviousCoords();
     const previousNums = board.getPreviousNums();
@@ -84,6 +86,7 @@ function revert() {
         `.game-board__cell[data-row="${row2}"][data-column="${column2}"]`,
       ).textContent = num2;
     }
+    board.unsetPreviousCoordsNums();
   }
 
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();

@@ -32,6 +32,7 @@ export class PairHandler extends PairTools {
     this.updateMatrix();
     console.log(this.getPreviousCount());
   }
+
   setPair({ column, row }) {
     if (this.column1 === undefined) {
       this.column1 = column;
@@ -61,7 +62,6 @@ export class PairHandler extends PairTools {
   setPrevious() {
     this.#previousCoords = this.#getPairCoords();
     this.#previousNums = this.getCurPairNums();
-    this.unsetPreviousCount();
   }
   getPreviousCoords() {
     return this.#previousCoords;
@@ -105,7 +105,6 @@ export class PairHandler extends PairTools {
       this.setPreviousCount();
       this.revertAddTo();
       this.updateMatrix();
-      this.unsetAddTo();
       return;
     }
 
@@ -113,7 +112,6 @@ export class PairHandler extends PairTools {
       this.flattenDigits = beforeShuffle;
       this.setPreviousCount();
       this.revertShuffleCount();
-      this.unsetBeforeShuffle();
       this.updateMatrix();
       return;
     }
@@ -130,8 +128,9 @@ export class PairHandler extends PairTools {
     }
 
     this.#score = this.#previousScore;
-    this.unsetPreviousCoordsNums();
+
     this.updateMatrix();
+
     this.#unsetPair();
   }
 
