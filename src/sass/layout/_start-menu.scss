@@ -84,6 +84,7 @@
   }
   & tbody tr {
     transition: all 0.4s;
+    text-transform: capitalize;
   }
   & tbody tr:hover {
     box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.16);

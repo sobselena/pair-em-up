@@ -33,9 +33,6 @@ export function saveFinishedGame(status) {
   overlay.getNode().classList.add('open');
   finishedGames.unshift(resultsArr);
   finishedGames.pop();
-  finishedGames.forEach((result, i) => {
-    result[0][1] = i + 1;
-  });
   updateResultsLayout();
 }
 export const board = new PairHandler({ initialData, mode });

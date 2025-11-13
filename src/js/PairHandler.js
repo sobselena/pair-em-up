@@ -219,9 +219,9 @@ export class PairHandler extends PairTools {
     this.stopTimer();
     const resultsArr = [
       ['position', 1],
-      ['moves', this.getTotalMoves()],
-      ['score', this.getTotalScore()],
       ['mode', this.getMode()],
+      ['score', this.getTotalScore()],
+      ['moves', this.getTotalMoves()],
       ['status', status],
       ['time', board.transformTimeFormat()],
     ];

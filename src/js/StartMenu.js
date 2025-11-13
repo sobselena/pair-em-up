@@ -10,12 +10,37 @@ export const finishedGames = [];
 for (let i = 0; i < 5; i += 1) {
   finishedGames.push([
     ['position', i + 1],
-    ['moves', ''],
-    ['score', ''],
     ['mode', ''],
+    ['score', ''],
+    ['moves', ''],
     ['status', ''],
     ['time', ''],
   ]);
+}
+function getTimeInSec(time) {
+  return time.split(':').reduce((acc, value) => acc + Number(value), 0);
+}
+function sortFinishedGames() {
+  const sortedGames = [...finishedGames].sort((a, b) => {
+    const firstTimeOriginal = a.at(-1)[1];
+    const secondTimeOriginal = b.at(-1)[1];
+
+    if (firstTimeOriginal === '' && secondTimeOriginal !== '') {
+      return 1;
+    } else if (firstTimeOriginal !== '' && secondTimeOriginal === '') {
+      return -1;
+    } else if (firstTimeOriginal === '' && secondTimeOriginal == '') {
+      return 0;
+    }
+    const firstTime = getTimeInSec(firstTimeOriginal);
+    const secondTime = getTimeInSec(secondTimeOriginal);
+    return firstTime - secondTime;
+  });
+
+  sortedGames.forEach((result, i) => {
+    result[0][1] = i + 1;
+  });
+  return sortedGames;
 }
 
 const th = function (text) {
@@ -117,7 +142,7 @@ function createTd(option) {
 }
 
 export function createTbody() {
-  return finishedGames.map((result) => {
+  return sortFinishedGames().map((result) => {
     return new Tr(...result.map(([, option]) => createTd(option)));
   });
 }
