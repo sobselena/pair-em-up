@@ -207,6 +207,8 @@ export class PairHandler extends PairTools {
     this.setToDefaultNewNums();
     this.setToDefaultShuffles();
 
+    this.stopTimer();
+    this.unsetTimer();
     this.#removedCount = DEFAULT_COUNTS.REMOVED_COUNT;
     this.flattenDigits = this.applyMode(this.startingData);
 
@@ -214,14 +216,16 @@ export class PairHandler extends PairTools {
   }
 
   showResult(status) {
+    this.stopTimer();
     const resultsArr = [
       ['position', 1],
       ['moves', this.getTotalMoves()],
       ['score', this.getTotalScore()],
       ['mode', this.getMode()],
       ['status', status],
-      ['time', '00:00'],
+      ['time', board.transformTimeFormat()],
     ];
+
     return resultsArr;
   }
 

@@ -9,8 +9,18 @@ import { COLUMNS_MAX_COUNT } from './Data.js';
 
 export function continuePrev() {}
 
+export function setTimer() {
+  header.getChildEl('.header__timer').textContent = board.transformTimeFormat();
+  const intervalId = setInterval(() => {
+    board.increaseCurTime();
+    header.getChildEl('.header__timer').textContent = board.transformTimeFormat();
+  }, 1000);
+
+  board.setIntervalId(intervalId);
+}
 export function reset() {
   board.reset();
+  setTimer();
   gameBoard.getChildEl('.game-board__grid').remove();
   gameBoard.getChildEl('.game-board').append(createGrid().getNode());
 

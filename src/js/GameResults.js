@@ -1,6 +1,7 @@
 import { Button } from './Button.js';
 import { Component } from './Component.js';
-import { reset } from './HeaderInfo.js';
+import { reset, setTimer } from './HeaderInfo.js';
+import { board } from './OverallData.js';
 import { overlay, startMenu } from './StartMenu.js';
 {
   /* <div class="game-results">
@@ -79,6 +80,7 @@ export function createResult({ resultName, resultValue }) {
         }),
   );
 }
+
 function playAgain() {
   gameResults.getNode().classList.remove('open');
   overlay.getNode().classList.remove('open');

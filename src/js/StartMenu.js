@@ -17,13 +17,6 @@ for (let i = 0; i < 5; i += 1) {
     ['time', ''],
   ]);
 }
-const results = [
-  [1, 'Classic', 6, 3, 'Loss', '01:55'],
-  [2, 'Random', 101, 58, 'Win', '07:10'],
-  [3, 'Random', 101, 58, 'Win', '07:10'],
-  [4, 'Random', 101, 58, 'Win', '07:10'],
-  [5, 'Random', 101, 58, 'Win', '07:10'],
-];
 
 const th = function (text) {
   return new Component({ tag: 'th', text });

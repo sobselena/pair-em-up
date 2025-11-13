@@ -66,6 +66,8 @@
 import { Component } from './Component.js';
 import { Button, ButtonIcon } from './Button.js';
 import { overlay, startMenu } from './StartMenu.js';
+import { board } from './OverallData.js';
+import { setTimer } from './HeaderInfo.js';
 
 const audioOptions = [
   'Cell Selection',
@@ -104,12 +106,14 @@ export const settings = new Component(
 export function openSettings() {
   overlay.getNode().classList.add('open');
   settings.getNode().classList.add('open');
+  board.stopTimer();
 }
 
 function closeSettings() {
   settings.getNode().classList.remove('open');
   if (!startMenu.getNode().classList.contains('open')) {
     overlay.getNode().classList.remove('open');
+    setTimer();
   }
 }
 function createTitleContainer() {

@@ -8,10 +8,12 @@ export class Data {
   #addedCount = DEFAULT_COUNTS.ADDED_COUNT;
   #shuffleCount = DEFAULT_COUNTS.SHUFFLE_COUNT;
   #previousCount = 0;
+  #time = 0;
   #mode;
   #beforeShuffle;
   #addTo;
   #totalMoves = 0;
+  #intervalId;
   constructor({ initialData, mode }) {
     this.#mode = mode;
     this.startingData = this.#splitMultiDigits(initialData).flat();
@@ -180,5 +182,26 @@ export class Data {
   }
   changeMode(mode) {
     this.#mode = mode;
+  }
+
+  getCurTime() {
+    return this.#time;
+  }
+  increaseCurTime() {
+    this.#time += 1;
+  }
+
+  unsetTimer() {
+    this.#time = 0;
+  }
+  stopTimer() {
+    clearInterval(this.#intervalId);
+    this.#intervalId = undefined;
+  }
+  setIntervalId(intervalId) {
+    this.#intervalId = intervalId;
+  }
+  transformTimeFormat() {
+    return `${String(Math.floor(this.#time / 60)).padStart(2, '0')}:${String(this.#time % 60).padStart(2, '0')}`;
   }
 }
