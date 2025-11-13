@@ -17,6 +17,7 @@ function updateResultsLayout() {
 
   tbodyObj.appendChildren(createTbody());
 }
+
 export function saveFinishedGame(status) {
   const gameResultsEl = gameResults.getNode();
   const resultsArr = board.showResult(status);
@@ -33,6 +34,7 @@ export function saveFinishedGame(status) {
   overlay.getNode().classList.add('open');
   finishedGames.unshift(resultsArr);
   finishedGames.pop();
+  localStorage.setItem('finishedGames', JSON.stringify(finishedGames));
   updateResultsLayout();
 }
 export const board = new PairHandler({ initialData, mode });

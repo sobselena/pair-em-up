@@ -64,7 +64,9 @@ function erase() {
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   header.getChildEl('.header__moves').textContent = board.getTotalMoves();
   showHints(board.isHintOn);
-
+  if (board.flattenDigits.filter((num) => num !== '').length === 0) {
+    saveFinishedGame('Loss');
+  }
   if (board.checkIfLossCondition()) {
     saveFinishedGame('Loss');
   }

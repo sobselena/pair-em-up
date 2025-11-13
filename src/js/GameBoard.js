@@ -52,6 +52,11 @@ function clickGridItem(event) {
     if (board.getTotalScore() >= WIN_SCORE) {
       saveFinishedGame('Win');
     }
+
+    if (board.flattenDigits.filter((num) => num !== '').length === 0) {
+      saveFinishedGame('Loss');
+    }
+
     if (board.checkIfLossCondition()) {
       saveFinishedGame('Loss');
     }

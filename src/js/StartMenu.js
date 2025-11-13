@@ -6,17 +6,19 @@ import { board } from './OverallData.js';
 import { Table, Tr } from './Table.js';
 import { openSettings } from './Settings.js';
 const statistics = ['№', 'Mode', 'Score', 'Moves', 'Status', 'Time'];
-export const finishedGames = [];
-for (let i = 0; i < 5; i += 1) {
-  finishedGames.push([
-    ['position', i + 1],
-    ['mode', ''],
-    ['score', ''],
-    ['moves', ''],
-    ['status', ''],
-    ['time', ''],
-  ]);
-}
+export const finishedGames =
+  JSON.parse(localStorage.getItem('finishedGames')) ||
+  Array.from({ length: 5 }, (_, i) => {
+    return [
+      ['position', i + 1],
+      ['mode', ''],
+      ['score', ''],
+      ['moves', ''],
+      ['status', ''],
+      ['time', ''],
+    ];
+  });
+
 function getTimeInSec(time) {
   return time.split(':').reduce((acc, value) => acc + Number(value), 0);
 }
