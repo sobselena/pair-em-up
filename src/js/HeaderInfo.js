@@ -5,6 +5,7 @@ import { createGrid, gameBoard } from './GameBoard.js';
 import { header } from './Header.js';
 import { openSettings } from './Settings.js';
 import { showHints } from './ShowHints.js';
+import { COLUMNS_MAX_COUNT } from './Data.js';
 
 export function continuePrev() {}
 
@@ -19,6 +20,10 @@ export function reset() {
   header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
   header.getChildEl('.header__score').textContent = board.getTotalScore();
   header.getChildEl('.header__moves').textContent = board.getTotalMoves();
+  header.getChildEl('.header__mode').textContent = board.getMode();
+  gameBoard.getChildEl('.game-board__lines-count').textContent = Math.floor(
+    board.flattenDigits.length / COLUMNS_MAX_COUNT,
+  );
 
   showHints(board.isHintOn);
 }
@@ -50,7 +55,7 @@ export function createHeaderInfo() {
     new Component(
       { tag: 'div', classes: ['header__mode-container'] },
       new Component({ tag: 'span', text: '( Mode: ' }),
-      new Component({ tag: 'span', text: 'Classic' }),
+      new Component({ tag: 'span', text: 'Classic', classes: ['header__mode'] }),
       new Component({ tag: 'span', text: ' )' }),
     ),
     new Component({ tag: 'h1', classes: ['header-primary'], text: 'Pair `em up' }),

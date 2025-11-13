@@ -13,12 +13,12 @@
   }
 }
 .game-board__lines {
-  font-size: 3.6rem;
+  font-size: 3.4rem;
   order: 2;
   margin-left: 0.6rem;
   margin-right: 0.6rem;
   @include tabletRange {
-    font-size: rearrangeSize(1.8rem, 3.6rem, 0px, 970px);
+    font-size: rearrangeSize(1.7rem, 3.4rem, 0px, 970px);
     margin-left: rearrangeSize(0.2rem, 0.6rem, 0px, 970px);
     margin-right: rearrangeSize(0.2rem, 0.6rem, 0px, 970px);
   }

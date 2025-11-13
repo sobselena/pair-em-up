@@ -28,10 +28,14 @@
   }
 }
 
+.header__mode {
+  text-transform: capitalize;
+}
 .header__mode-container {
   font-size: 2.2rem;
   grid-row: 1;
   grid-column: 1;
+
   @include tabletRange {
     font-size: rearrangeSize(1.4rem, 2.2rem, 0px, 970px);
   }
