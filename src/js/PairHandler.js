@@ -214,13 +214,14 @@ export class PairHandler extends PairTools {
   }
 
   showResult(status) {
-    const resultsObj = {
-      moves: this.getTotalMoves(),
-      score: this.getTotalScore(),
-      mode: this.getMode(),
-      status,
-      time: '00:00',
-    };
-    return resultsObj;
+    const resultsArr = [
+      ['position', 1],
+      ['moves', this.getTotalMoves()],
+      ['score', this.getTotalScore()],
+      ['mode', this.getMode()],
+      ['status', status],
+      ['time', '00:00'],
+    ];
+    return resultsArr;
   }
 }

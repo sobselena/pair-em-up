@@ -6,7 +6,17 @@ import { board } from './OverallData.js';
 import { Table, Tr } from './Table.js';
 import { openSettings } from './Settings.js';
 const statistics = ['№', 'Mode', 'Score', 'Moves', 'Status', 'Time'];
-
+export const finishedGames = [];
+for (let i = 0; i < 5; i += 1) {
+  finishedGames.push([
+    ['position', i + 1],
+    ['moves', ''],
+    ['score', ''],
+    ['mode', ''],
+    ['status', ''],
+    ['time', ''],
+  ]);
+}
 const results = [
   [1, 'Classic', 6, 3, 'Loss', '01:55'],
   [2, 'Random', 101, 58, 'Win', '07:10'],
@@ -14,6 +24,7 @@ const results = [
   [4, 'Random', 101, 58, 'Win', '07:10'],
   [5, 'Random', 101, 58, 'Win', '07:10'],
 ];
+
 const th = function (text) {
   return new Component({ tag: 'th', text });
 };
@@ -33,6 +44,11 @@ const tdStatus = function (text) {
 };
 export const overlay = new Component({ tag: 'div', classes: ['overlay', 'open'] });
 
+export const table = new Table({
+  classes: ['start-menu__table'],
+  thead: [new Tr(...statistics.map((statisticOption) => th(statisticOption)))],
+  tbody: createTbody(),
+});
 export const startMenu = new Component(
   { tag: 'div', classes: ['start-menu', 'open'] },
   new ButtonIcon({ classes: ['button_settings'], onClick: openSettings }),
@@ -100,23 +116,24 @@ function createActionsLayout() {
   );
 }
 
+function createTd(option) {
+  if (option === 'Win' || option === 'Loss') {
+    return tdStatus(option);
+  }
+  return td(option);
+}
+
+export function createTbody() {
+  return finishedGames.map((result) => {
+    return new Tr(...result.map(([, option]) => createTd(option)));
+  });
+}
+
 function Results() {
   return new Component(
     { tag: 'div', classes: ['start-menu__results'] },
-    new Component({ tag: 'h2', classes: ['header-secondary'], text: 'Results:' }),
-    new Table({
-      classes: ['start-menu__table'],
-      thead: [new Tr(...statistics.map((statisticOption) => th(statisticOption)))],
-      tbody: results.map((result) => {
-        return new Tr(
-          ...result.map((option) => {
-            if (option === 'Win' || option === 'Loss') {
-              return tdStatus(option);
-            }
-            return td(option);
-          }),
-        );
-      }),
-    }),
+    ...(finishedGames.length === 0
+      ? []
+      : [new Component({ tag: 'h2', classes: ['header-secondary'], text: 'Results:' }), table]),
   );
 }

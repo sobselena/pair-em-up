@@ -3,9 +3,13 @@ import { Component } from './Component.js';
 export class Table extends Component {
   constructor({ classes, thead, tbody }) {
     super({ tag: 'table', classes });
-    const theadEl = new Component({ tag: 'thead' }, ...thead);
-    const tbodyEl = new Component({ tag: 'tbody' }, ...tbody);
-    this.appendChildren([theadEl, tbodyEl]);
+    this.theadObj = new Component({ tag: 'thead' }, ...thead);
+    this.tbodyObj = new Component({ tag: 'tbody' }, ...tbody);
+    this.appendChildren([this.theadObj, this.tbodyObj]);
+  }
+
+  getTbody() {
+    return this.tbodyObj;
   }
 }
 
