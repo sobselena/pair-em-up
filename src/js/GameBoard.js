@@ -48,8 +48,12 @@ function clickGridItem(event) {
     header.getChildEl('.header__score').textContent = board.getTotalScore();
     header.getChildEl('.header__moves').textContent = board.getTotalMoves();
     console.log(board.getTotalScore());
+
     if (board.getTotalScore() >= WIN_SCORE) {
       saveFinishedGame('Win');
+    }
+    if (board.checkIfLossCondition()) {
+      saveFinishedGame('Loss');
     }
   }
 }

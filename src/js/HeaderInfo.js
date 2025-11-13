@@ -21,7 +21,7 @@ export function reset() {
   header.getChildEl('.header__score').textContent = board.getTotalScore();
   header.getChildEl('.header__moves').textContent = board.getTotalMoves();
   header.getChildEl('.header__mode').textContent = board.getMode();
-  gameBoard.getChildEl('.game-board__lines-count').textContent = Math.floor(
+  gameBoard.getChildEl('.game-board__lines-count').textContent = Math.ceil(
     board.flattenDigits.length / COLUMNS_MAX_COUNT,
   );
 

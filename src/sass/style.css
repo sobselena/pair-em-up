@@ -407,7 +407,7 @@ body {
     grid-row: 3;
     grid-column: 1/-1;
     justify-content: flex-start;
-    transform: none;
+    transform: translateY(0.5rem);
   }
 }
 @media (max-width: 970px) {

@@ -23,11 +23,15 @@ function addNumbers() {
   header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   header.getChildEl('.header__moves').textContent = board.getTotalMoves();
-  gameBoard.getChildEl('.game-board__lines-count').textContent = Math.floor(
+  gameBoard.getChildEl('.game-board__lines-count').textContent = Math.ceil(
     board.flattenDigits.length / COLUMNS_MAX_COUNT,
   );
   showHints(board.showHints);
-  if (Math.floor(board.flattenDigits.length / COLUMNS_MAX_COUNT) > 50) {
+  if (Math.ceil(board.flattenDigits.length / COLUMNS_MAX_COUNT) > 50) {
+    saveFinishedGame('Loss');
+  }
+
+  if (board.checkIfLossCondition()) {
     saveFinishedGame('Loss');
   }
 }
@@ -43,6 +47,10 @@ function shuffle() {
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   header.getChildEl('.header__moves').textContent = board.getTotalMoves();
   showHints(board.isHintOn);
+
+  if (board.checkIfLossCondition()) {
+    saveFinishedGame('Loss');
+  }
 }
 
 function erase() {
@@ -56,6 +64,10 @@ function erase() {
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   header.getChildEl('.header__moves').textContent = board.getTotalMoves();
   showHints(board.isHintOn);
+
+  if (board.checkIfLossCondition()) {
+    saveFinishedGame('Loss');
+  }
 }
 
 function revert() {
@@ -105,7 +117,7 @@ function revert() {
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   header.getChildEl('.header__score').textContent = board.getPreviousScore();
   header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
-  gameBoard.getChildEl('.game-board__lines-count').textContent = Math.floor(
+  gameBoard.getChildEl('.game-board__lines-count').textContent = Math.ceil(
     board.flattenDigits.length / COLUMNS_MAX_COUNT,
   );
   showHints(board.isHintOn);

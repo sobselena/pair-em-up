@@ -68,7 +68,7 @@
     grid-row: 3;
     grid-column: 1/-1;
     justify-content: flex-start;
-    transform: none;
+    transform: translateY(0.5rem);
   }
   @include tabletRange {
     font-size: rearrangeSize(1.5rem, 3rem, 0px, 970px);

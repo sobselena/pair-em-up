@@ -224,4 +224,15 @@ export class PairHandler extends PairTools {
     ];
     return resultsArr;
   }
+
+  checkIfLossCondition() {
+    if (
+      this.getValidPairs().length === 0 &&
+      this.getAddedCount() === 0 &&
+      this.getShuffleCount() === 0 &&
+      this.getRemovedCount() === 0
+    ) {
+      return true;
+    }
+  }
 }
