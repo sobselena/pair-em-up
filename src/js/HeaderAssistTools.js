@@ -11,6 +11,16 @@ function addNumbers() {
   const newNumsArr = board.addNewNums();
   console.log(newNumsArr);
   if (!newNumsArr) return;
+  if (Math.ceil(board.flattenDigits.length / COLUMNS_MAX_COUNT) > 50) {
+    saveFinishedGame('Loss');
+    board.changeToPrevious();
+    return;
+  }
+
+  if (board.checkIfLossCondition()) {
+    saveFinishedGame('Loss');
+    return;
+  }
 
   gameBoard.getChildEl('.game-board__grid').append(
     ...newNumsArr.map((num, index) => {
@@ -20,6 +30,7 @@ function addNumbers() {
       return new GridItem({ classes: ['game-board__cell'], row, column, text: num }).getNode();
     }),
   );
+
   header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   header.getChildEl('.header__moves').textContent = board.getTotalMoves();
@@ -27,13 +38,6 @@ function addNumbers() {
     board.flattenDigits.length / COLUMNS_MAX_COUNT,
   );
   showHints(board.showHints);
-  if (Math.ceil(board.flattenDigits.length / COLUMNS_MAX_COUNT) > 50) {
-    saveFinishedGame('Loss');
-  }
-
-  if (board.checkIfLossCondition()) {
-    saveFinishedGame('Loss');
-  }
 }
 
 function shuffle() {
