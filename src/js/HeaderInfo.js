@@ -47,7 +47,14 @@ export function createHeaderInfo() {
         onClick: openSettings,
       }),
     ),
+    new Component(
+      { tag: 'div', classes: ['header__mode-container'] },
+      new Component({ tag: 'span', text: '( Mode: ' }),
+      new Component({ tag: 'span', text: 'Classic' }),
+      new Component({ tag: 'span', text: ' )' }),
+    ),
     new Component({ tag: 'h1', classes: ['header-primary'], text: 'Pair `em up' }),
+
     new Component(
       { tag: 'div', classes: ['header__statistics'] },
       new Component(

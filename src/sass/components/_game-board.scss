@@ -3,15 +3,29 @@
   border: $border;
   border-radius: 1.4rem;
   box-shadow: $shadow;
+  display: flex;
+  flex-direction: column;
+  align-content: start;
   @include tabletRange {
     padding-left: rearrangeSize(0rem, 2rem, 0px, 970px);
     padding-right: rearrangeSize(0rem, 2rem, 0px, 970px);
     border-radius: rearrangeSize(0.4rem, 1.4rem, 0px, 970px);
   }
 }
-
+.game-board__lines {
+  font-size: 3.6rem;
+  order: 2;
+  margin-left: 0.6rem;
+  margin-right: 0.6rem;
+  @include tabletRange {
+    font-size: rearrangeSize(1.8rem, 3.6rem, 0px, 970px);
+    margin-left: rearrangeSize(0.2rem, 0.6rem, 0px, 970px);
+    margin-right: rearrangeSize(0.2rem, 0.6rem, 0px, 970px);
+  }
+}
 .game-board__grid {
   display: grid;
+  margin-bottom: 1.2rem;
   grid-template-columns: repeat(9, 1fr);
   align-items: center;
   justify-items: center;

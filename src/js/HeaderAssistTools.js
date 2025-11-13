@@ -60,6 +60,7 @@ function revert() {
   board.changeToPrevious();
   const addTo = board.getAddTo();
   header.getChildEl('.header__moves').textContent = board.getTotalMoves();
+
   if (addTo) {
     for (let i = addTo; i < board.flattenDigits.length; i += 1) {
       const { row, column } = board.translateFlatToMatrixCoords(i);
@@ -69,8 +70,8 @@ function revert() {
     }
     board.flattenDigits = board.flattenDigits.slice(0, addTo);
     header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
-    board.unsetAddTo();
     board.updateMatrix();
+    board.unsetAddTo();
   } else if (board.getBeforeShuffle()) {
     gameBoard.getChildrenEl('.game-board__cell').forEach((child, index) => {
       child.textContent = board.flattenDigits[index];
@@ -85,6 +86,7 @@ function revert() {
     const { num1, num2 } = previousNums;
     console.log(column1, column2, row1, row2);
     console.log(num1, num2);
+
     if (column1 === undefined && num1 === undefined) return;
     gameBoard.getChildEl(
       `.game-board__cell[data-row="${row1}"][data-column="${column1}"]`,
