@@ -30,6 +30,7 @@ export class PairHandler extends PairTools {
     this.addScore();
     this.#removeValues();
     this.updateMatrix();
+    this.increaseTotalMoves();
     console.log(this.getPreviousCount());
   }
 
@@ -98,7 +99,7 @@ export class PairHandler extends PairTools {
   changeToPrevious() {
     console.log(board);
     if (this.getPreviousCount() === 0) return;
-
+    this.decreaseTotalMoves();
     const beforeShuffle = this.getBeforeShuffle();
     const addTo = this.getAddTo();
     if (addTo) {
@@ -143,7 +144,6 @@ export class PairHandler extends PairTools {
   getTotalScore() {
     return this.#score;
   }
-
   addScore() {
     const { num1, num2 } = this.getCurPairNums();
     this.#previousScore = this.#score;
@@ -202,6 +202,7 @@ export class PairHandler extends PairTools {
     this.unsetStatus();
     this.unsetScore();
     this.unsetPreviousCoordsNums();
+    this.unsetTotalMoves();
 
     this.setToDefaultNewNums();
     this.setToDefaultShuffles();
@@ -210,5 +211,16 @@ export class PairHandler extends PairTools {
     this.flattenDigits = this.applyMode(this.startingData);
 
     this.updateMatrix();
+  }
+
+  showResult(status) {
+    const resultsObj = {
+      moves: this.getTotalMoves(),
+      score: this.getTotalScore(),
+      mode: this.getMode(),
+      status,
+      time: '00:00',
+    };
+    return resultsObj;
   }
 }

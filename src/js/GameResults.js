@@ -1,5 +1,7 @@
 import { Button } from './Button.js';
 import { Component } from './Component.js';
+import { reset } from './HeaderInfo.js';
+import { overlay, startMenu } from './StartMenu.js';
 {
   /* <div class="game-results">
       <h2 class="header-secondary">Game Outcomes:</h2>
@@ -38,59 +40,64 @@ import { Component } from './Component.js';
     </div> */
 }
 
-const resultsInfo = {
-  status: 'Win',
-  Mode: 'Random',
-  Score: 101,
-  Moves: 56,
-  Time: '07:10',
-};
+export const resultsInfo = new Component({ tag: 'div', classes: ['game-results__info'] });
 export const gameResults = new Component(
   { tag: 'div', classes: ['game-results' /*'open'*/] },
-  new Component({ tag: 'h2', classes: ['header-secondary'], text: 'Game Outcomes:' }),
-  createResultsInfo(),
+  new Component({
+    tag: 'h2',
+    classes: ['header-secondary', 'game-results__header'],
+    text: 'Game Outcomes:',
+  }),
+  resultsInfo,
   createResultsActions(),
 );
 
-function createResultsInfo() {
-  return new Component(
-    { tag: 'div', classes: ['game-results__info'] },
-    ...Object.entries(resultsInfo).map(([resultName, resultValue]) => {
-      return createResult({ resultName, resultValue });
-    }),
-  );
-}
-
-function createResult({ resultName, resultValue }) {
+export function createResult({ resultName, resultValue }) {
   const statusIcon =
     resultName === 'status'
       ? new Component({
           tag: 'span',
-          classes: ['img-container', `img-container_${String(resultValue).toLowerCase()}`],
+          classes: ['img-container', `img-container_${resultValue.toLowerCase()}`],
         })
       : null;
   return new Component(
     { tag: 'div', classes: ['game-results__outcome'] },
-    new Component({ tag: 'span', classes: ['game-results__outcome-name'], text: resultName }),
+    new Component({ tag: 'span', text: resultName, classes: ['game-results__outcome-name'] }),
     resultName === 'status'
       ? new Component(
-          { tag: 'span', classes: ['game-results__status'], text: resultValue },
+          {
+            tag: 'span',
+            classes: [`game-results__${resultName}-value`],
+            text: String(resultValue),
+          },
           statusIcon,
         )
-      : new Component({ tag: 'span', classes: ['game-results__status'], text: resultValue }),
+      : new Component({
+          tag: 'span',
+          classes: [`game-results__${resultName}-value`],
+          text: String(resultValue),
+        }),
   );
 }
-
+function playAgain() {
+  gameResults.getNode().classList.remove('open');
+  overlay.getNode().classList.remove('open');
+  reset();
+}
+function openMenu() {
+  gameResults.getNode().classList.remove('open');
+  startMenu.getNode().classList.add('open');
+}
 function createResultsActions() {
   return new Component(
     { tag: 'div', classes: ['game-results__actions'] },
     new Button(
-      { classes: ['button_menu'] },
+      { classes: ['button_menu'], onClick: openMenu },
       new Component({ tag: 'span', classes: ['img-container', 'img-container_menu'] }),
       new Component({ tag: 'span', text: 'Menu' }),
     ),
     new Button(
-      { classes: ['button_play-again'] },
+      { classes: ['button_play-again'], onClick: playAgain },
       new Component({ tag: 'span', text: 'Play Again' }),
       new Component({
         tag: 'span',

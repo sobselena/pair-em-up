@@ -6,13 +6,19 @@
   @include values-list(1.6rem, 'div');
   margin-top: 2.2rem;
   margin-bottom: 8.4rem;
+  @include rangeChange(340px) {
+    margin-bottom: 5.4rem;
+  }
 }
 .game-results__actions {
   @include values-list;
 
   & .button {
     box-shadow: none;
-    font-size: 2.2rem;
+    font-size: 2.4rem;
+    @include tabletRange {
+      font-size: rearrangeSize(1.6rem, 2.4rem, 0px, 970px);
+    }
     background-color: #222;
     color: #fff;
   }
@@ -20,8 +26,13 @@
 .game-results__outcome {
   display: flex;
   flex-direction: column;
+  text-transform: capitalize;
   & span:last-child {
-    font-size: 2rem;
+    font-size: 2.2rem;
+
+    @include tabletRange {
+      font-size: rearrangeSize(1.4rem, 2.2rem, 0px, 970px);
+    }
   }
 }
 .game-results__info {
@@ -40,6 +51,15 @@
 
 .game-results__outcome-name {
   font-weight: 400;
-  font-size: 2.2rem;
+  font-size: 2.4rem;
+  @include tabletRange {
+    font-size: rearrangeSize(1.6rem, 2.4rem, 0px, 970px);
+  }
   font-style: italic;
+  text-transform: capitalize;
+}
+.game-results__status-value {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }

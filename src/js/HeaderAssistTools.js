@@ -1,10 +1,11 @@
 import { Component } from './Component.js';
 import { Button } from './Button.js';
-import { board } from './OverallData.js';
+import { board, saveFinishedGame } from './OverallData.js';
 import { showHints } from './ShowHints.js';
 import { gameBoard } from './GameBoard.js';
 import { GridItem } from './BoardGrid.js';
 import { header } from './Header.js';
+import { COLUMNS_MAX_COUNT } from './Data.js';
 
 function addNumbers() {
   const newNumsArr = board.addNewNums();
@@ -21,8 +22,11 @@ function addNumbers() {
   );
   header.getChildEl('.header__add-numbers-count').textContent = board.getAddedCount();
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
-
+  header.getChildEl('.header__moves').textContent = board.getTotalMoves();
   showHints(board.showHints);
+  if (Math.floor(board.flattenDigits.length / COLUMNS_MAX_COUNT) > 50) {
+    saveFinishedGame('Loss');
+  }
 }
 
 function shuffle() {
@@ -34,6 +38,7 @@ function shuffle() {
   });
   header.getChildEl('.header__shuffle-count').textContent = board.getShuffleCount();
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
+  header.getChildEl('.header__moves').textContent = board.getTotalMoves();
   showHints(board.isHintOn);
 }
 
@@ -46,6 +51,7 @@ function erase() {
 
   erasedEl.classList.remove('game-board__cell_active');
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
+  header.getChildEl('.header__moves').textContent = board.getTotalMoves();
   showHints(board.isHintOn);
 }
 
@@ -53,6 +59,7 @@ function revert() {
   if (board.getPreviousCount() === 0) return;
   board.changeToPrevious();
   const addTo = board.getAddTo();
+  header.getChildEl('.header__moves').textContent = board.getTotalMoves();
   if (addTo) {
     for (let i = addTo; i < board.flattenDigits.length; i += 1) {
       const { row, column } = board.translateFlatToMatrixCoords(i);

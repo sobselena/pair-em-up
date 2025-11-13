@@ -57,7 +57,7 @@ body {
   font-size: 3.4rem;
   font-weight: 400;
   @include tabletRange {
-    font-size: rearrangeSize(1.6rem, 3.2rem, 0px, 970px);
+    font-size: rearrangeSize(1.6rem, 3.4rem, 0px, 970px);
   }
 }
 

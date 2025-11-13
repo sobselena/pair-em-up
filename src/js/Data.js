@@ -11,13 +11,28 @@ export class Data {
   #mode;
   #beforeShuffle;
   #addTo;
+  #totalMoves = 0;
   constructor({ initialData, mode }) {
     this.#mode = mode;
     this.startingData = this.#splitMultiDigits(initialData).flat();
     this.flattenDigits = this.applyMode(this.startingData);
     this.updateMatrix();
   }
-
+  unsetTotalMoves() {
+    this.#totalMoves = 0;
+  }
+  getTotalMoves() {
+    return this.#totalMoves;
+  }
+  increaseTotalMoves() {
+    this.#totalMoves += 1;
+  }
+  decreaseTotalMoves() {
+    this.#totalMoves -= 1;
+  }
+  getMode() {
+    return this.#mode;
+  }
   updateMatrix() {
     this.matrix = this.#generateMatrix(this.flattenDigits);
   }
@@ -64,6 +79,7 @@ export class Data {
   }
   addNewNums() {
     if (this.#addedCount <= 0) return;
+    this.#totalMoves += 1;
     const remainingNums = this.flattenDigits.filter((num) => num !== '');
     this.#previousCount = 1;
     this.#addTo = this.flattenDigits.length;
@@ -73,6 +89,7 @@ export class Data {
     } else if (this.#mode === 'chaotic') {
       newNums = this.#chaoticMode(remainingNums);
     }
+
     this.flattenDigits = this.flattenDigits.concat(newNums);
     this.#addedCount -= 1;
     this.updateMatrix();
@@ -127,6 +144,7 @@ export class Data {
 
   shuffle(splitArr) {
     if (this.#shuffleCount <= 0) return [...splitArr];
+    this.#totalMoves += 1;
     this.#previousCount = 1;
     this.#beforeShuffle = [...splitArr];
     const copyArr = this.shuffleFlattenDigits(splitArr);

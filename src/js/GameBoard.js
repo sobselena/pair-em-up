@@ -1,8 +1,10 @@
 import { Component } from './Component.js';
 import { GridItem, BoardGrid } from './BoardGrid.js';
-import { board } from './OverallData.js';
+import { board, saveFinishedGame } from './OverallData.js';
 import { header } from './Header.js';
 import { showHints } from './ShowHints.js';
+
+const WIN_SCORE = 100;
 export const gameBoard = new Component(
   { tag: 'main', classes: ['main'] },
   new Component(
@@ -37,6 +39,11 @@ function clickGridItem(event) {
     board.setPair({ column, row });
     checkPairs();
     header.getChildEl('.header__score').textContent = board.getTotalScore();
+    header.getChildEl('.header__moves').textContent = board.getTotalMoves();
+    console.log(board.getTotalScore());
+    if (board.getTotalScore() >= WIN_SCORE) {
+      saveFinishedGame('Win');
+    }
   }
 }
 

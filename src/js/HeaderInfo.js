@@ -18,6 +18,8 @@ export function reset() {
   header.getChildEl('.header__revert-count').textContent = board.getPreviousCount();
   header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
   header.getChildEl('.header__score').textContent = board.getTotalScore();
+  header.getChildEl('.header__moves').textContent = board.getTotalMoves();
+
   showHints(board.isHintOn);
 }
 
@@ -48,6 +50,10 @@ export function createHeaderInfo() {
     new Component({ tag: 'h1', classes: ['header-primary'], text: 'Pair `em up' }),
     new Component(
       { tag: 'div', classes: ['header__statistics'] },
+      new Component(
+        { tag: 'div', classes: ['header__moves-container'], text: 'Moves: ' },
+        new Component({ tag: 'span', classes: ['header__moves'], text: '0' }),
+      ),
       new Component(
         { tag: 'div', classes: ['header__score-container'], text: 'Score: ' },
         new Component({ tag: 'span', classes: ['header__score'], text: '0' }),
