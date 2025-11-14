@@ -12,20 +12,27 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.settings__button-container {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  @include tabletRange {
+    gap: rearrangeSize(0.4rem, 1.2rem, 0px, 970px);
+  }
+}
 .settings__option {
   font-size: 2.1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.2rem;
+  gap: 1.6rem;
   border-bottom: $border;
   padding: 0.4rem 0;
   @include tabletRange {
-    font-size: rearrangeSize(1.1rem, 2.1rem, 0px, 970px);
+    font-size: rearrangeSize(1.5rem, 2.1rem, 0px, 970px);
   }
   @include rangeChange(460px) {
-    & span {
+    & .settings__option-text span {
       display: none;
     }
   }

@@ -53,4 +53,25 @@
     background: url(/src/assets/icons/menu-white.svg) no-repeat center center;
     background-size: cover;
   }
+
+  &_dark-theme {
+    background: url(/src/assets/icons/dark-mode.svg) no-repeat center center;
+    background-size: cover;
+    height: 2.8rem;
+    width: 2.8rem;
+    @include tabletRange {
+      width: rearrangeSize(2rem, 2.8rem, 0px, 970px);
+      height: rearrangeSize(2rem, 2.8rem, 0px, 970px);
+    }
+  }
+  &_bright-theme {
+    background: url(/src/assets/icons/bright-mode.svg) no-repeat center center;
+    background-size: cover;
+    height: 2.8rem;
+    width: 2.8rem;
+    @include tabletRange {
+      width: rearrangeSize(2rem, 2.8rem, 0px, 970px);
+      height: rearrangeSize(2rem, 2.8rem, 0px, 970px);
+    }
+  }
 }

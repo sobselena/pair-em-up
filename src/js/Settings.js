@@ -1,68 +1,3 @@
-{
-  /* <div class="settings">
-  <div class="settings__title-container">
-    <h2 class="header-secondary">Settings Panel</h2>
-    <button class="button button_close img-container"></button>
-  </div>
-
-  <div class="settings__audio-controls">
-    <h3 class="header-tertiary">Audio controls</h3>
-    <div class="settings__audio-option">
-      <div>Cell Selection</div>
-
-      <button class="button button_on-off"></button>
-    </div>
-    <div class="settings__audio-option">
-      <div>Cell Deselection</div>
-
-      <button class="button button_on-off"></button>
-    </div>
-    <div class="settings__audio-option">
-      <div>Successful Pair Matching</div>
-      <button class="button button_on-off"></button>
-    </div>
-    <div class="settings__audio-option">
-      <div>Invalid Pair Attempts</div>
-      <button class="button button_on-off"></button>
-    </div>
-    <div class="settings__audio-option">
-      <div>
-        Assist Tool Usage <span>(Add Numbers, Shuffle)</span>
-      </div>
-      <button class="button button_on-off"></button>
-    </div>
-    <div class="settings__audio-option">
-      <div>Game Start And End Events</div>
-      <button class="button button_on-off"></button>
-    </div>
-  </div>
-
-  <div class="settings__theme-selection">
-    <h3 class="header-tertiary">Theme selection</h3>
-    <div class="settings__audio-option">
-      <div>Background Colors</div>
-      <button class="button button_on-off"></button>
-    </div>
-    <div class="settings__audio-option">
-      <div>Game Grid And Cell Colors</div>
-
-      <button class="button button_on-off"></button>
-    </div>
-    <div class="settings__audio-option">
-      <div>
-        UI Element Colors <span>(Buttons, Counters, Text)</span>
-      </div>
-
-      <button class="button button_on-off"></button>
-    </div>
-    <div class="settings__audio-option">
-      <div>All Interactive Elements And Indicators</div>
-      <button class="button button_on-off"></button>
-    </div>
-  </div>
-</div>; */
-}
-
 import { Component } from './Component.js';
 import { Button, ButtonIcon } from './Button.js';
 import { overlay, startMenu } from './StartMenu.js';
@@ -130,20 +65,41 @@ function createOptionsLayout({ classes, optionsTitle, exception, exceptionText, 
     ...optionsArr.map((option) => {
       if (option === exception) {
         const span = new Component({ tag: 'span', text: exceptionText });
-        return createOption(option, span);
+        return createOption({
+          text: option,
+          span,
+          isThemeSection: optionsTitle === 'Theme Selection',
+        });
       }
-      return createOption(option);
+      return createOption({ text: option, isThemeSection: optionsTitle === 'Theme Selection' });
     }),
   );
 }
 
-function createOption(text, span) {
+function createOption({ text, span, isThemeSection }) {
   const optionTextEl = span
-    ? new Component({ tag: 'div', text }, span)
-    : new Component({ tag: 'div', text });
+    ? new Component({ tag: 'div', text, classes: ['settings__option-text'] }, span)
+    : new Component({ tag: 'div', text, classes: ['settings__option-text'] });
   return new Component(
     { tag: 'div', classes: ['settings__option'] },
     optionTextEl,
-    new Button({ classes: ['button_on-off'] }),
+    new Component(
+      { tag: 'div', classes: ['settings__button-container'] },
+      new Component({
+        tag: 'span',
+        classes: isThemeSection
+          ? ['img-container', 'img-container_bright-theme']
+          : ['settings__on-off'],
+        text: isThemeSection ? '' : 'ON',
+      }),
+      new Button({ classes: ['button_on-off'] }),
+      new Component({
+        tag: 'span',
+        classes: isThemeSection
+          ? ['img-container', 'img-container_dark-theme']
+          : ['settings__on-off'],
+        text: isThemeSection ? '' : 'OFF',
+      }),
+    ),
   );
 }
