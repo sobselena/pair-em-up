@@ -108,6 +108,7 @@ function startNewGame() {
   startMenu.getNode().classList.remove('open');
   overlay.getNode().classList.remove('open');
   reset();
+  localStorage.removeItem('manualSave');
 }
 function continuePreviousAutoGame() {
   const savedData = JSON.parse(localStorage.getItem('autoSave'));

@@ -10,6 +10,7 @@ import { COLUMNS_MAX_COUNT } from './Data.js';
 export function continueManualSaving() {
   const savedData = JSON.parse(localStorage.getItem('manualSave'));
   if (!savedData) return;
+  board.stopTimer();
   setNewBoard(savedData);
   resetLayout();
 }
