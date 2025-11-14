@@ -18,6 +18,7 @@ export function continueManualSaving() {
 function saveManually() {
   const savedData = saveData();
   localStorage.setItem('manualSave', JSON.stringify(savedData));
+  header.getChildEl('.button_continue').classList.remove('disabled');
 }
 export function setTimer() {
   header.getChildEl('.header__timer').textContent = board.transformTimeFormat();
@@ -47,18 +48,20 @@ export function resetLayout() {
   showHints(board.isHintOn);
 }
 export function reset() {
+  localStorage.removeItem('manualSave');
+  header.getChildEl('.button_continue').classList.add('disabled');
   board.reset();
-
   resetLayout();
 }
 
 export function createHeaderInfo() {
+  const savedData = localStorage.getItem('manualSave');
   return new Component(
     { tag: 'div', classes: ['header__info'] },
     new Component(
       { tag: 'div', classes: ['header__control-buttons'] },
       new ButtonIcon({
-        classes: ['button_continue'],
+        classes: savedData ? ['button_continue'] : ['button_continue', 'disabled'],
         onClick: continueManualSaving,
       }),
       new ButtonIcon({

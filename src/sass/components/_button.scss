@@ -60,3 +60,19 @@
   background-color: #222 !important;
   color: #fff !important;
 }
+
+.button_continue.disabled {
+  cursor: not-allowed;
+  position: relative;
+}
+
+.header__control-buttons .button_continue.disabled {
+  pointer-events: none;
+  opacity: 0;
+  &:hover {
+    transform: none;
+  }
+  &:active {
+    transform: none;
+  }
+}

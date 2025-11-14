@@ -32,14 +32,26 @@
     border: $border;
     color: #222;
   }
-
   & .button_continue:hover {
     transform: none;
     background-color: lighten(#222, 15%);
+    border-color: lighten(#222, 15%);
   }
 
   & .button_continue:active {
     transform: none;
+  }
+  & .button_start-new-game {
+    &:hover {
+      transform: none;
+      color: lighten(#222, 20%);
+      border-color: lighten(#222, 20%);
+    }
+    &:active {
+      transform: none;
+      color: lighten(#222, 20%);
+      border-color: lighten(#222, 20%);
+    }
   }
 }
 

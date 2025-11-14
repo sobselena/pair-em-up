@@ -1,4 +1,5 @@
 import { createResult, gameResults, resultsInfo } from './GameResults.js';
+import { header } from './Header.js';
 import { PairHandler } from './PairHandler.js';
 import { createTbody, finishedGames, overlay, startMenu, table } from './StartMenu.js';
 
@@ -19,6 +20,10 @@ function updateResultsLayout() {
 }
 
 export function saveFinishedGame(status) {
+  header.getChildEl('.button_continue').classList.add('disabled');
+  startMenu.getChildEl('.button_continue').classList.add('disabled');
+  localStorage.removeItem('autoSave');
+  localStorage.removeItem('manualSave');
   const gameResultsEl = gameResults.getNode();
   const resultsArr = board.showResult(status);
   console.log(resultsArr);

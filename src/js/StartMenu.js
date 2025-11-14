@@ -5,6 +5,7 @@ import { Link } from './Link.js';
 import { board, setNewBoard } from './OverallData.js';
 import { Table, Tr } from './Table.js';
 import { openSettings } from './Settings.js';
+import { header } from './Header.js';
 
 const statistics = ['№', 'Mode', 'Score', 'Moves', 'Status', 'Time'];
 export const finishedGames =
@@ -108,7 +109,9 @@ function startNewGame() {
   startMenu.getNode().classList.remove('open');
   overlay.getNode().classList.remove('open');
   reset();
+  startMenu.getChildEl('.button_continue').classList.remove('disabled');
   localStorage.removeItem('manualSave');
+  header.getChildEl('.button_continue').classList.add('disabled');
 }
 function continuePreviousAutoGame() {
   const savedData = JSON.parse(localStorage.getItem('autoSave'));
@@ -119,6 +122,7 @@ function continuePreviousAutoGame() {
   setNewBoard(savedData);
   resetLayout();
 }
+
 function createModesContainer() {
   const modesContainer = new Component(
     { tag: 'div', classes: ['start-menu__modes-container'] },
@@ -131,14 +135,19 @@ function createModesContainer() {
   return modesContainer;
 }
 function createActionsLayout() {
+  const savedData = localStorage.getItem('autoSave');
   return new Component(
     { tag: 'div', classes: ['start-menu__actions'] },
     createModesContainer(),
     new Component(
       { tag: 'div', classes: ['start-menu__action-container'] },
-      new Button({ classes: ['button_continue'], text: 'Start New Game', onClick: startNewGame }),
       new Button({
-        classes: ['button_continue'],
+        classes: ['button_start-new-game'],
+        text: 'Start New Game',
+        onClick: startNewGame,
+      }),
+      new Button({
+        classes: !savedData ? ['button_continue', 'disabled'] : ['button_continue'],
         text: 'Continue Previous',
         onClick: continuePreviousAutoGame,
       }),

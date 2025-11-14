@@ -259,6 +259,22 @@ body {
   color: #fff !important;
 }
 
+.button_continue.disabled {
+  cursor: not-allowed;
+  position: relative;
+}
+
+.header__control-buttons .button_continue.disabled {
+  pointer-events: none;
+  opacity: 0;
+}
+.header__control-buttons .button_continue.disabled:hover {
+  transform: none;
+}
+.header__control-buttons .button_continue.disabled:active {
+  transform: none;
+}
+
 .img-container {
   height: 3rem;
   width: 3rem;
@@ -504,9 +520,20 @@ body {
 .start-menu__actions .button_continue:hover {
   transform: none;
   background-color: rgb(72.25, 72.25, 72.25);
+  border-color: rgb(72.25, 72.25, 72.25);
 }
 .start-menu__actions .button_continue:active {
   transform: none;
+}
+.start-menu__actions .button_start-new-game:hover {
+  transform: none;
+  color: #555555;
+  border-color: #555555;
+}
+.start-menu__actions .button_start-new-game:active {
+  transform: none;
+  color: #555555;
+  border-color: #555555;
 }
 
 .start-menu__actions .button_continue {
