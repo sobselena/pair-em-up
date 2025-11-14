@@ -18,8 +18,7 @@ export function setTimer() {
 
   board.setIntervalId(intervalId);
 }
-export function reset() {
-  board.reset();
+export function resetLayout() {
   setTimer();
   gameBoard.getChildEl('.game-board__grid').remove();
   gameBoard.getChildEl('.game-board').append(createGrid().getNode());
@@ -36,6 +35,11 @@ export function reset() {
   );
 
   showHints(board.isHintOn);
+}
+export function reset() {
+  board.reset();
+
+  resetLayout();
 }
 
 function save() {}

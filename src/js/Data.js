@@ -26,6 +26,11 @@ export class Data {
   getTotalMoves() {
     return this.#totalMoves;
   }
+
+  setTotalMoves(newTotalMoves) {
+    this.#totalMoves = newTotalMoves;
+  }
+
   increaseTotalMoves() {
     this.#totalMoves += 1;
   }
@@ -67,6 +72,10 @@ export class Data {
   getAddTo() {
     return this.#addTo;
   }
+
+  setAddTo(newAddTo) {
+    this.#addTo = newAddTo;
+  }
   unsetAddTo() {
     this.#addTo = undefined;
   }
@@ -79,6 +88,10 @@ export class Data {
   setToDefaultShuffles() {
     this.#shuffleCount = DEFAULT_COUNTS.SHUFFLE_COUNT;
   }
+  setShuffleCount(newShuffleCount) {
+    this.#shuffleCount = newShuffleCount;
+  }
+
   addNewNums() {
     if (this.#addedCount <= 0) return;
     this.#totalMoves += 1;
@@ -102,11 +115,18 @@ export class Data {
   getAddedCount() {
     return this.#addedCount;
   }
+
+  setAddedCount(newAddedCount) {
+    this.#addedCount = newAddedCount;
+  }
   setToDefault() {
     this.#addedCount = 10;
   }
   getBeforeShuffle() {
     return this.#beforeShuffle;
+  }
+  setBeforeShuffle(newBeforeShuffle) {
+    this.#beforeShuffle = newBeforeShuffle;
   }
   unsetBeforeShuffle() {
     this.#beforeShuffle = undefined;
@@ -194,6 +214,10 @@ export class Data {
   unsetTimer() {
     this.#time = 0;
   }
+
+  setTime(newTime) {
+    this.#time = newTime;
+  }
   stopTimer() {
     clearInterval(this.#intervalId);
     this.#intervalId = undefined;
@@ -203,5 +227,9 @@ export class Data {
   }
   transformTimeFormat() {
     return `${String(Math.floor(this.#time / 60)).padStart(2, '0')}:${String(this.#time % 60).padStart(2, '0')}`;
+  }
+
+  getIntervalId() {
+    return this.#intervalId;
   }
 }

@@ -1,6 +1,6 @@
 import { createResult, gameResults, resultsInfo } from './GameResults.js';
 import { PairHandler } from './PairHandler.js';
-import { createTbody, finishedGames, overlay, table } from './StartMenu.js';
+import { createTbody, finishedGames, overlay, startMenu, table } from './StartMenu.js';
 
 const initialData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 
@@ -37,4 +37,45 @@ export function saveFinishedGame(status) {
   localStorage.setItem('finishedGames', JSON.stringify(finishedGames));
   updateResultsLayout();
 }
-export const board = new PairHandler({ initialData, mode });
+export let board = new PairHandler({ initialData, mode });
+
+export function setNewBoard(savedData) {
+  const newBoard = new PairHandler({ mode: savedData.mode });
+  newBoard.flattenDigits = savedData.flattenDigits;
+  newBoard.startingData = savedData.startingData;
+  newBoard.matrix = savedData.matrix;
+  newBoard.setAddTo(savedData.addTo);
+  newBoard.setAddedCount(savedData.addedCount);
+  newBoard.setBeforeShuffle(savedData.beforeShuffle);
+  newBoard.setIntervalId(savedData.intervalId);
+  newBoard.setRemoveCount(savedData.removedCount);
+  newBoard.setScore(savedData.score);
+  newBoard.setShuffleCount(savedData.shuffleCount);
+  newBoard.setTime(savedData.time);
+  newBoard.setTotalMoves(savedData.totalMoves);
+  newBoard.setValidPairs(savedData.validPairs);
+  board = newBoard;
+  console.log(board);
+}
+
+window.addEventListener('beforeunload', () => {
+  if (!startMenu.getNode().classList.contains('open')) {
+    const data = {
+      startingData: board.startingData,
+      flattenDigits: board.flattenDigits,
+      matrix: board.matrix,
+      mode: board.getMode(),
+      addTo: board.getAddTo(),
+      addedCount: board.getAddedCount(),
+      beforeShuffle: board.getBeforeShuffle(),
+      intervalId: board.getIntervalId(),
+      removedCount: board.getRemovedCount(),
+      score: board.getTotalScore(),
+      shuffleCount: board.getShuffleCount(),
+      time: board.getCurTime(),
+      totalMoves: board.getTotalMoves(),
+      validPairs: board.getValidPairs(),
+    };
+    localStorage.setItem('autoSave', JSON.stringify(data));
+  }
+});

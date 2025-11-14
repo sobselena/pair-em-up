@@ -1,10 +1,12 @@
 import { Button, ButtonIcon } from './Button.js';
 import { Component } from './Component.js';
-import { continuePrev, reset } from './HeaderInfo.js';
+import { reset, resetLayout } from './HeaderInfo.js';
 import { Link } from './Link.js';
-import { board } from './OverallData.js';
+import { board, setNewBoard } from './OverallData.js';
 import { Table, Tr } from './Table.js';
 import { openSettings } from './Settings.js';
+import { createGrid, createGridItems, grid } from './GameBoard.js';
+import { header } from './Header.js';
 const statistics = ['№', 'Mode', 'Score', 'Moves', 'Status', 'Time'];
 export const finishedGames =
   JSON.parse(localStorage.getItem('finishedGames')) ||
@@ -108,7 +110,15 @@ function startNewGame() {
   overlay.getNode().classList.remove('open');
   reset();
 }
-
+function continuePreviousAutoGame() {
+  const savedData = JSON.parse(localStorage.getItem('autoSave'));
+  console.log(savedData);
+  if (!savedData) return;
+  startMenu.getNode().classList.remove('open');
+  overlay.getNode().classList.remove('open');
+  setNewBoard(savedData);
+  resetLayout();
+}
 function createModesContainer() {
   const modesContainer = new Component(
     { tag: 'div', classes: ['start-menu__modes-container'] },
@@ -130,7 +140,7 @@ function createActionsLayout() {
       new Button({
         classes: ['button_continue'],
         text: 'Continue Previous',
-        onClick: continuePrev,
+        onClick: continuePreviousAutoGame,
       }),
     ),
   );

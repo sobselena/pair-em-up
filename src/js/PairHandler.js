@@ -96,6 +96,10 @@ export class PairHandler extends PairTools {
   unsetScore() {
     this.#score = 0;
   }
+  setScore(newScore) {
+    this.#score = newScore;
+  }
+
   changeToPrevious() {
     console.log(board);
     if (this.getPreviousCount() === 0) return;
@@ -178,7 +182,9 @@ export class PairHandler extends PairTools {
   getRemovedCount() {
     return this.#removedCount;
   }
-
+  setRemoveCount(newRemoveCount) {
+    this.#removedCount = newRemoveCount;
+  }
   getPreviousFlattenDigits() {
     return this.#previousFlattenDigits;
   }

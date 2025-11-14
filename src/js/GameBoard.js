@@ -5,13 +5,32 @@ import { header } from './Header.js';
 import { showHints } from './ShowHints.js';
 
 const WIN_SCORE = 100;
-export const gameBoard = new Component(
-  { tag: 'main', classes: ['main'] },
-  new Component(
-    { tag: 'div', classes: ['wrapper'] },
-    new Component({ tag: 'section', classes: ['game-board'] }, createGrid(), createLinesCount()),
-  ),
-);
+export const grid = createGrid();
+export const gameBoard = createGameBoard();
+
+export function createGridItems() {
+  return board.flattenDigits.map((num, index) => {
+    const { row, column } = board.translateFlatToMatrixCoords(index);
+    return new GridItem({ classes: ['game-board__cell'], row, column, text: num });
+  });
+}
+
+export function createGrid() {
+  return new BoardGrid({
+    classes: ['game-board__grid'],
+    gridItems: createGridItems(),
+    onGridItemClicked: clickGridItem,
+  });
+}
+export function createGameBoard() {
+  return new Component(
+    { tag: 'main', classes: ['main'] },
+    new Component(
+      { tag: 'div', classes: ['wrapper'] },
+      new Component({ tag: 'section', classes: ['game-board'] }, grid, createLinesCount()),
+    ),
+  );
+}
 
 function createLinesCount() {
   return new Component(
@@ -19,16 +38,6 @@ function createLinesCount() {
     new Component({ tag: 'span', text: 'Lines: ' }),
     new Component({ tag: 'span', text: '3', classes: ['game-board__lines-count'] }),
   );
-}
-export function createGrid() {
-  return new BoardGrid({
-    classes: ['game-board__grid'],
-    gridItems: board.flattenDigits.map((num, index) => {
-      const { row, column } = board.translateFlatToMatrixCoords(index);
-      return new GridItem({ classes: ['game-board__cell'], row, column, text: num });
-    }),
-    onGridItemClicked: clickGridItem,
-  });
 }
 
 function clickGridItem(event) {

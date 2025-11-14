@@ -73,7 +73,9 @@ export class PairTools extends CheckedPair {
       pointer = rowPointer;
     }
   }
-
+  setValidPairs(newValidPairs) {
+    this.#validPairs = newValidPairs;
+  }
   getValidPairs() {
     this.#validPairs = [];
     this.#countValidPairs();
