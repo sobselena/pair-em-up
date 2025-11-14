@@ -19,8 +19,8 @@
     @include tabletRange {
       font-size: rearrangeSize(1.6rem, 2.4rem, 0px, 970px);
     }
-    background-color: #222;
-    color: #fff;
+    background-color: var(--first-color);
+    color: var(--second-color);
   }
 }
 .game-results__outcome {

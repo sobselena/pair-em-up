@@ -1,0 +1,84 @@
+.dark-theme {
+  --first-color: #e9ecef;
+  --second-color: #222;
+  --third-color: #b6afa8;
+  --shadow: 233, 236, 239;
+}
+
+.dark-theme .img-container {
+  height: 3rem;
+  width: 3rem;
+  display: inline-block;
+  @include tabletRange {
+    width: rearrangeSize(2.7rem, 3rem, 0px, 970px);
+    height: rearrangeSize(2.7rem, 3rem, 0px, 970px);
+  }
+  &.button_continue {
+    background: url(/src/assets/icons/continue-white.svg) no-repeat center center;
+    background-size: cover;
+  }
+
+  &_replay,
+  &.button_reset {
+    background: url(/src/assets/icons/reset-white.svg) no-repeat center center;
+    background-size: cover;
+  }
+  &_replay.white-theme {
+    background: url(/src/assets/icons/reset.svg) no-repeat center center;
+  }
+  &.button_save {
+    background: url(/src/assets/icons/save-white.svg) no-repeat center center;
+    background-size: cover;
+  }
+  &.button_settings {
+    background: url(/src/assets/icons/settings-white.svg) no-repeat center center;
+    background-size: cover;
+  }
+  &.button_close {
+    background: url(/src/assets/icons/close-white.svg) no-repeat center center;
+    background-size: cover;
+  }
+  &.start-menu__github-img-link {
+    background: url(/src/assets/icons/github-mark-white.svg) no-repeat right center;
+    background-size: 72%;
+    height: 5.2rem;
+    width: 5.2rem;
+    @include tabletRange {
+      width: rearrangeSize(2.8rem, 3.1rem, 0px, 970px);
+      height: rearrangeSize(2.8rem, 3.8rem, 0px, 970px);
+    }
+  }
+  &_loss {
+    background: url(/src/assets/icons/loss-white.svg) no-repeat center center;
+    background-size: cover;
+  }
+  &_win {
+    background: url(/src/assets/icons/win-white.svg) no-repeat center center;
+    background-size: cover;
+  }
+  &_menu {
+    background: url(/src/assets/icons/menu.svg) no-repeat center center;
+    background-size: cover;
+  }
+
+  &_dark-theme {
+    background: url(/src/assets/icons/dark-mode-white.svg) no-repeat center center;
+    background-size: cover;
+    height: 2.8rem;
+    width: 2.8rem;
+    @include tabletRange {
+      width: rearrangeSize(2rem, 2.8rem, 0px, 970px);
+      height: rearrangeSize(2rem, 2.8rem, 0px, 970px);
+    }
+  }
+  &_bright-theme {
+    background: url(/src/assets/icons/bright-mode-white.svg) no-repeat center center;
+    background-size: cover;
+    height: 2.8rem;
+    width: 2.8rem;
+    @include tabletRange {
+      width: rearrangeSize(2rem, 2.8rem, 0px, 970px);
+      height: rearrangeSize(2rem, 2.8rem, 0px, 970px);
+    }
+  }
+}

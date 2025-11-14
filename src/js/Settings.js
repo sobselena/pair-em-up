@@ -3,6 +3,7 @@ import { Button, ButtonIcon } from './Button.js';
 import { overlay, startMenu } from './StartMenu.js';
 import { board } from './OverallData.js';
 import { setTimer } from './HeaderInfo.js';
+import { showHints } from './ShowHints.js';
 
 const audioOptions = [
   'Cell Selection',
@@ -31,13 +32,15 @@ function formatName(optionName) {
     })
     .join('');
 }
+
 const settingsOptions =
   JSON.parse(localStorage.getItem('settings')) ||
-  [...audioOptions, ...themeSelection].reduce((acc, optionName) => {
+  [...audioOptions, themeSelection[0]].reduce((acc, optionName) => {
     const formattedName = formatName(optionName);
     acc[formattedName] = 'on';
     return acc;
   }, {});
+
 console.log(settingsOptions);
 const createAudioControls = createOptionsLayout({
   classes: ['settings__audio-controls'],
@@ -97,6 +100,26 @@ function createOptionsLayout({ classes, optionsTitle, exception, exceptionText, 
   );
 }
 
+function changeTheme(option) {
+  if (option === formatName(themeSelection[0])) {
+    if (settingsOptions[option] === 'off') {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+    if (!startMenu.getNode().classList.contains('open')) {
+      showHints();
+    }
+  }
+}
+
+function implementChanges() {
+  Object.keys(settingsOptions).forEach((option) => {
+    changeTheme(option);
+  });
+}
+implementChanges();
+
 function changeSettings(option, optionButton) {
   console.log(option);
   const curValue = settingsOptions[option];
@@ -106,6 +129,7 @@ function changeSettings(option, optionButton) {
   optionButton.getNode().classList.add(settingsOptions[option]);
   optionButton.getNode().classList.remove(curValue);
   localStorage.setItem('settings', JSON.stringify(settingsOptions));
+  changeTheme(option);
 }
 
 function createOption({ text, span, isThemeSection }) {
@@ -120,23 +144,27 @@ function createOption({ text, span, isThemeSection }) {
   return new Component(
     { tag: 'div', classes: ['settings__option'] },
     optionTextEl,
-    new Component(
-      { tag: 'div', classes: ['settings__button-container'] },
-      new Component({
-        tag: 'span',
-        classes: isThemeSection
-          ? ['img-container', 'img-container_bright-theme']
-          : ['settings__on-off'],
-        text: isThemeSection ? '' : 'ON',
-      }),
-      optionButton,
-      new Component({
-        tag: 'span',
-        classes: isThemeSection
-          ? ['img-container', 'img-container_dark-theme']
-          : ['settings__on-off'],
-        text: isThemeSection ? '' : 'OFF',
-      }),
-    ),
+    ...(!settingsOptions[objName]
+      ? []
+      : [
+          new Component(
+            { tag: 'div', classes: ['settings__button-container'] },
+            new Component({
+              tag: 'span',
+              classes: isThemeSection
+                ? ['img-container', 'img-container_bright-theme']
+                : ['settings__on-off'],
+              text: isThemeSection ? '' : 'ON',
+            }),
+            optionButton,
+            new Component({
+              tag: 'span',
+              classes: isThemeSection
+                ? ['img-container', 'img-container_dark-theme']
+                : ['settings__on-off'],
+              text: isThemeSection ? '' : 'OFF',
+            }),
+          ),
+        ]),
   );
 }

@@ -1,7 +1,9 @@
 .start-menu {
   @extend %menu;
 }
-
+.start-menu a {
+  color: var(--first-color);
+}
 .start-menu__github-link {
   display: flex;
   align-items: center;
@@ -30,12 +32,12 @@
   margin-bottom: 1.6rem;
   & .button {
     border: $border;
-    color: #222;
+    color: var(--first-color);
   }
   & .button_continue:hover {
     transform: none;
-    background-color: lighten(#222, 15%);
-    border-color: lighten(#222, 15%);
+    background-color: color-mix(in srgb, var(--first-color) 85%, white 15%);
+    border-color: color-mix(in srgb, var(--first-color) 85%, white 15%);
   }
 
   & .button_continue:active {
@@ -44,20 +46,20 @@
   & .button_start-new-game {
     &:hover {
       transform: none;
-      color: lighten(#222, 20%);
-      border-color: lighten(#222, 20%);
+      color: color-mix(in srgb, var(--first-color) 80%, white 20%);
+      border-color: color-mix(in srgb, var(--first-color) 80%, white 20%);
     }
     &:active {
       transform: none;
-      color: lighten(#222, 20%);
-      border-color: lighten(#222, 20%);
+      color: color-mix(in srgb, var(--first-color) 80%, white 20%);
+      border-color: color-mix(in srgb, var(--first-color) 80%, white 20%);
     }
   }
 }
 
 .start-menu__actions .button_continue {
-  color: #fff;
-  background-color: #222;
+  color: var(--second-color);
+  background-color: var(--first-color);
 }
 
 .start-menu__modes-container {
@@ -73,11 +75,11 @@
   }
   & .button {
     &:hover {
-      box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2rem 4rem rgba(var(--shadow), 0.1);
     }
 
     &:active {
-      box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.2);
+      box-shadow: 0 1rem 4rem rgba(var(--shadow), 0.2);
     }
   }
 }
@@ -99,14 +101,14 @@
     text-transform: capitalize;
   }
   & tbody tr:hover {
-    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0.5rem 2rem rgba(var(--shadow), 0.16);
     border-radius: 1.6rem;
     @include tabletRange {
       border-radius: rearrangeSize(0.6rem, 1.6rem, 0px, 970px);
     }
   }
   & tbody tr:last-child:hover {
-    box-shadow: 0 0rem 2rem rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0rem 2rem rgba(var(--shadow), 0.16);
   }
 
   & th {

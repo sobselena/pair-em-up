@@ -57,7 +57,7 @@
 
   &:hover {
     background-color: #ffd43b !important;
-    color: #fff;
+    color: var(--second-color);
   }
 
   &_active {

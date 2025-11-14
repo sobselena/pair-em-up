@@ -41,7 +41,7 @@
   border: $border;
   border-radius: 10rem;
   transition: all 0.3s;
-  background-color: #fff;
+  background-color: var(--second-color);
 }
 .button_on-off.onn::before {
   transform: translateX(0);
@@ -64,8 +64,8 @@
 }
 
 .button_mode.active {
-  background-color: #222 !important;
-  color: #fff !important;
+  background-color: var(--first-color) !important;
+  color: var(--second-color) !important;
 }
 
 .button_continue.disabled {
