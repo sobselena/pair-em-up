@@ -249,6 +249,14 @@ body {
   background-color: #fff;
 }
 
+.button_on-off.onn::before {
+  transform: translateX(0);
+}
+
+.button_on-off.off::before {
+  transform: translateX(calc(100% - 0.35rem));
+}
+
 .button_on-off:hover::before {
   background-color: #495057;
   border-color: #495057;

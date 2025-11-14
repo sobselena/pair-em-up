@@ -18,6 +18,27 @@ const themeSelection = [
   'UI Element Colors',
   'All Interactive Elements And Indicators',
 ];
+
+function formatName(optionName) {
+  return optionName
+    .split(' ')
+    .map((value, i) => {
+      const word = value.trim();
+      if (i === 0) {
+        return word.toLowerCase();
+      }
+      return word.replace(word[0], word[0].toUpperCase());
+    })
+    .join('');
+}
+const settingsOptions =
+  JSON.parse(localStorage.getItem('settings')) ||
+  [...audioOptions, ...themeSelection].reduce((acc, optionName) => {
+    const formattedName = formatName(optionName);
+    acc[formattedName] = 'on';
+    return acc;
+  }, {});
+console.log(settingsOptions);
 const createAudioControls = createOptionsLayout({
   classes: ['settings__audio-controls'],
   optionsTitle: 'Audio Controls',
@@ -76,10 +97,26 @@ function createOptionsLayout({ classes, optionsTitle, exception, exceptionText, 
   );
 }
 
+function changeSettings(option, optionButton) {
+  console.log(option);
+  const curValue = settingsOptions[option];
+  const isOn = curValue === 'on';
+  settingsOptions[option] = isOn ? 'off' : 'on';
+  console.log(settingsOptions);
+  optionButton.getNode().classList.add(settingsOptions[option]);
+  optionButton.getNode().classList.remove(curValue);
+  localStorage.setItem('settings', JSON.stringify(settingsOptions));
+}
+
 function createOption({ text, span, isThemeSection }) {
   const optionTextEl = span
     ? new Component({ tag: 'div', text, classes: ['settings__option-text'] }, span)
     : new Component({ tag: 'div', text, classes: ['settings__option-text'] });
+  const objName = formatName(text);
+  const optionButton = new Button({
+    classes: ['button_on-off', settingsOptions[objName]],
+    onClick: () => changeSettings(objName, optionButton),
+  });
   return new Component(
     { tag: 'div', classes: ['settings__option'] },
     optionTextEl,
@@ -92,7 +129,7 @@ function createOption({ text, span, isThemeSection }) {
           : ['settings__on-off'],
         text: isThemeSection ? '' : 'ON',
       }),
-      new Button({ classes: ['button_on-off'] }),
+      optionButton,
       new Component({
         tag: 'span',
         classes: isThemeSection
