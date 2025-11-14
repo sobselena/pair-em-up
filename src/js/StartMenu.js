@@ -5,8 +5,7 @@ import { Link } from './Link.js';
 import { board, setNewBoard } from './OverallData.js';
 import { Table, Tr } from './Table.js';
 import { openSettings } from './Settings.js';
-import { createGrid, createGridItems, grid } from './GameBoard.js';
-import { header } from './Header.js';
+
 const statistics = ['№', 'Mode', 'Score', 'Moves', 'Status', 'Time'];
 export const finishedGames =
   JSON.parse(localStorage.getItem('finishedGames')) ||

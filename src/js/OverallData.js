@@ -57,25 +57,27 @@ export function setNewBoard(savedData) {
   board = newBoard;
   console.log(board);
 }
-
+export function saveData() {
+  return {
+    startingData: board.startingData,
+    flattenDigits: board.flattenDigits,
+    matrix: board.matrix,
+    mode: board.getMode(),
+    addTo: board.getAddTo(),
+    addedCount: board.getAddedCount(),
+    beforeShuffle: board.getBeforeShuffle(),
+    intervalId: board.getIntervalId(),
+    removedCount: board.getRemovedCount(),
+    score: board.getTotalScore(),
+    shuffleCount: board.getShuffleCount(),
+    time: board.getCurTime(),
+    totalMoves: board.getTotalMoves(),
+    validPairs: board.getValidPairs(),
+  };
+}
 window.addEventListener('beforeunload', () => {
   if (!startMenu.getNode().classList.contains('open')) {
-    const data = {
-      startingData: board.startingData,
-      flattenDigits: board.flattenDigits,
-      matrix: board.matrix,
-      mode: board.getMode(),
-      addTo: board.getAddTo(),
-      addedCount: board.getAddedCount(),
-      beforeShuffle: board.getBeforeShuffle(),
-      intervalId: board.getIntervalId(),
-      removedCount: board.getRemovedCount(),
-      score: board.getTotalScore(),
-      shuffleCount: board.getShuffleCount(),
-      time: board.getCurTime(),
-      totalMoves: board.getTotalMoves(),
-      validPairs: board.getValidPairs(),
-    };
+    const data = saveData();
     localStorage.setItem('autoSave', JSON.stringify(data));
   }
 });

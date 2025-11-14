@@ -1,14 +1,23 @@
 import { Component } from './Component.js';
 import { ButtonIcon } from './Button.js';
-import { board } from './OverallData.js';
+import { board, saveData, setNewBoard } from './OverallData.js';
 import { createGrid, gameBoard } from './GameBoard.js';
 import { header } from './Header.js';
 import { openSettings } from './Settings.js';
 import { showHints } from './ShowHints.js';
 import { COLUMNS_MAX_COUNT } from './Data.js';
 
-export function continuePrev() {}
+export function continueManualSaving() {
+  const savedData = JSON.parse(localStorage.getItem('manualSave'));
+  if (!savedData) return;
+  setNewBoard(savedData);
+  resetLayout();
+}
 
+function saveManually() {
+  const savedData = saveData();
+  localStorage.setItem('manualSave', JSON.stringify(savedData));
+}
 export function setTimer() {
   header.getChildEl('.header__timer').textContent = board.transformTimeFormat();
   const intervalId = setInterval(() => {
@@ -42,8 +51,6 @@ export function reset() {
   resetLayout();
 }
 
-function save() {}
-
 export function createHeaderInfo() {
   return new Component(
     { tag: 'div', classes: ['header__info'] },
@@ -51,7 +58,7 @@ export function createHeaderInfo() {
       { tag: 'div', classes: ['header__control-buttons'] },
       new ButtonIcon({
         classes: ['button_continue'],
-        onClick: continuePrev,
+        onClick: continueManualSaving,
       }),
       new ButtonIcon({
         classes: ['button_reset'],
@@ -59,7 +66,7 @@ export function createHeaderInfo() {
       }),
       new ButtonIcon({
         classes: ['button_save'],
-        onClick: save,
+        onClick: saveManually,
       }),
       new ButtonIcon({
         classes: ['button_settings'],
