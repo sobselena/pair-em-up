@@ -11,7 +11,6 @@ import { settingsOptions } from './Settings.js';
 
 function addNumbers() {
   const newNumsArr = board.addNewNums();
-  console.log(newNumsArr);
   if (!newNumsArr) return;
   if (settingsOptions['assist-tool-usage'] === 'on') {
     audioPromisesObj['assist-tools'].then((buffer) => {
@@ -57,7 +56,6 @@ function shuffle() {
   }
 
   board.shuffle(board.flattenDigits);
-  console.log(board.flattenDigits);
   gameBoard.getChildrenEl('.game-board__cell').forEach((child, index) => {
     child.textContent = board.flattenDigits[index];
   });
@@ -129,8 +127,6 @@ function revert() {
 
     const { column1, row1, column2, row2 } = previousCoords;
     const { num1, num2 } = previousNums;
-    console.log(column1, column2, row1, row2);
-    console.log(num1, num2);
 
     if (column1 === undefined && num1 === undefined) return;
     gameBoard.getChildEl(

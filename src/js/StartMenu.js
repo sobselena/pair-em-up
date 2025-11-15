@@ -23,7 +23,12 @@ export const finishedGames =
   });
 
 function getTimeInSec(time) {
-  return time.split(':').reduce((acc, value) => acc + Number(value), 0);
+  return time.split(':').reduce((acc, value, index) => {
+    if (index === 0) {
+      return acc + Number(value) * 60;
+    }
+    return acc + Number(value);
+  }, 0);
 }
 function sortFinishedGames() {
   const sortedGames = [...finishedGames].sort((a, b) => {
@@ -121,7 +126,6 @@ function startNewGame() {
 }
 function continuePreviousAutoGame() {
   const savedData = JSON.parse(localStorage.getItem('autoSave'));
-  console.log(savedData);
   if (!savedData) return;
   startMenu.getNode().classList.remove('open');
   overlay.getNode().classList.remove('open');

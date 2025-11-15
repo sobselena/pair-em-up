@@ -33,7 +33,6 @@ function addHintColors({ row, column, randomBackgroundColor, changeColor }) {
 
 export function showHints(on = board.isHintOn) {
   board.isHintOn = on;
-  console.log(board);
 
   const validPairs = board.getValidPairs();
 

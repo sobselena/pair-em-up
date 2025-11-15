@@ -17,9 +17,6 @@ async function fetchAudio(url) {
 
   return audioBuffer;
 }
-fetchAudio('src/assets/audio/assist-tools.mp3').then((buffer) => {
-  console.log(buffer);
-});
 
 audioURLs.forEach((audioName) => {
   audioPromisesObj[audioName] = fetchAudio(`src/assets/audio/${audioName}.mp3`);

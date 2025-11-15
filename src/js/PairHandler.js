@@ -31,7 +31,6 @@ export class PairHandler extends PairTools {
     this.#removeValues();
     this.updateMatrix();
     this.increaseTotalMoves();
-    console.log(this.getPreviousCount());
   }
 
   setPair({ column, row }) {
@@ -101,7 +100,6 @@ export class PairHandler extends PairTools {
   }
 
   changeToPrevious() {
-    console.log(board);
     if (this.getPreviousCount() === 0) return;
     this.decreaseTotalMoves();
     const beforeShuffle = this.getBeforeShuffle();

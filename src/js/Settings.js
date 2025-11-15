@@ -37,7 +37,6 @@ export const settingsOptions =
     return acc;
   }, {});
 
-console.log(settingsOptions);
 const createAudioControls = createOptionsLayout({
   classes: ['settings__audio-controls'],
   optionsTitle: 'Audio Controls',
@@ -117,11 +116,9 @@ function implementChanges() {
 implementChanges();
 
 function changeSettings(option, optionButton) {
-  console.log(option);
   const curValue = settingsOptions[option];
   const isOn = curValue === 'on';
   settingsOptions[option] = isOn ? 'off' : 'on';
-  console.log(settingsOptions);
   optionButton.getNode().classList.add(settingsOptions[option]);
   optionButton.getNode().classList.remove(curValue);
   localStorage.setItem('settings', JSON.stringify(settingsOptions));

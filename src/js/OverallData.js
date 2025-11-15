@@ -33,7 +33,6 @@ export function saveFinishedGame(status) {
   localStorage.removeItem('manualSave');
   const gameResultsEl = gameResults.getNode();
   const resultsArr = board.showResult(status);
-  console.log(resultsArr);
   resultsInfo.getAllChildren().forEach((child) => {
     child.destroy();
   });
@@ -67,7 +66,6 @@ export function setNewBoard(savedData) {
   newBoard.setTotalMoves(savedData.totalMoves);
   newBoard.setValidPairs(savedData.validPairs);
   board = newBoard;
-  console.log(board);
 }
 export function saveData() {
   return {
