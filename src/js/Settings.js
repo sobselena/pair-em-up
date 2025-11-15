@@ -108,12 +108,7 @@ function changeTheme(option) {
   }
 }
 
-function implementChanges() {
-  Object.keys(settingsOptions).forEach((option) => {
-    changeTheme(option);
-  });
-}
-implementChanges();
+changeTheme('background-colors');
 
 function changeSettings(option, optionButton) {
   const curValue = settingsOptions[option];
