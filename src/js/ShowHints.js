@@ -44,6 +44,7 @@ export function showHints(on = board.isHintOn) {
   header.getChildEl('.header__hints-count').textContent =
     validPairs.length > 5 ? '5+' : validPairs.length;
   if (!board.isHintOn) return;
+
   validPairs.forEach((pairNums) => {
     const { column1, column2, row1, row2 } = pairNums;
     const colorArr = getRandomColor();

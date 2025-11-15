@@ -1,6 +1,8 @@
+import { audioPromisesObj, playAudio } from './Audio.js';
 import { createResult, gameResults, resultsInfo } from './GameResults.js';
 import { header } from './Header.js';
 import { PairHandler } from './PairHandler.js';
+import { settingsOptions } from './Settings.js';
 import { createTbody, finishedGames, overlay, startMenu, table } from './StartMenu.js';
 
 const initialData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19];
@@ -20,6 +22,11 @@ function updateResultsLayout() {
 }
 
 export function saveFinishedGame(status) {
+  if (settingsOptions['game-start-and-end-events'] === 'on') {
+    audioPromisesObj['game-start'].then((buffer) => {
+      playAudio(buffer, 0.17);
+    });
+  }
   header.getChildEl('.button_continue').classList.add('disabled');
   startMenu.getChildEl('.button_continue').classList.add('disabled');
   localStorage.removeItem('autoSave');

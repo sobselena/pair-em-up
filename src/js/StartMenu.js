@@ -4,8 +4,9 @@ import { reset, resetLayout } from './HeaderInfo.js';
 import { Link } from './Link.js';
 import { board, setNewBoard } from './OverallData.js';
 import { Table, Tr } from './Table.js';
-import { openSettings } from './Settings.js';
+import { openSettings, settingsOptions } from './Settings.js';
 import { header } from './Header.js';
+import { audioPromisesObj, playAudio } from './Audio.js';
 
 const statistics = ['№', 'Mode', 'Score', 'Moves', 'Status', 'Time'];
 export const finishedGames =
@@ -106,6 +107,11 @@ function chooseMode(event, modesContainer) {
 }
 
 function startNewGame() {
+  if (settingsOptions['game-start-and-end-events'] === 'on') {
+    audioPromisesObj['game-start'].then((buffer) => {
+      playAudio(buffer, 0.17);
+    });
+  }
   startMenu.getNode().classList.remove('open');
   overlay.getNode().classList.remove('open');
   reset();

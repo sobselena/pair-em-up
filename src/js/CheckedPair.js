@@ -60,7 +60,7 @@ export class CheckedPair extends Data {
   #checkLeftLineBreak({ column1, column2, row1, row2 }) {
     const { maxRowValue } = this.compareRowValues({ row1, row2 });
     const lowColumnValue = maxRowValue === row1 ? column1 : column2;
-    for (let i = 0; i < lowColumnValue - 1; i += 1) {
+    for (let i = 0; i < lowColumnValue; i += 1) {
       if (this.matrix[maxRowValue][i] !== '') {
         return (this.#status = { isValidPair: false, checkName: 'linebreak checkLeftLineBreak' });
       }

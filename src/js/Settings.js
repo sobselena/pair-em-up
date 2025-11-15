@@ -6,8 +6,8 @@ import { setTimer } from './HeaderInfo.js';
 import { showHints } from './ShowHints.js';
 
 const audioOptions = [
-  'Cell Selection',
-  'Cell Deselection',
+  'Cell Selection \\ Deselection',
+  'Valid Pair Attempts',
   'Invalid Pair Attempts',
   'Assist Tool Usage',
   'Game Start And End Events',
@@ -23,17 +23,13 @@ const themeSelection = [
 function formatName(optionName) {
   return optionName
     .split(' ')
-    .map((value, i) => {
-      const word = value.trim();
-      if (i === 0) {
-        return word.toLowerCase();
-      }
-      return word.replace(word[0], word[0].toUpperCase());
+    .map((value) => {
+      return value.trim().toLowerCase();
     })
-    .join('');
+    .join('-');
 }
 
-const settingsOptions =
+export const settingsOptions =
   JSON.parse(localStorage.getItem('settings')) ||
   [...audioOptions, themeSelection[0]].reduce((acc, optionName) => {
     const formattedName = formatName(optionName);

@@ -5,5 +5,6 @@ import { startMenu } from './js/StartMenu.js';
 import { settings } from './js/Settings.js';
 import { gameResults } from './js/GameResults.js';
 import { overlay } from './js/StartMenu.js';
+
 const app = new App({ header, gameBoard, startMenu, settings, gameResults, overlay });
 app.render();

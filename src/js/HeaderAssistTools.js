@@ -6,11 +6,19 @@ import { gameBoard } from './GameBoard.js';
 import { GridItem } from './BoardGrid.js';
 import { header } from './Header.js';
 import { COLUMNS_MAX_COUNT } from './Data.js';
+import { audioPromisesObj, playAudio } from './Audio.js';
+import { settingsOptions } from './Settings.js';
 
 function addNumbers() {
   const newNumsArr = board.addNewNums();
   console.log(newNumsArr);
   if (!newNumsArr) return;
+  if (settingsOptions['assist-tool-usage'] === 'on') {
+    audioPromisesObj['assist-tools'].then((buffer) => {
+      playAudio(buffer);
+    });
+  }
+
   if (Math.ceil(board.flattenDigits.length / COLUMNS_MAX_COUNT) > 50) {
     saveFinishedGame('Loss');
     board.changeToPrevious();
@@ -42,6 +50,12 @@ function addNumbers() {
 
 function shuffle() {
   if (board.getShuffleCount() === 0) return;
+  if (settingsOptions['assist-tool-usage'] === 'on') {
+    audioPromisesObj['assist-tools'].then((buffer) => {
+      playAudio(buffer);
+    });
+  }
+
   board.shuffle(board.flattenDigits);
   console.log(board.flattenDigits);
   gameBoard.getChildrenEl('.game-board__cell').forEach((child, index) => {
@@ -59,6 +73,11 @@ function shuffle() {
 
 function erase() {
   if (!gameBoard.getChildEl('.game-board__cell_active') || board.getRemovedCount() === 0) return;
+  if (settingsOptions['assist-tool-usage'] === 'on') {
+    audioPromisesObj['assist-tools'].then((buffer) => {
+      playAudio(buffer);
+    });
+  }
   board.eraser();
   header.getChildEl('.header__eraser-count').textContent = board.getRemovedCount();
   const erasedEl = gameBoard.getChildEl(`.game-board__cell_active`);
@@ -78,6 +97,11 @@ function erase() {
 
 function revert() {
   if (board.getPreviousCount() === 0) return;
+  if (settingsOptions['assist-tool-usage'] === 'on') {
+    audioPromisesObj['assist-tools'].then((buffer) => {
+      playAudio(buffer);
+    });
+  }
   board.changeToPrevious();
   const addTo = board.getAddTo();
   header.getChildEl('.header__moves').textContent = board.getTotalMoves();
@@ -136,6 +160,11 @@ export function createHeaderAssistTools() {
       {
         classes: ['button_hints'],
         onClick: () => {
+          if (settingsOptions['assist-tool-usage'] === 'on') {
+            audioPromisesObj['assist-tools'].then((buffer) => {
+              playAudio(buffer);
+            });
+          }
           board.isHintOn = !board.isHintOn;
           showHints(board.isHintOn);
         },

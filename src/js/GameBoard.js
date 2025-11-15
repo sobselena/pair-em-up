@@ -3,6 +3,8 @@ import { GridItem, BoardGrid } from './BoardGrid.js';
 import { board, saveFinishedGame } from './OverallData.js';
 import { header } from './Header.js';
 import { showHints } from './ShowHints.js';
+import { audioPromisesObj, playAudio } from './Audio.js';
+import { settingsOptions } from './Settings.js';
 
 const WIN_SCORE = 100;
 export const grid = createGrid();
@@ -48,6 +50,11 @@ function clickGridItem(event) {
       board.row1 = undefined;
     }
     el.classList.remove('game-board__cell_active');
+    if (settingsOptions['cell-selection-\\-deselection'] === 'on') {
+      audioPromisesObj['cell-deselection'].then((buffer) => {
+        playAudio(buffer);
+      });
+    }
   } else if (el.classList.contains('game-board__cell') && el.textContent !== '') {
     el.classList.add('game-board__cell_active');
     const column = Number(el.dataset.column);
@@ -74,6 +81,11 @@ function clickGridItem(event) {
 
 function checkPairs() {
   const activeElNodes = document.querySelectorAll(`.game-board__cell_active`);
+  if (activeElNodes.length === 1 && settingsOptions['cell-selection-\\-deselection'] === 'on') {
+    audioPromisesObj['cell-selection'].then((buffer) => {
+      playAudio(buffer, 0.2, 0.8);
+    });
+  }
   if (activeElNodes.length === 2) {
     board.checkPairStatus();
     const isValid = board.getStatus().isValidPair;
@@ -81,8 +93,17 @@ function checkPairs() {
     activeElNodes.forEach((activeEl) => {
       if (isValid) {
         activeEl.classList.add('game-board__cell_success');
+        if (settingsOptions['valid-pair-attempts'] === 'on')
+          audioPromisesObj['valid-pairs'].then((buffer) => {
+            playAudio(buffer);
+          });
       } else {
         activeEl.classList.add('game-board__cell_error');
+        if (settingsOptions['invalid-pair-attempts'] === 'on') {
+          audioPromisesObj['invalid-pairs'].then((buffer) => {
+            playAudio(buffer);
+          });
+        }
       }
       processEvents(isValid, activeEl);
     });
