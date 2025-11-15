@@ -3,7 +3,6 @@ import { ButtonIcon } from './Button.js';
 import { board, saveData, setNewBoard } from './OverallData.js';
 import { createGrid, gameBoard } from './GameBoard.js';
 import { header } from './Header.js';
-import { openSettings } from './Settings.js';
 import { showHints } from './ShowHints.js';
 import { COLUMNS_MAX_COUNT } from './Data.js';
 
@@ -54,7 +53,7 @@ export function reset() {
   resetLayout();
 }
 
-export function createHeaderInfo() {
+export function createHeaderInfo(openSettings) {
   const savedData = localStorage.getItem('manualSave');
   return new Component(
     { tag: 'div', classes: ['header__info'] },
