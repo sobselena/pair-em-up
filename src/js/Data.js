@@ -100,7 +100,7 @@ export class Data {
     this.#addTo = this.flattenDigits.length;
     let newNums = remainingNums;
     if (this.#mode === 'random') {
-      newNums = this.shuffle(remainingNums);
+      newNums = this.shuffleArr(remainingNums);
     } else if (this.#mode === 'chaotic') {
       newNums = this.#chaoticMode(remainingNums);
     }
@@ -140,14 +140,19 @@ export class Data {
   setPreviousCount() {
     this.#previousCount = 0;
   }
-
-  shuffleFlattenDigits(arr) {
-    const copyArr = [...arr];
-    const copyFlatArr = copyArr.filter((cellValue) => cellValue !== '');
+  shuffleArr(arr) {
+    const copyFlatArr = [...arr];
     for (let i = copyFlatArr.length - 1; i >= 0; i -= 1) {
       const randomPosition = Math.floor(Math.random() * (i + 1));
       [copyFlatArr[i], copyFlatArr[randomPosition]] = [copyFlatArr[randomPosition], copyFlatArr[i]];
     }
+
+    return copyFlatArr;
+  }
+  shuffleFlattenDigits(arr) {
+    const copyArr = [...arr];
+    let copyFlatArr = copyArr.filter((cellValue) => cellValue !== '');
+    copyFlatArr = this.shuffleArr(copyFlatArr);
     let i = 0;
     let j = 0;
     while (i < copyArr.length) {
